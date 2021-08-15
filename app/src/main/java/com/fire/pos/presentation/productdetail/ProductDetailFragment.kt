@@ -3,7 +3,6 @@ package com.fire.pos.presentation.productdetail
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -44,38 +43,33 @@ class ProductDetailFragment :
 
     private var loadingDialog: LoadingDialogFragment? = null
 
-    private var currentRequest: String = Manifest.permission.CAMERA
-
     private var currentProduct: Product? = null
 
-    private val requestPermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
-            if (isGranted) {
-                when (currentRequest) {
-                    Manifest.permission.CAMERA -> requestReadStoragePermission()
-                    Manifest.permission.READ_EXTERNAL_STORAGE -> requestWriteStoragePermission()
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE -> showImageSourceOptionDialog()
+    private var currentPermission = Manifest.permission.CAMERA
+
+    private var permissionRequestLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            when (currentPermission) {
+                Manifest.permission.CAMERA -> {
+                    requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                 }
-            } else {
-                when (currentRequest) {
-                    Manifest.permission.CAMERA -> {
-                        context?.showMessageDialog(
-                            "This feature needs to access your camera to take a picture of your product."
-                        )
-                    }
-                    Manifest.permission.READ_EXTERNAL_STORAGE -> {
-                        context?.showMessageDialog(
-                            "This feature needs to access your storage to choose an image your product."
-                        )
-                    }
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE -> {
-                        context?.showMessageDialog(
-                            "This feature needs to access your storage to choose an image your product."
-                        )
-                    }
+                Manifest.permission.READ_EXTERNAL_STORAGE -> {
+                    showImageSourceOptionDialog()
+                }
+            }
+        } else {
+            when (currentPermission) {
+                Manifest.permission.CAMERA -> {
+                    context?.showMessageDialog(getString(R.string.msg_camera_rationale))
+                }
+                Manifest.permission.READ_EXTERNAL_STORAGE -> {
+                    context?.showMessageDialog(getString(R.string.msg_storage_rationale))
                 }
             }
         }
+    }
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_product_detail
@@ -142,7 +136,7 @@ class ProductDetailFragment :
             }
         }
 
-        binding.btnAddImage.setOnClickListener { requestCameraPermission() }
+        binding.btnAddImage.setOnClickListener { requestPermission(Manifest.permission.CAMERA) }
         binding.btnAddProduct.setOnClickListener { addProduct() }
         binding.btnUpdate.setOnClickListener { updateProduct() }
         binding.btnDelete.setOnClickListener { deleteProduct() }
@@ -150,67 +144,31 @@ class ProductDetailFragment :
         loadingDialog = LoadingDialogFragment.instance()
     }
 
-    override fun requestCameraPermission() {
-        when {
-            ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.CAMERA
-            ) == PackageManager.PERMISSION_GRANTED -> {
-                requestReadStoragePermission()
-            }
-
-            shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) -> {
-
-            }
-
-            else -> {
-                currentRequest = Manifest.permission.CAMERA
-                requestPermissionLauncher.launch(Manifest.permission.CAMERA)
-            }
-        }
-    }
-
-    override fun requestReadStoragePermission() {
-        when {
-            ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            ) == PackageManager.PERMISSION_GRANTED -> {
-                requestWriteStoragePermission()
-            }
-
-            shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE) -> {
-
-            }
-
-            else -> {
-                currentRequest = Manifest.permission.READ_EXTERNAL_STORAGE
-                requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
-            }
-        }
-    }
-
-    override fun requestWriteStoragePermission() {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
-            showImageSourceOptionDialog()
-            return
-        }
+    override fun requestPermission(permission: String) {
+        val isGranted = ContextCompat.checkSelfPermission(
+            requireContext(), permission
+        ) == PackageManager.PERMISSION_GRANTED
 
         when {
-            ContextCompat.checkSelfPermission(
-                requireContext(),
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            ) == PackageManager.PERMISSION_GRANTED -> {
+            isGranted && permission == Manifest.permission.CAMERA -> {
+                requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+            }
+
+            isGranted && permission == Manifest.permission.READ_EXTERNAL_STORAGE -> {
                 showImageSourceOptionDialog()
             }
 
-            shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE) -> {
+            shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) -> {
+                context?.showMessageDialog(getString(R.string.msg_camera_rationale))
+            }
 
+            shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE) -> {
+                context?.showMessageDialog(getString(R.string.msg_storage_rationale))
             }
 
             else -> {
-                currentRequest = Manifest.permission.WRITE_EXTERNAL_STORAGE
-                requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                currentPermission = permission
+                permissionRequestLauncher.launch(permission)
             }
         }
     }
@@ -291,7 +249,7 @@ class ProductDetailFragment :
                 override fun onImagePickerError(error: Throwable, source: MediaSource) {
                     error.printStackTrace()
                     Toast.makeText(
-                        this@ProductDetailFragment.context,
+                        requireContext(),
                         error.message ?: "Failed to pick an image",
                         Toast.LENGTH_SHORT
                     ).show()

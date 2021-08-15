@@ -25,4 +25,7 @@
     <string name="btn_add_product">Add Product</string>
     <string name="btn_take_picture">Take Picture</string>
     <string name="btn_pay_now">Pay Now</string>
+
+    <string name="msg_camera_rationale">This feature needs to access your camera to take a picture of your product.</string>
+    <string name="msg_storage_rationale">This feature needs to access your storage to choose an image your product.</string>
 </resources>
