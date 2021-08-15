@@ -34,6 +34,8 @@ class HomeFragment: BaseFragment<HomeViewModel, HomeViewModelContract, FragmentH
         R.id.nav_account to Pair(AccountFragment(), "Account")
     )
 
+    private var selectedPage = pages[R.id.nav_transaction]
+
     override fun getLayoutId(): Int {
         return R.layout.fragment_home
     }
@@ -60,12 +62,11 @@ class HomeFragment: BaseFragment<HomeViewModel, HomeViewModelContract, FragmentH
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.bottomNavigation.setOnItemSelectedListener {
-            val selectedPage = pages[it.itemId]
+            selectedPage = pages[it.itemId]
             selectedPage?.let { map -> setActivePage(map.first, map.second) }
             selectedPage != null
         }
-
-        binding.bottomNavigation.selectedItemId = R.id.nav_transaction
+        selectedPage?.let { setActivePage(it.first, it.second) }
     }
 
     private fun setActivePage(fragment: Fragment, tag: String) {

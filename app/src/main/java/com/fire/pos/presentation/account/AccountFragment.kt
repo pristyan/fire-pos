@@ -1,10 +1,8 @@
 package com.fire.pos.presentation.account
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.fire.pos.R
 import com.fire.pos.base.fragment.BaseFragment
@@ -14,8 +12,6 @@ import com.fire.pos.presentation.account.di.DaggerAccountComponent
 import com.fire.pos.presentation.account.viewmodel.AccountViewModel
 import com.fire.pos.presentation.account.viewmodel.AccountViewModelContract
 import com.fire.pos.presentation.home.HomeFragmentDirections
-import com.fire.pos.presentation.login.LoginFragment
-import com.fire.pos.presentation.registration.RegistrationFragmentDirections
 import javax.inject.Inject
 
 
