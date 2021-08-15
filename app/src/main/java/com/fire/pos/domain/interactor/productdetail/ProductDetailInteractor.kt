@@ -10,18 +10,10 @@ import java.io.File
 
 interface ProductDetailInteractor {
 
-    suspend fun addProduct(
-        name: String,
-        price: Long,
-        stock: Long,
-        image: File
-    ): Result<Product>
+    suspend fun addProduct(name: String, price: Long, stock: Long, image: File): Result<Product>
 
-    suspend fun updateProduct(
-        product: Product,
-        newImage: File?,
-    ): Result<Product>
+    suspend fun updateProduct(product: Product, newImage: File?, ): Result<Product>
 
-    suspend fun deleteProduct(id: String): Result<Boolean>
+    suspend fun deleteProduct(product: Product): Result<Boolean>
 
 }

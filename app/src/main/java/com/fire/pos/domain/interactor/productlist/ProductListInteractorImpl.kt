@@ -18,7 +18,7 @@ class ProductListInteractorImpl @Inject constructor(
     override suspend fun getProducts(): Result<List<Product>> {
         val response = productRemoteDataSource.getProductList()
         return if (response.isSuccess) {
-            val productList = response.data?.documents?.map { Product(it) }
+            val productList = response.data?.documents?.map { Product(it.id, it) }
             Result.Success(productList ?: emptyList())
         } else {
             Result.Error(

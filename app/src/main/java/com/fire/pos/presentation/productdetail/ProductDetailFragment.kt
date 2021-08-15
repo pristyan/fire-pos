@@ -1,14 +1,10 @@
 package com.fire.pos.presentation.productdetail
 
 import android.Manifest
-import android.annotation.TargetApi
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -19,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.fire.pos.R
 import com.fire.pos.base.fragment.BaseFragment
+import com.fire.pos.data.view.Product
 import com.fire.pos.databinding.FragmentProductDetailBinding
 import com.fire.pos.di.appComponent
 import com.fire.pos.presentation.loadingdialog.LoadingDialogFragment
@@ -26,13 +23,10 @@ import com.fire.pos.presentation.productdetail.di.DaggerProductDetailComponent
 import com.fire.pos.presentation.productdetail.viewmodel.ProductDetailViewModel
 import com.fire.pos.presentation.productdetail.viewmodel.ProductDetailViewModelContract
 import com.fire.pos.util.*
-import id.zelory.compressor.Compressor
-import id.zelory.compressor.constraint.destination
 import pl.aprilapps.easyphotopicker.ChooserType
 import pl.aprilapps.easyphotopicker.EasyImage
 import pl.aprilapps.easyphotopicker.MediaFile
 import pl.aprilapps.easyphotopicker.MediaSource
-import java.io.File
 import javax.inject.Inject
 
 /**
@@ -51,6 +45,8 @@ class ProductDetailFragment :
     private var loadingDialog: LoadingDialogFragment? = null
 
     private var currentRequest: String = Manifest.permission.CAMERA
+
+    private var currentProduct: Product? = null
 
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
@@ -115,7 +111,18 @@ class ProductDetailFragment :
         })
 
         viewModel.addProductSuccess.observe(this, {
-            Toast.makeText(context, "SUCCESS", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Product added successfully", Toast.LENGTH_SHORT).show()
+            findNavController().popBackStack()
+        })
+
+        viewModel.updateProductSuccess.observe(this, {
+            Toast.makeText(context, "Product updated successfully", Toast.LENGTH_SHORT).show()
+            findNavController().popBackStack()
+        })
+
+        viewModel.deleteProductSuccess.observe(this, {
+            Toast.makeText(context, "Product deleted successfully", Toast.LENGTH_SHORT).show()
+            findNavController().popBackStack()
         })
     }
 
@@ -128,16 +135,17 @@ class ProductDetailFragment :
             val isEditMode = ProductDetailFragmentArgs.fromBundle(it).isEditMode
             binding.containerActionAdd.visible(!isEditMode)
             binding.containerActionUpdate.visible(isEditMode)
+            currentProduct = ProductDetailFragmentArgs.fromBundle(it).product
+            currentProduct?.let { product ->
+                binding.product = product
+                Glide.with(this).load(product.image).into(binding.imgProduct)
+            }
         }
 
-        binding.btnAddImage.setOnClickListener {
-            requestCameraPermission()
-        }
-        binding.btnAddProduct.setOnClickListener {
-            addProduct()
-        }
-        binding.btnUpdate.setOnClickListener { }
-        binding.btnDelete.setOnClickListener { }
+        binding.btnAddImage.setOnClickListener { requestCameraPermission() }
+        binding.btnAddProduct.setOnClickListener { addProduct() }
+        binding.btnUpdate.setOnClickListener { updateProduct() }
+        binding.btnDelete.setOnClickListener { deleteProduct() }
 
         loadingDialog = LoadingDialogFragment.instance()
     }
@@ -233,11 +241,27 @@ class ProductDetailFragment :
     }
 
     override fun deleteProduct() {
-
+        currentProduct?.let {
+            viewModel.deleteProduct(it)
+        }
     }
 
     override fun updateProduct() {
+        currentProduct?.let {
+            val name = binding.edtName.text.toString()
 
+            val price =
+                if (binding.edtPrice.text?.toString().isNullOrBlank()) 0L
+                else binding.edtPrice.text.toString().toLong()
+
+            val stock =
+                if (binding.edtStock.text?.toString().isNullOrBlank()) 0L
+                else binding.edtStock.text.toString().toLong()
+
+            val request = it.copy(name = name, price = price, stock = stock)
+
+            viewModel.updateProduct(request)
+        }
     }
 
     override fun initEasyImage() {
@@ -279,6 +303,5 @@ class ProductDetailFragment :
 
             })
     }
-
 
 }

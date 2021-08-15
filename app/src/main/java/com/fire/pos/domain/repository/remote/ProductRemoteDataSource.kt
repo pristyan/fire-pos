@@ -18,11 +18,14 @@ interface ProductRemoteDataSource {
 
     suspend fun uploadImage(file: File): BaseResponse<Uri>
 
+    suspend fun deleteImage(fileName: String): BaseResponse<Void>
+
     suspend fun addProduct(
         name: String,
         price: Long,
         stock: Long,
-        image: String
+        image: String,
+        imageFileName: String
     ): BaseResponse<DocumentReference>
 
     suspend fun updateProduct(
@@ -30,7 +33,8 @@ interface ProductRemoteDataSource {
         name: String,
         price: Long,
         stock: Long,
-        image: String
+        image: String,
+        imageFileName: String
     ): BaseResponse<Void>
 
     suspend fun deleteProduct(id: String): BaseResponse<Void>

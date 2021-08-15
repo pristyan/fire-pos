@@ -59,17 +59,25 @@ class ProductRemoteRepository @Inject constructor(
         }
     }
 
+    override suspend fun deleteImage(fileName: String): BaseResponse<Void> {
+        val imageReference = userImageReference.child(fileName)
+        val task = imageReference.delete()
+        return task.await()
+    }
+
     override suspend fun addProduct(
         name: String,
         price: Long,
         stock: Long,
-        image: String
+        image: String,
+        imageFileName: String
     ): BaseResponse<DocumentReference> {
         val data = mapOf<String, Any>(
             FirestoreConstant.FIELD_NAME to name,
             FirestoreConstant.FIELD_PRICE to price,
             FirestoreConstant.FIELD_STOCK to stock,
-            FirestoreConstant.FIELD_IMAGE to image
+            FirestoreConstant.FIELD_IMAGE to image,
+            FirestoreConstant.FIELD_IMAGE_FILE_NAME to imageFileName
         )
         val task = productCollection.add(data)
         return task.await()
@@ -80,14 +88,18 @@ class ProductRemoteRepository @Inject constructor(
         name: String,
         price: Long,
         stock: Long,
-        image: String
+        image: String,
+        imageFileName: String
     ): BaseResponse<Void> {
         val data = mapOf<String, Any>(
             FirestoreConstant.FIELD_NAME to name,
             FirestoreConstant.FIELD_PRICE to price,
             FirestoreConstant.FIELD_STOCK to stock,
-            FirestoreConstant.FIELD_IMAGE to image
+            FirestoreConstant.FIELD_IMAGE to image,
+            FirestoreConstant.FIELD_IMAGE_FILE_NAME to imageFileName
         )
+        println("ID : $id")
+        println(data)
 
         val task = productCollection.document(id).set(data)
         return task.await()

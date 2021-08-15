@@ -18,10 +18,17 @@ interface ProductDetailViewModelContract: BaseViewModelContract {
 
     val addProductSuccess: LiveData<Product>
 
+    val updateProductSuccess: LiveData<Product>
+
+    val deleteProductSuccess: LiveData<Boolean>
+
     val productError: LiveData<String>
 
     fun compressImage(context: Context, file: File): Job
 
     fun addProduct(name: String, price: Long, stock: Long): Job
 
+    fun updateProduct(product: Product): Job
+
+    fun deleteProduct(product: Product): Job
 }

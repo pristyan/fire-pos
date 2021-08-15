@@ -26,10 +26,11 @@ class ProductDetailInteractorImpl @Inject constructor(
 
         if (imageResponse.isSuccess) {
             val productResponse = productDetailDataSource.addProduct(
-                name,
-                price,
-                stock,
-                imageResponse.data?.toString().orEmpty()
+                name = name,
+                price = price,
+                stock = stock,
+                image = imageResponse.data?.toString().orEmpty(),
+                imageFileName = image.name
             )
             return if (productResponse.isSuccess) {
                 val newProduct = Product(
@@ -37,7 +38,8 @@ class ProductDetailInteractorImpl @Inject constructor(
                     name = name,
                     price = price,
                     stock = stock,
-                    image = imageResponse.data?.toString().orEmpty()
+                    image = imageResponse.data?.toString().orEmpty(),
+                    imageFileName = image.name
                 )
                 Result.Success(newProduct)
             } else {
@@ -60,7 +62,12 @@ class ProductDetailInteractorImpl @Inject constructor(
 
             // update product without uploading new image
             val response = productDetailDataSource.updateProduct(
-                product.id, product.name, product.price, product.stock, product.image
+                product.id,
+                product.name,
+                product.price,
+                product.stock,
+                product.image,
+                product.imageFileName
             )
             return if (response.isSuccess) {
                 Result.Success(product)
@@ -71,14 +78,22 @@ class ProductDetailInteractorImpl @Inject constructor(
 
             // update product with new image
             val imageResponse = productDetailDataSource.uploadImage(newImage)
+
             if (imageResponse.isSuccess) {
+
+                // delete previous image
+                productDetailDataSource.deleteImage(product.imageFileName)
+
+                // save data to firestore
                 val productResponse = productDetailDataSource.updateProduct(
                     product.id,
                     product.name,
                     product.price,
                     product.stock,
-                    imageResponse.data?.toString().orEmpty()
+                    imageResponse.data?.toString().orEmpty(),
+                    newImage.name
                 )
+
                 return if (productResponse.isSuccess) {
                     val newProduct = product.copy(image = imageResponse.data?.toString().orEmpty())
                     Result.Success(newProduct)
@@ -95,9 +110,15 @@ class ProductDetailInteractorImpl @Inject constructor(
         }
     }
 
-    override suspend fun deleteProduct(id: String): Result<Boolean> {
-        val response = productDetailDataSource.deleteProduct(id)
+    override suspend fun deleteProduct(product: Product): Result<Boolean> {
+
+        // delete data from firestore
+        val response = productDetailDataSource.deleteProduct(product.id)
         return if (response.isSuccess) {
+
+            // delete image from storage
+            productDetailDataSource.deleteImage(product.imageFileName)
+
             Result.Success(true)
         } else {
             Result.Error(response.throwable?.message ?: ResponseConstant.SOMETHING_GOES_WRONG)
