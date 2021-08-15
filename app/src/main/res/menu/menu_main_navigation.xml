@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_transaction"
+        android:title="Transaction"
+        android:icon="@drawable/ic_point_of_sale_black_24dp"/>
+
+    <item
+        android:id="@+id/nav_product"
+        android:title="Product"
+        android:icon="@drawable/ic_category_black_24dp"/>
+
+    <item
+        android:id="@+id/nav_history"
+        android:title="History"
+        android:icon="@drawable/ic_history_black_24dp"/>
+
+    <item
+        android:id="@+id/nav_account"
+        android:title="Account"
+        android:icon="@drawable/ic_person_black_24dp"/>
+</menu>

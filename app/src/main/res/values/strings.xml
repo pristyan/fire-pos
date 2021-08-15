@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">FirePOS</string>
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_stock">Stock</string>
+    <string name="hint_price">Price</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_sku">SKU (optional)</string>
+    <string name="hint_store_name">Store Name</string>
+    <string name="hint_search_product">Search Product</string>
+
+    <string name="tv_total">Total</string>
+    <string name="tv_summary">Summary</string>
+
+    <string name="btn_save">Save</string>
+    <string name="btn_delete">Delete</string>
+    <string name="btn_update">Update</string>
+    <string name="btn_logout">Logout</string>
+    <string name="btn_login">Login</string>
+    <string name="btn_registration">Registration</string>
+    <string name="btn_add_product">Add Product</string>
+    <string name="btn_take_picture">Take Picture</string>
+    <string name="btn_pay_now">Pay Now</string>
+</resources>
