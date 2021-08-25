@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import com.fire.pos.data.view.Product
+import com.fire.pos.model.view.Product
 import com.fire.pos.presentation.productlist.ProductListAdapter
 import com.fire.pos.presentation.transactionqty.TransactionQtyDialog
 

@@ -65,7 +65,7 @@
 
             <argument
                 android:name="product"
-                app:argType="com.fire.pos.data.view.Product"
+                app:argType="com.fire.pos.model.view.Product"
                 app:nullable="true" />
         </action>
     </fragment>
@@ -81,7 +81,7 @@
 
         <argument
             android:name="product"
-            app:argType="com.fire.pos.data.view.Product"
+            app:argType="com.fire.pos.model.view.Product"
             app:nullable="true" />
     </fragment>
 </navigation>

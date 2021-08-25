@@ -3,9 +3,9 @@ package com.fire.pos.presentation.login.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.fire.pos.base.viewmodel.BaseViewModel
-import com.fire.pos.data.response.Result
-import com.fire.pos.data.view.User
-import com.fire.pos.domain.interactor.login.LoginInteractor
+import com.fire.pos.model.response.Result
+import com.fire.pos.model.view.User
+import com.fire.pos.domain.login.LoginInteractor
 import com.fire.pos.scheduler.SchedulerProvider
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -36,10 +36,7 @@ class LoginViewModel @Inject constructor(
             loginInteractor.isLoggedIn()
         }
 
-        when (result) {
-            is Result.Error -> _isUserLoggedIn.value = false
-            is Result.Success -> _isUserLoggedIn.value = true
-        }
+        _isUserLoggedIn.value = result
     }
 
     override fun login(email: String, password: String): Job = launch(schedulerProvider.ui()) {

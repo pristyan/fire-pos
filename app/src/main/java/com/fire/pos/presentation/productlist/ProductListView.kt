@@ -1,6 +1,6 @@
 package com.fire.pos.presentation.productlist
 
-import com.fire.pos.data.view.Product
+import com.fire.pos.model.view.Product
 
 
 /**

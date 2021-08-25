@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.fire.pos.util.toIDR
-import com.fire.pos.data.view.Product
+import com.fire.pos.model.view.Product
 import com.fire.pos.databinding.ListItemProductBinding
 import javax.inject.Inject
 

@@ -1,11 +1,9 @@
 package com.fire.pos.di.module
 
-import com.fire.pos.domain.repository.local.CartLocalDataSource
-import com.fire.pos.domain.repository.local.CartLocalRepository
-import com.fire.pos.domain.repository.remote.AccountRemoteDataSource
-import com.fire.pos.domain.repository.remote.AccountRemoteRepository
-import com.fire.pos.domain.repository.remote.ProductRemoteDataSource
-import com.fire.pos.domain.repository.remote.ProductRemoteRepository
+import com.fire.pos.data.repository.account.AccountRepository
+import com.fire.pos.data.repository.account.AccountRepositoryImpl
+import com.fire.pos.data.repository.product.ProductRepository
+import com.fire.pos.data.repository.product.ProductRepositoryImpl
 import dagger.Binds
 import dagger.Module
 
@@ -13,21 +11,12 @@ import dagger.Module
 /**
  * Created by Chandra.
  **/
-
 @Module
 interface RepositoryModule {
 
     @Binds
-    fun bindCartLocalDataSource(cartLocalRepository: CartLocalRepository): CartLocalDataSource
+    fun bindAccountRepository(accountRepositoryImpl: AccountRepositoryImpl): AccountRepository
 
     @Binds
-    fun bindAccountRemoteDataSource(
-        accountRemoteRepository: AccountRemoteRepository
-    ): AccountRemoteDataSource
-
-    @Binds
-    fun bindProductRemoteDataSource(
-        productRemoteRepository: ProductRemoteRepository
-    ): ProductRemoteDataSource
-
+    fun bindProductRepository(productRepositoryImpl: ProductRepositoryImpl): ProductRepository
 }

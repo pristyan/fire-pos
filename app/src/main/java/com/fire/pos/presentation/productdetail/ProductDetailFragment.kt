@@ -14,7 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.fire.pos.R
 import com.fire.pos.base.fragment.BaseFragment
-import com.fire.pos.data.view.Product
+import com.fire.pos.model.view.Product
 import com.fire.pos.databinding.FragmentProductDetailBinding
 import com.fire.pos.di.appComponent
 import com.fire.pos.presentation.loadingdialog.LoadingDialogFragment

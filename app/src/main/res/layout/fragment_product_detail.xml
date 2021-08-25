@@ -6,7 +6,7 @@
 
         <variable
             name="product"
-            type="com.fire.pos.data.view.Product" />
+            type="com.fire.pos.model.view.Product" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat

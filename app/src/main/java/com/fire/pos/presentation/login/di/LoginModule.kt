@@ -3,8 +3,8 @@ package com.fire.pos.presentation.login.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.fire.pos.base.viewmodel.ViewModelProviderFactory
-import com.fire.pos.domain.interactor.login.LoginInteractor
-import com.fire.pos.domain.interactor.login.LoginInteractorImpl
+import com.fire.pos.domain.login.LoginInteractor
+import com.fire.pos.domain.login.LoginInteractorImpl
 import com.fire.pos.presentation.login.viewmodel.LoginViewModel
 import dagger.Binds
 import dagger.Module

@@ -3,8 +3,8 @@ package com.fire.pos.presentation.registration.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.fire.pos.base.viewmodel.BaseViewModel
-import com.fire.pos.data.response.Result
-import com.fire.pos.domain.interactor.registration.RegistrationInteractor
+import com.fire.pos.model.response.Result
+import com.fire.pos.domain.registration.RegistrationInteractor
 import com.fire.pos.scheduler.SchedulerProvider
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

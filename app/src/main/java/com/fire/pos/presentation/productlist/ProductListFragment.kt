@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fire.pos.R
 import com.fire.pos.base.fragment.BaseFragment
-import com.fire.pos.data.view.Product
+import com.fire.pos.model.view.Product
 import com.fire.pos.databinding.FragmentProductListBinding
 import com.fire.pos.di.appComponent
 import com.fire.pos.presentation.home.HomeFragmentDirections
@@ -86,6 +86,8 @@ class ProductListFragment :
         binding.fabAdd.setOnClickListener {
             navigateToAddProduct()
         }
+
+        binding.srlProduct.setOnRefreshListener { getProductList() }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

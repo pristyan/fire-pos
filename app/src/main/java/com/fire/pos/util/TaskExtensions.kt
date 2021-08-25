@@ -1,6 +1,5 @@
 package com.fire.pos.util
 
-import com.fire.pos.data.response.BaseResponse
 import com.google.android.gms.tasks.Task
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
@@ -10,23 +9,15 @@ import kotlin.coroutines.resume
  * Created by Chandra.
  **/
 
-suspend inline fun <T : Any> Task<T>.await(): BaseResponse<T> {
+suspend inline fun <T : Any> Task<T>.await(): Result<T> {
     return suspendCancellableCoroutine { coroutine ->
         try {
             addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    coroutine.resume(
-                        BaseResponse(
-                            data = task.result,
-                            throwable = null
-                        )
-                    )
+                    coroutine.resume(Result.success(task.result as T))
                 } else {
                     coroutine.resume(
-                        BaseResponse(
-                            data = null,
-                            throwable = task.exception ?: Exception("Something goes wrong")
-                        )
+                        Result.failure(task.exception ?: Exception("Something goes wrong"))
                     )
                 }
             }
@@ -35,12 +26,9 @@ suspend inline fun <T : Any> Task<T>.await(): BaseResponse<T> {
                 coroutine.cancel()
             }
 
-        } catch (exception: Exception) {
-            exception.printStackTrace()
-            BaseResponse(
-                data = null,
-                throwable = exception
-            )
+        } catch (e: Throwable) {
+            e.printStackTrace()
+            Result.failure<T>(e)
         }
     }
 }

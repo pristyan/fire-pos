@@ -4,13 +4,12 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.fire.pos.base.viewmodel.BaseViewModel
-import com.fire.pos.data.response.Result
-import com.fire.pos.data.view.Product
-import com.fire.pos.domain.interactor.productdetail.ProductDetailInteractor
+import com.fire.pos.model.response.Result
+import com.fire.pos.model.view.Product
+import com.fire.pos.domain.productdetail.ProductDetailInteractor
 import com.fire.pos.scheduler.SchedulerProvider
 import id.zelory.compressor.Compressor
 import id.zelory.compressor.constraint.default
-import id.zelory.compressor.constraint.quality
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

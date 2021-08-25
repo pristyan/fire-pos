@@ -61,7 +61,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
 
-    def dagger = "2.30.1"
+    def dagger = "2.38.1"
     implementation "com.google.dagger:dagger:$dagger"
     kapt "com.google.dagger:dagger-compiler:$dagger"
 
@@ -71,6 +71,7 @@ dependencies {
 
     def room = "2.3.0"
     implementation "androidx.room:room-runtime:$room"
+    implementation "androidx.room:room-ktx:$room"
     annotationProcessor "androidx.room:room-compiler:$room"
     kapt "androidx.room:room-compiler:$room"
 

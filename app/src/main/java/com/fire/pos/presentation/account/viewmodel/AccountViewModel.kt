@@ -3,7 +3,7 @@ package com.fire.pos.presentation.account.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.fire.pos.base.viewmodel.BaseViewModel
-import com.fire.pos.domain.repository.remote.AccountRemoteDataSource
+import com.fire.pos.data.source.remote.account.AccountRemoteDataSource
 import com.fire.pos.scheduler.SchedulerProvider
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch

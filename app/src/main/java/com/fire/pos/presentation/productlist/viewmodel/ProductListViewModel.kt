@@ -3,9 +3,9 @@ package com.fire.pos.presentation.productlist.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.fire.pos.base.viewmodel.BaseViewModel
-import com.fire.pos.data.response.Result
-import com.fire.pos.data.view.Product
-import com.fire.pos.domain.interactor.productlist.ProductListInteractor
+import com.fire.pos.model.response.Result
+import com.fire.pos.model.view.Product
+import com.fire.pos.domain.productlist.ProductListInteractor
 import com.fire.pos.scheduler.SchedulerProvider
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
