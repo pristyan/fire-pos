@@ -5,9 +5,6 @@ import com.fire.pos.data.source.remote.account.AccountRemoteDataSource
 import com.fire.pos.model.entity.UserEntity
 import com.fire.pos.model.response.BaseResponse
 import com.fire.pos.util.getException
-import com.fire.pos.util.toBaseResponseBuilder
-import com.google.firebase.auth.AuthResult
-import com.google.firebase.firestore.DocumentReference
 import javax.inject.Inject
 
 
@@ -28,15 +25,14 @@ class AccountRepositoryImpl @Inject constructor(
         email: String,
         password: String
     ): BaseResponse<UserEntity> {
-        // login to firebase auth
-        return accountRemoteDataSource.loginWithEmailPassword(email, password)
-            .toBaseResponseBuilder<AuthResult, UserEntity>()
-            .setEntity { UserEntity(it) }
-            .addOnSuccess {
-                // save to preference
-                it?.let { user -> accountLocalDataSource.setUser(user) }
-            }
-            .build()
+        val result = accountRemoteDataSource.loginWithEmailPassword(email, password)
+        return if (result.isSuccess) {
+            val data = UserEntity(result.getOrNull())
+            accountLocalDataSource.setUser(data)
+            BaseResponse(data)
+        } else {
+            BaseResponse(result.getException())
+        }
     }
 
     override suspend fun registerWithEmailPassword(
@@ -44,23 +40,19 @@ class AccountRepositoryImpl @Inject constructor(
         password: String,
         storeName: String
     ): BaseResponse<UserEntity> {
-        // register to firebase auth
         val userResult = accountRemoteDataSource.registerWithEmailPassword(email, password)
         val user = userResult.getOrNull()?.user
         return if (userResult.isSuccess && user != null) {
-
-            // Register to FireStore
             val storeResult = accountRemoteDataSource.registerToFirestore(user.uid, storeName)
-            storeResult.toBaseResponseBuilder<DocumentReference, UserEntity>()
-                .setEntity { UserEntity(user.uid, user.email) }
-                .addOnSuccess {
-                    // save to preference
-                    it?.let { user -> accountLocalDataSource.setUser(user) }
-                }
-                .build()
-
+            if (storeResult.isSuccess) {
+                val userEntity = UserEntity(user.uid, user.email)
+                accountLocalDataSource.setUser(userEntity)
+                BaseResponse(UserEntity(user.uid, user.email))
+            } else {
+                BaseResponse(storeResult.getException())
+            }
         } else {
-            BaseResponse(throwable = userResult.getException())
+            BaseResponse(userResult.getException())
         }
     }
 

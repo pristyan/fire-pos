@@ -24,8 +24,8 @@ class AccountLocalDataSourceImpl @Inject constructor(
     }
 
     override fun getUser(): UserEntity? {
-        val json = sharedPreferences.getString(USER, null)
         return try {
+            val json = sharedPreferences.getString(USER, null)
             gson.fromJson(json, UserEntity::class.java)
         } catch (e: Exception) {
             e.printStackTrace()

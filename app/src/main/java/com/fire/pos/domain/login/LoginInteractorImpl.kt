@@ -1,10 +1,9 @@
 package com.fire.pos.domain.login
 
 import com.fire.pos.data.repository.account.AccountRepository
-import com.fire.pos.model.entity.UserEntity
 import com.fire.pos.model.response.Result
 import com.fire.pos.model.view.User
-import com.fire.pos.util.toResultBuilder
+import com.fire.pos.util.getErrorMessage
 import javax.inject.Inject
 
 
@@ -21,10 +20,12 @@ class LoginInteractorImpl @Inject constructor(
     }
 
     override suspend fun login(email: String, password: String): Result<User> {
-        return accountRepository.loginWithEmailPassword(email, password)
-            .toResultBuilder<UserEntity, User>()
-            .setData { User(it) }
-            .build()
+        val response = accountRepository.loginWithEmailPassword(email, password)
+        return if (response.isSuccess) {
+            Result.Success(User(response.data))
+        } else {
+            Result.Error(response.getErrorMessage())
+        }
     }
 
 }

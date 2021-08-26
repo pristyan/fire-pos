@@ -50,12 +50,12 @@ class ProductRemoteDataSourceImpl @Inject constructor(
     override suspend fun uploadImage(file: File): Result<Uri> {
         val imageReference = userImageReference.child(file.name)
         val task = imageReference.putFile(Uri.fromFile(file))
-        val response = task.await()
-        return if (response.isSuccess) {
+        val result = task.await()
+        return if (result.isSuccess) {
             val taskUrl = imageReference.downloadUrl
             taskUrl.await()
         } else {
-            Result.failure(response.getException())
+            Result.failure(result.getException())
         }
     }
 

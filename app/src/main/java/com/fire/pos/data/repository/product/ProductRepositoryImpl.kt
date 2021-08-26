@@ -2,11 +2,9 @@ package com.fire.pos.data.repository.product
 
 import com.fire.pos.data.source.local.product.ProductLocalDataSource
 import com.fire.pos.data.source.remote.product.ProductRemoteDataSource
-import com.fire.pos.model.db.ProductDbEntity
 import com.fire.pos.model.entity.ProductEntity
 import com.fire.pos.model.response.BaseResponse
 import com.fire.pos.util.getException
-import com.fire.pos.util.toBaseResponseBuilder
 import com.google.firebase.firestore.DocumentReference
 import java.io.File
 import javax.inject.Inject
@@ -25,6 +23,7 @@ class ProductRepositoryImpl @Inject constructor(
         return if (productLocalDataSource.needFetchRemote()) {
             val result = productRemoteDataSource.getProductList()
             if (result.isSuccess) {
+
                 val list = result.getOrNull()?.documents?.map { doc ->
                     ProductEntity(doc.id, doc)
                 } ?: emptyList()
@@ -32,23 +31,29 @@ class ProductRepositoryImpl @Inject constructor(
                 productLocalDataSource.setLastFetch(System.currentTimeMillis())
                 productLocalDataSource.insertProducts(list)
                 BaseResponse(list)
+
             } else {
                 BaseResponse(result.getException())
             }
+
         } else {
             val result = productLocalDataSource.getProductList()
-            result.toBaseResponseBuilder<List<ProductDbEntity>, List<ProductEntity>>()
-                .setEntity {
-                    it?.map { dbEntity -> ProductEntity(dbEntity) } ?: emptyList()
-                }.build()
+            if (result.isSuccess) {
+                val list = result.getOrNull()?.map { ProductEntity(it) } ?: emptyList()
+                BaseResponse(list)
+            } else {
+                BaseResponse(result.getException())
+            }
         }
     }
 
     override suspend fun getProductId(id: String): BaseResponse<ProductEntity> {
         val result = productLocalDataSource.getProductById(id)
-        return result.toBaseResponseBuilder<ProductDbEntity, ProductEntity>()
-            .setEntity { ProductEntity(it) }
-            .build()
+        return if (result.isSuccess) {
+            BaseResponse(ProductEntity(result.getOrNull()))
+        } else {
+            BaseResponse(result.getException())
+        }
     }
 
     override suspend fun addProduct(
@@ -74,9 +79,11 @@ class ProductRepositoryImpl @Inject constructor(
 
                 // add to room
                 val localResult = productLocalDataSource.insertProduct(productEntity)
-                localResult.toBaseResponseBuilder<Boolean, ProductEntity>()
-                    .setEntity { productEntity }
-                    .build()
+                if (localResult.isSuccess) {
+                    BaseResponse(productEntity)
+                } else {
+                    BaseResponse(localResult.getException())
+                }
 
             } else {
                 BaseResponse(remoteResult.getException())
@@ -101,9 +108,12 @@ class ProductRepositoryImpl @Inject constructor(
 
                 // update room
                 val localResult = productLocalDataSource.updateProduct(entity)
-                localResult.toBaseResponseBuilder<Boolean, ProductEntity>()
-                    .setEntity { entity }
-                    .build()
+                if (localResult.isSuccess) {
+                    BaseResponse(entity)
+                } else {
+                    BaseResponse(localResult.getException())
+                }
+
             } else {
                 BaseResponse(remoteResult.getException())
             }
@@ -139,9 +149,12 @@ class ProductRepositoryImpl @Inject constructor(
 
             // delete from room
             val localResult = productLocalDataSource.deleteProduct(id)
-            localResult.toBaseResponseBuilder<Boolean, Boolean>()
-                .setEntity { localResult.getOrNull() ?: false }
-                .build()
+            if (localResult.isSuccess) {
+                BaseResponse(localResult.getOrNull() ?: false)
+            } else {
+                BaseResponse(localResult.getException())
+            }
+
         } else {
             BaseResponse(remoteResult.getException())
         }
