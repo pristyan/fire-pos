@@ -2,7 +2,7 @@ package com.fire.pos.data.source.remote.product
 
 import android.net.Uri
 import com.fire.pos.model.entity.ProductEntity
-import com.fire.pos.model.response.BaseResponse
+import com.fire.pos.model.response.Result
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.QuerySnapshot
 import java.io.File

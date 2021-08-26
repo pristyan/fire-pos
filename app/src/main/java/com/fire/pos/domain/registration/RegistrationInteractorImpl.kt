@@ -3,7 +3,6 @@ package com.fire.pos.domain.registration
 import com.fire.pos.data.repository.account.AccountRepository
 import com.fire.pos.model.response.Result
 import com.fire.pos.model.view.User
-import com.fire.pos.util.getErrorMessage
 import javax.inject.Inject
 
 
@@ -20,11 +19,11 @@ class RegistrationInteractorImpl @Inject constructor(
         password: String,
         storeName: String
     ): Result<User> {
-        val response = accountRepository.registerWithEmailPassword(email, password, storeName)
-        return if (response.isSuccess) {
-            Result.Success(User(response.data))
-        } else {
-            Result.Error(response.getErrorMessage())
+        return when (
+            val response = accountRepository.registerWithEmailPassword(email, password, storeName)
+        ) {
+            is Result.Error -> Result.Error(response.message)
+            is Result.Success -> Result.Success(User(response.data))
         }
     }
 }

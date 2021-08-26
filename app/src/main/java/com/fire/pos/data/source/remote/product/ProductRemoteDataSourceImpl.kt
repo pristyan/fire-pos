@@ -4,8 +4,8 @@ import android.net.Uri
 import com.fire.pos.constant.FirestoreConstant
 import com.fire.pos.constant.StorageConstant
 import com.fire.pos.model.entity.ProductEntity
+import com.fire.pos.model.response.Result
 import com.fire.pos.util.await
-import com.fire.pos.util.getException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
@@ -50,12 +50,12 @@ class ProductRemoteDataSourceImpl @Inject constructor(
     override suspend fun uploadImage(file: File): Result<Uri> {
         val imageReference = userImageReference.child(file.name)
         val task = imageReference.putFile(Uri.fromFile(file))
-        val result = task.await()
-        return if (result.isSuccess) {
-            val taskUrl = imageReference.downloadUrl
-            taskUrl.await()
-        } else {
-            Result.failure(result.getException())
+        return when (val result = task.await()) {
+            is Result.Error -> Result.Error(result.message)
+            is Result.Success -> {
+                val taskUrl = imageReference.downloadUrl
+                taskUrl.await()
+            }
         }
     }
 

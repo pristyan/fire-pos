@@ -3,7 +3,7 @@ package com.fire.pos.util
 import com.google.android.gms.tasks.Task
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
-
+import com.fire.pos.model.response.Result
 
 /**
  * Created by Chandra.
@@ -14,10 +14,10 @@ suspend inline fun <T : Any> Task<T>.await(): Result<T> {
         try {
             addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    coroutine.resume(Result.success(task.result as T))
+                    coroutine.resume(Result.Success(task.result))
                 } else {
                     coroutine.resume(
-                        Result.failure(task.exception ?: Exception("Something goes wrong"))
+                        Result.Error(task.exception?.message ?: "Something goes wrong")
                     )
                 }
             }
@@ -28,7 +28,7 @@ suspend inline fun <T : Any> Task<T>.await(): Result<T> {
 
         } catch (e: Throwable) {
             e.printStackTrace()
-            Result.failure<T>(e)
+            Result.Error(e.message ?: "Something goes wrong")
         }
     }
 }

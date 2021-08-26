@@ -138,8 +138,22 @@ class ProductDetailFragment :
 
         binding.btnAddImage.setOnClickListener { requestPermission(Manifest.permission.CAMERA) }
         binding.btnAddProduct.setOnClickListener { addProduct() }
-        binding.btnUpdate.setOnClickListener { updateProduct() }
-        binding.btnDelete.setOnClickListener { deleteProduct() }
+        binding.btnUpdate.setOnClickListener {
+            context?.showConfirmationDialog(
+                R.string.dialog_title_confirmation,
+                R.string.dialog_msg_update_product
+            ) {
+                updateProduct()
+            }
+        }
+        binding.btnDelete.setOnClickListener {
+            context?.showConfirmationDialog(
+                R.string.dialog_title_confirmation,
+                R.string.dialog_msg_delete_product
+            ) {
+                deleteProduct()
+            }
+        }
 
         loadingDialog = LoadingDialogFragment.instance()
     }

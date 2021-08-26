@@ -2,6 +2,7 @@ package com.fire.pos.data.source.local.product
 
 import com.fire.pos.model.db.ProductDbEntity
 import com.fire.pos.model.entity.ProductEntity
+import com.fire.pos.model.response.Result
 
 
 /**

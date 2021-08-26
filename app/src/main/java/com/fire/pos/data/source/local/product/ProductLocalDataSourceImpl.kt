@@ -1,12 +1,13 @@
 package com.fire.pos.data.source.local.product
 
 import android.content.SharedPreferences
+import com.fire.pos.constant.ResponseConstant
 import com.fire.pos.data.dao.ProductDao
 import com.fire.pos.database.AppDatabase
 import com.fire.pos.model.db.ProductDbEntity
 import com.fire.pos.model.entity.ProductEntity
 import javax.inject.Inject
-
+import com.fire.pos.model.response.Result
 
 /**
  * Created by Chandra.
@@ -15,7 +16,7 @@ import javax.inject.Inject
 class ProductLocalDataSourceImpl @Inject constructor(
     private val sharedPreferences: SharedPreferences,
     private val appDatabase: AppDatabase
-): ProductLocalDataSource {
+) : ProductLocalDataSource {
 
     private val productDao: ProductDao
         get() = appDatabase.productDao()
@@ -36,61 +37,61 @@ class ProductLocalDataSourceImpl @Inject constructor(
 
     override suspend fun getProductList(): Result<List<ProductDbEntity>> {
         return try {
-            Result.success(productDao.getProducts())
+            Result.Success(productDao.getProducts())
         } catch (e: Throwable) {
             e.printStackTrace()
-            Result.failure(e)
+            Result.Error(e.message ?: ResponseConstant.SOMETHING_GOES_WRONG_SOURCE)
         }
     }
 
     override suspend fun getProductById(id: String): Result<ProductDbEntity> {
         return try {
             val product = productDao.getProductById(id).firstOrNull()
-            if (product == null) Result.failure(Exception("Product not found"))
-            else Result.success(product)
+            if (product == null) Result.Error("Product not found")
+            else Result.Success(product)
         } catch (e: Throwable) {
             e.printStackTrace()
-            Result.failure(e)
+            Result.Error(e.message ?: ResponseConstant.SOMETHING_GOES_WRONG_SOURCE)
         }
     }
 
     override suspend fun insertProducts(list: List<ProductEntity>): Result<Boolean> {
         return try {
             productDao.insertProducts(list.map { ProductDbEntity(it) })
-            Result.success(true)
+            Result.Success(true)
         } catch (e: Throwable) {
             e.printStackTrace()
-            Result.failure(e)
+            Result.Error(e.message ?: ResponseConstant.SOMETHING_GOES_WRONG_SOURCE)
         }
     }
 
     override suspend fun insertProduct(productEntity: ProductEntity): Result<Boolean> {
         return try {
             productDao.insertProduct(ProductDbEntity(productEntity))
-            Result.success(true)
+            Result.Success(true)
         } catch (e: Throwable) {
             e.printStackTrace()
-            Result.failure(e)
+            Result.Error(e.message ?: ResponseConstant.SOMETHING_GOES_WRONG_SOURCE)
         }
     }
 
     override suspend fun updateProduct(productEntity: ProductEntity): Result<Boolean> {
         return try {
             productDao.updateProduct(ProductDbEntity(productEntity))
-            Result.success(true)
+            Result.Success(true)
         } catch (e: Throwable) {
             e.printStackTrace()
-            Result.failure(e)
+            Result.Error(e.message ?: ResponseConstant.SOMETHING_GOES_WRONG_SOURCE)
         }
     }
 
     override suspend fun deleteProduct(id: String): Result<Boolean> {
         return try {
             productDao.deleteProductById(id)
-            Result.success(true)
+            Result.Success(true)
         } catch (e: Throwable) {
             e.printStackTrace()
-            Result.failure(e)
+            Result.Error(e.message ?: ResponseConstant.SOMETHING_GOES_WRONG_SOURCE)
         }
     }
 

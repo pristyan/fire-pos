@@ -28,4 +28,8 @@
 
     <string name="msg_camera_rationale">This feature needs to access your camera to take a picture of your product.</string>
     <string name="msg_storage_rationale">This feature needs to access your storage to choose an image your product.</string>
+
+    <string name="dialog_title_confirmation">Confirmation</string>
+    <string name="dialog_msg_update_product">Are you sure want to update this product?</string>
+    <string name="dialog_msg_delete_product">Are you sure want to delete this product?</string>
 </resources>

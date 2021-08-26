@@ -3,8 +3,7 @@ package com.fire.pos.data.repository.product
 import com.fire.pos.data.source.local.product.ProductLocalDataSource
 import com.fire.pos.data.source.remote.product.ProductRemoteDataSource
 import com.fire.pos.model.entity.ProductEntity
-import com.fire.pos.model.response.BaseResponse
-import com.fire.pos.util.getException
+import com.fire.pos.model.response.Result
 import com.google.firebase.firestore.DocumentReference
 import java.io.File
 import javax.inject.Inject
@@ -19,103 +18,88 @@ class ProductRepositoryImpl @Inject constructor(
     private val productRemoteDataSource: ProductRemoteDataSource
 ) : ProductRepository {
 
-    override suspend fun getProductList(): BaseResponse<List<ProductEntity>> {
+    override suspend fun getProductList(): Result<List<ProductEntity>> {
         return if (productLocalDataSource.needFetchRemote()) {
-            val result = productRemoteDataSource.getProductList()
-            if (result.isSuccess) {
+            when (val result = productRemoteDataSource.getProductList()) {
+                is Result.Error -> Result.Error(result.message)
+                is Result.Success -> {
+                    val list = result.data?.documents?.map { doc ->
+                        ProductEntity(doc.id, doc)
+                    } ?: emptyList()
 
-                val list = result.getOrNull()?.documents?.map { doc ->
-                    ProductEntity(doc.id, doc)
-                } ?: emptyList()
-
-                productLocalDataSource.setLastFetch(System.currentTimeMillis())
-                productLocalDataSource.insertProducts(list)
-                BaseResponse(list)
-
-            } else {
-                BaseResponse(result.getException())
+                    productLocalDataSource.setLastFetch(System.currentTimeMillis())
+                    productLocalDataSource.insertProducts(list)
+                    Result.Success(list)
+                }
             }
-
         } else {
-            val result = productLocalDataSource.getProductList()
-            if (result.isSuccess) {
-                val list = result.getOrNull()?.map { ProductEntity(it) } ?: emptyList()
-                BaseResponse(list)
-            } else {
-                BaseResponse(result.getException())
+            when (val result = productLocalDataSource.getProductList()) {
+                is Result.Error -> Result.Error(result.message)
+                is Result.Success -> {
+                    val list = result.data?.map { ProductEntity(it) } ?: emptyList()
+                    Result.Success(list)
+                }
             }
         }
     }
 
-    override suspend fun getProductId(id: String): BaseResponse<ProductEntity> {
-        val result = productLocalDataSource.getProductById(id)
-        return if (result.isSuccess) {
-            BaseResponse(ProductEntity(result.getOrNull()))
-        } else {
-            BaseResponse(result.getException())
+    override suspend fun getProductId(id: String): Result<ProductEntity> {
+        return when (val result = productLocalDataSource.getProductById(id)) {
+            is Result.Error -> Result.Error(result.message)
+            is Result.Success -> Result.Success(ProductEntity(result.data))
         }
     }
 
     override suspend fun addProduct(
         productEntity: ProductEntity,
         file: File
-    ): BaseResponse<ProductEntity> {
+    ): Result<ProductEntity> {
 
         // upload image
-        val imageResult = productRemoteDataSource.uploadImage(file)
-        return if (imageResult.isSuccess) {
+        return when (val imageResult = productRemoteDataSource.uploadImage(file)) {
+            is Result.Error -> Result.Error(imageResult.message)
+            is Result.Success -> {
+                // set image attributes
+                productEntity.image = imageResult.data?.toString()
+                productEntity.imageFileName = file.name
 
-            // set image attributes
-            productEntity.image = imageResult.getOrNull()?.toString()
-            productEntity.imageFileName = file.name
+                // add to fire store
+                when (val remoteResult = productRemoteDataSource.addProduct(productEntity)) {
+                    is Result.Error -> Result.Error(remoteResult.message)
+                    is Result.Success -> {
+                        // set product id from fire store
+                        val docRefs = remoteResult.data as DocumentReference
+                        productEntity.id = docRefs.id
 
-            // add to fire store
-            val remoteResult = productRemoteDataSource.addProduct(productEntity)
-            if (remoteResult.isSuccess) {
-
-                // set product id from fire store
-                val docRefs = remoteResult.getOrNull() as DocumentReference
-                productEntity.id = docRefs.id
-
-                // add to room
-                val localResult = productLocalDataSource.insertProduct(productEntity)
-                if (localResult.isSuccess) {
-                    BaseResponse(productEntity)
-                } else {
-                    BaseResponse(localResult.getException())
+                        // add to room
+                        when (
+                            val localResult = productLocalDataSource.insertProduct(productEntity)
+                        ) {
+                            is Result.Error -> Result.Error(localResult.message)
+                            is Result.Success -> Result.Success(productEntity)
+                        }
+                    }
                 }
-
-            } else {
-                BaseResponse(remoteResult.getException())
             }
-
-        } else {
-            BaseResponse(imageResult.getException())
         }
-
-
     }
 
     override suspend fun updateProduct(
         productEntity: ProductEntity,
         file: File?
-    ): BaseResponse<ProductEntity> {
+    ): Result<ProductEntity> {
 
-        suspend fun update(entity: ProductEntity): BaseResponse<ProductEntity> {
+        suspend fun update(entity: ProductEntity): Result<ProductEntity> {
             // update fire store
-            val remoteResult = productRemoteDataSource.updateProduct(entity)
-            return if (remoteResult.isSuccess) {
-
-                // update room
-                val localResult = productLocalDataSource.updateProduct(entity)
-                if (localResult.isSuccess) {
-                    BaseResponse(entity)
-                } else {
-                    BaseResponse(localResult.getException())
+            return when (val remoteResult = productRemoteDataSource.updateProduct(entity)) {
+                is Result.Error -> Result.Error(remoteResult.message)
+                is Result.Success -> {
+                    // update room
+                    when (val localResult = productLocalDataSource.updateProduct(entity)) {
+                        is Result.Error -> Result.Error(localResult.message)
+                        is Result.Success -> Result.Success(entity)
+                    }
                 }
-
-            } else {
-                BaseResponse(remoteResult.getException())
             }
         }
 
@@ -124,39 +108,36 @@ class ProductRepositoryImpl @Inject constructor(
         } else {
 
             // upload image
-            val imageResult = productRemoteDataSource.uploadImage(file)
-            return if (imageResult.isSuccess) {
+            return when (val imageResult = productRemoteDataSource.uploadImage(file)) {
+                is Result.Error -> Result.Error(imageResult.message)
+                is Result.Success -> {
+                    // delete previous image
+                    productRemoteDataSource.deleteImage(productEntity.imageFileName as String)
 
-                // delete previous image
-                productRemoteDataSource.deleteImage(productEntity.imageFileName as String)
+                    // set image attributes
+                    productEntity.image = imageResult.data.toString()
+                    productEntity.imageFileName = file.name
 
-                // set image attributes
-                productEntity.image = imageResult.getOrNull().toString()
-                productEntity.imageFileName = file.name
-
-                // update data
-                update(productEntity)
-            } else {
-                BaseResponse(imageResult.getException())
+                    // update data
+                    update(productEntity)
+                }
             }
         }
     }
 
-    override suspend fun deleteProduct(id: String): BaseResponse<Boolean> {
+    override suspend fun deleteProduct(id: String): Result<Boolean> {
         // delete from fire store
-        val remoteResult = productRemoteDataSource.deleteProduct(id)
-        return if (remoteResult.isSuccess) {
-
-            // delete from room
-            val localResult = productLocalDataSource.deleteProduct(id)
-            if (localResult.isSuccess) {
-                BaseResponse(localResult.getOrNull() ?: false)
-            } else {
-                BaseResponse(localResult.getException())
+        return when (val result = productRemoteDataSource.deleteProduct(id)) {
+            is Result.Error -> Result.Error(result.message)
+            is Result.Success -> {
+                // delete from room
+                when (val localResult = productLocalDataSource.deleteProduct(id)) {
+                    is Result.Error -> Result.Error(localResult.message)
+                    is Result.Success -> {
+                        Result.Success(localResult.data ?: false)
+                    }
+                }
             }
-
-        } else {
-            BaseResponse(remoteResult.getException())
         }
     }
 

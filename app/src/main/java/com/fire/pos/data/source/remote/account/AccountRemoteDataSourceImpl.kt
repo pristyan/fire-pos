@@ -1,6 +1,6 @@
 package com.fire.pos.data.source.remote.account
 
-import com.fire.pos.model.response.BaseResponse
+import com.fire.pos.model.response.Result
 import com.fire.pos.constant.FirestoreConstant
 import com.fire.pos.util.await
 import com.google.firebase.auth.AuthResult
@@ -20,12 +20,10 @@ class AccountRemoteDataSourceImpl @Inject constructor(
     private var firebaseFirestore: FirebaseFirestore
 ) : AccountRemoteDataSource {
 
-    override suspend fun getCurrentUser(): BaseResponse<FirebaseUser> {
-        val user = firebaseAuth.currentUser
-        return if (user == null) {
-            BaseResponse(data = null, throwable = Exception("User not logged in yet"))
-        } else {
-            BaseResponse(data = user, throwable = null)
+    override suspend fun getCurrentUser(): Result<FirebaseUser> {
+        return when (val user = firebaseAuth.currentUser) {
+            null -> Result.Error("User not logged in yet")
+            else -> Result.Success(user)
         }
     }
 

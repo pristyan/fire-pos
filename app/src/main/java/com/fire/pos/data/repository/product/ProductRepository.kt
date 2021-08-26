@@ -1,7 +1,7 @@
 package com.fire.pos.data.repository.product
 
 import com.fire.pos.model.entity.ProductEntity
-import com.fire.pos.model.response.BaseResponse
+import com.fire.pos.model.response.Result
 import java.io.File
 
 
@@ -11,14 +11,14 @@ import java.io.File
 
 interface ProductRepository {
 
-    suspend fun getProductList(): BaseResponse<List<ProductEntity>>
+    suspend fun getProductList(): Result<List<ProductEntity>>
 
-    suspend fun getProductId(id: String): BaseResponse<ProductEntity>
+    suspend fun getProductId(id: String): Result<ProductEntity>
 
-    suspend fun addProduct(productEntity: ProductEntity, file: File): BaseResponse<ProductEntity>
+    suspend fun addProduct(productEntity: ProductEntity, file: File): Result<ProductEntity>
 
-    suspend fun updateProduct(productEntity: ProductEntity, file: File?): BaseResponse<ProductEntity>
+    suspend fun updateProduct(productEntity: ProductEntity, file: File?): Result<ProductEntity>
 
-    suspend fun deleteProduct(id: String): BaseResponse<Boolean>
+    suspend fun deleteProduct(id: String): Result<Boolean>
 
 }

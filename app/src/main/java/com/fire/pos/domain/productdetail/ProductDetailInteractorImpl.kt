@@ -4,7 +4,6 @@ import com.fire.pos.data.repository.product.ProductRepository
 import com.fire.pos.model.entity.ProductEntity
 import com.fire.pos.model.response.Result
 import com.fire.pos.model.view.Product
-import com.fire.pos.util.getErrorMessage
 import java.io.File
 import javax.inject.Inject
 
@@ -31,11 +30,10 @@ class ProductDetailInteractorImpl @Inject constructor(
             image = null,
             imageFileName = null
         )
-        val response = productRepository.addProduct(productEntity, image)
-        return if (response.isSuccess) {
-            Result.Success(Product(response.data))
-        } else {
-            Result.Error(response.getErrorMessage())
+
+        return when (val response = productRepository.addProduct(productEntity, image)) {
+            is Result.Error -> Result.Error(response.message)
+            is Result.Success -> Result.Success(Product(response.data))
         }
     }
 
@@ -44,20 +42,16 @@ class ProductDetailInteractorImpl @Inject constructor(
         newImage: File?,
     ): Result<Product> {
         val productEntity = ProductEntity(product)
-        val response = productRepository.updateProduct(productEntity, newImage)
-        return if (response.isSuccess) {
-            Result.Success(Product(response.data))
-        } else {
-            Result.Error(response.getErrorMessage())
+        return when (val response = productRepository.updateProduct(productEntity, newImage)) {
+            is Result.Error -> Result.Error(response.message)
+            is Result.Success -> Result.Success(Product(response.data))
         }
     }
 
     override suspend fun deleteProduct(product: Product): Result<Boolean> {
-        val response = productRepository.deleteProduct(product.id)
-        return if (response.isSuccess) {
-            Result.Success(response.data ?: false)
-        } else {
-            Result.Error(response.getErrorMessage())
+        return when (val response = productRepository.deleteProduct(product.id)) {
+            is Result.Error -> Result.Error(response.message)
+            is Result.Success -> Result.Success(response.data ?: false)
         }
     }
 

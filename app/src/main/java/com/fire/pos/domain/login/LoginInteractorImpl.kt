@@ -3,7 +3,6 @@ package com.fire.pos.domain.login
 import com.fire.pos.data.repository.account.AccountRepository
 import com.fire.pos.model.response.Result
 import com.fire.pos.model.view.User
-import com.fire.pos.util.getErrorMessage
 import javax.inject.Inject
 
 
@@ -16,15 +15,16 @@ class LoginInteractorImpl @Inject constructor(
 ) : LoginInteractor {
 
     override suspend fun isLoggedIn(): Boolean {
-        return accountRepository.isLoggedIn().data ?: false
+        return when (val result = accountRepository.isLoggedIn()) {
+            is Result.Error -> false
+            is Result.Success -> result.data ?: false
+        }
     }
 
     override suspend fun login(email: String, password: String): Result<User> {
-        val response = accountRepository.loginWithEmailPassword(email, password)
-        return if (response.isSuccess) {
-            Result.Success(User(response.data))
-        } else {
-            Result.Error(response.getErrorMessage())
+        return when (val result = accountRepository.loginWithEmailPassword(email, password)) {
+            is Result.Error -> Result.Error(result.message)
+            is Result.Success -> Result.Success(User(result.data))
         }
     }
 

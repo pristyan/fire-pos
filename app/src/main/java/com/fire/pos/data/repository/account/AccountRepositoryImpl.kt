@@ -3,8 +3,7 @@ package com.fire.pos.data.repository.account
 import com.fire.pos.data.source.local.account.AccountLocalDataSource
 import com.fire.pos.data.source.remote.account.AccountRemoteDataSource
 import com.fire.pos.model.entity.UserEntity
-import com.fire.pos.model.response.BaseResponse
-import com.fire.pos.util.getException
+import com.fire.pos.model.response.Result
 import javax.inject.Inject
 
 
@@ -17,21 +16,21 @@ class AccountRepositoryImpl @Inject constructor(
     private val accountRemoteDataSource: AccountRemoteDataSource
 ) : AccountRepository {
 
-    override suspend fun isLoggedIn(): BaseResponse<Boolean> {
-        return BaseResponse(accountLocalDataSource.isLoggedIn())
+    override suspend fun isLoggedIn(): Result<Boolean> {
+        return Result.Success(accountLocalDataSource.isLoggedIn())
     }
 
     override suspend fun loginWithEmailPassword(
         email: String,
         password: String
-    ): BaseResponse<UserEntity> {
-        val result = accountRemoteDataSource.loginWithEmailPassword(email, password)
-        return if (result.isSuccess) {
-            val data = UserEntity(result.getOrNull())
-            accountLocalDataSource.setUser(data)
-            BaseResponse(data)
-        } else {
-            BaseResponse(result.getException())
+    ): Result<UserEntity> {
+        return when (val result = accountRemoteDataSource.loginWithEmailPassword(email, password)) {
+            is Result.Error -> Result.Error(result.message)
+            is Result.Success -> {
+                val data = UserEntity(result.data)
+                accountLocalDataSource.setUser(data)
+                Result.Success(data)
+            }
         }
     }
 
@@ -39,20 +38,30 @@ class AccountRepositoryImpl @Inject constructor(
         email: String,
         password: String,
         storeName: String
-    ): BaseResponse<UserEntity> {
-        val userResult = accountRemoteDataSource.registerWithEmailPassword(email, password)
-        val user = userResult.getOrNull()?.user
-        return if (userResult.isSuccess && user != null) {
-            val storeResult = accountRemoteDataSource.registerToFirestore(user.uid, storeName)
-            if (storeResult.isSuccess) {
-                val userEntity = UserEntity(user.uid, user.email)
-                accountLocalDataSource.setUser(userEntity)
-                BaseResponse(UserEntity(user.uid, user.email))
-            } else {
-                BaseResponse(storeResult.getException())
+    ): Result<UserEntity> {
+        return when (
+            val userResult = accountRemoteDataSource.registerWithEmailPassword(email, password)
+        ) {
+            is Result.Error -> Result.Error(userResult.message)
+            is Result.Success -> {
+                val user = userResult.data?.user
+                if (user != null) {
+                    when (
+                        val storeResult = accountRemoteDataSource.registerToFirestore(
+                            user.uid, storeName
+                        )
+                    ) {
+                        is Result.Error -> Result.Error(storeResult.message)
+                        is Result.Success -> {
+                            val userEntity = UserEntity(user.uid, user.email)
+                            accountLocalDataSource.setUser(userEntity)
+                            Result.Success(UserEntity(user.uid, user.email))
+                        }
+                    }
+                } else {
+                    Result.Error("User not found")
+                }
             }
-        } else {
-            BaseResponse(userResult.getException())
         }
     }
 

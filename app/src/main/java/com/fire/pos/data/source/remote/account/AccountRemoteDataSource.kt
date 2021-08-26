@@ -1,6 +1,6 @@
 package com.fire.pos.data.source.remote.account
 
-import com.fire.pos.model.response.BaseResponse
+import com.fire.pos.model.response.Result
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentReference
@@ -12,7 +12,7 @@ import com.google.firebase.firestore.DocumentReference
 
 interface AccountRemoteDataSource {
 
-    suspend fun getCurrentUser(): BaseResponse<FirebaseUser>
+    suspend fun getCurrentUser(): Result<FirebaseUser>
 
     suspend fun loginWithEmailPassword(email: String, password: String): Result<AuthResult>
 

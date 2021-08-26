@@ -24,7 +24,7 @@ fun Context.showMessageDialog(
 }
 
 fun Context.showConfirmationDialog(
-    title: String, message: String, positiveCallback: () -> Unit
+    title: Int, message: Int, positiveCallback: () -> Unit
 ) {
     AlertDialog.Builder(this)
         .setTitle(title)

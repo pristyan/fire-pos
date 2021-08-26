@@ -1,7 +1,7 @@
 package com.fire.pos.data.repository.account
 
 import com.fire.pos.model.entity.UserEntity
-import com.fire.pos.model.response.BaseResponse
+import com.fire.pos.model.response.Result
 
 
 /**
@@ -10,15 +10,15 @@ import com.fire.pos.model.response.BaseResponse
 
 interface AccountRepository {
 
-    suspend fun isLoggedIn(): BaseResponse<Boolean>
+    suspend fun isLoggedIn(): Result<Boolean>
 
-    suspend fun loginWithEmailPassword(email: String, password: String): BaseResponse<UserEntity>
+    suspend fun loginWithEmailPassword(email: String, password: String): Result<UserEntity>
 
     suspend fun registerWithEmailPassword(
         email: String,
         password: String,
         storeName: String
-    ): BaseResponse<UserEntity>
+    ): Result<UserEntity>
 
     suspend fun logout()
 

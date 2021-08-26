@@ -3,7 +3,6 @@ package com.fire.pos.domain.productlist
 import com.fire.pos.data.repository.product.ProductRepository
 import com.fire.pos.model.response.Result
 import com.fire.pos.model.view.Product
-import com.fire.pos.util.getErrorMessage
 import javax.inject.Inject
 
 
@@ -16,12 +15,11 @@ class ProductListInteractorImpl @Inject constructor(
 ) : ProductListInteractor {
 
     override suspend fun getProducts(): Result<List<Product>> {
-        val response = productRepository.getProductList()
-        return if (response.isSuccess) {
-            val list = response.data?.map { Product(it) } ?: emptyList()
-            Result.Success(list)
-        } else {
-            Result.Error(response.getErrorMessage())
+        return when (val response = productRepository.getProductList()) {
+            is Result.Error -> Result.Error(response.message)
+            is Result.Success -> Result.Success(
+                response.data?.map { Product(it) } ?: emptyList()
+            )
         }
     }
 }
