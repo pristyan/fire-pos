@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.fire.pos.R
 import com.fire.pos.base.fragment.BaseFragment
+import com.fire.pos.constant.AppConstant
 import com.fire.pos.model.view.Product
 import com.fire.pos.databinding.FragmentProductDetailBinding
 import com.fire.pos.di.appComponent
@@ -37,7 +38,7 @@ class ProductDetailFragment :
     ProductDetailView {
 
     @Inject
-    lateinit var viewModelProviderFactory: ViewModelProvider.Factory
+    override lateinit var viewModelProviderFactory: ViewModelProvider.Factory
 
     private lateinit var easyImage: EasyImage
 
@@ -106,24 +107,22 @@ class ProductDetailFragment :
 
         viewModel.addProductSuccess.observe(this, {
             Toast.makeText(context, "Product added successfully", Toast.LENGTH_SHORT).show()
-            findNavController().popBackStack()
+            navigateBack(true)
         })
 
         viewModel.updateProductSuccess.observe(this, {
             Toast.makeText(context, "Product updated successfully", Toast.LENGTH_SHORT).show()
-            findNavController().popBackStack()
+            navigateBack(true)
         })
 
         viewModel.deleteProductSuccess.observe(this, {
             Toast.makeText(context, "Product deleted successfully", Toast.LENGTH_SHORT).show()
-            findNavController().popBackStack()
+            navigateBack(true)
         })
     }
 
     override fun initView() {
-        binding.toolbar.setNavigationOnClickListener {
-            findNavController().popBackStack()
-        }
+        binding.toolbar.setNavigationOnClickListener { navigateBack(false) }
 
         arguments?.let {
             val isEditMode = ProductDetailFragmentArgs.fromBundle(it).isEditMode
@@ -132,7 +131,15 @@ class ProductDetailFragment :
             currentProduct = ProductDetailFragmentArgs.fromBundle(it).product
             currentProduct?.let { product ->
                 binding.product = product
-                Glide.with(this).load(product.image).into(binding.imgProduct)
+                Glide.with(this)
+                    .load(product.image)
+                    .into(binding.imgProduct)
+            }
+
+            if (currentProduct == null) {
+                Glide.with(this)
+                    .load(R.drawable.img_default_product)
+                    .into(binding.imgProduct)
             }
         }
 
@@ -274,6 +281,13 @@ class ProductDetailFragment :
                 }
 
             })
+    }
+
+    override fun navigateBack(needRefresh: Boolean) {
+        findNavController().previousBackStackEntry
+            ?.savedStateHandle
+            ?.set(AppConstant.NEED_REFRESH, needRefresh)
+        findNavController().popBackStack()
     }
 
 }

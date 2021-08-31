@@ -22,7 +22,7 @@ import javax.inject.Inject
 class LoginFragment: BaseFragment<LoginViewModel, LoginViewModelContract, FragmentLoginBinding>(), LoginView {
 
     @Inject
-    lateinit var viewModelProviderFactory: ViewModelProvider.Factory
+    override lateinit var viewModelProviderFactory: ViewModelProvider.Factory
 
     private var loadingDialog: LoadingDialogFragment? = null
 

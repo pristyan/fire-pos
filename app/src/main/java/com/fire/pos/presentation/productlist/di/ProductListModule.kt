@@ -1,8 +1,7 @@
 package com.fire.pos.presentation.productlist.di
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.fire.pos.base.viewmodel.ViewModelProviderFactory
+import com.fire.pos.di.module.BaseFeatureModule
 import com.fire.pos.domain.productlist.ProductListInteractor
 import com.fire.pos.domain.productlist.ProductListInteractorImpl
 import com.fire.pos.presentation.productlist.viewmodel.ProductListViewModel
@@ -14,16 +13,11 @@ import dagger.Module
  * Created by Chandra.
  **/
 
-@Module
+@Module(includes = [BaseFeatureModule::class])
 interface ProductListModule {
 
     @Binds
     fun bindViewModel(productListViewModel: ProductListViewModel): ViewModel
-
-    @Binds
-    fun bindViewModelProviderFactory(
-        viewModelProviderFactory: ViewModelProviderFactory
-    ): ViewModelProvider.Factory
 
     @Binds
     fun bindProductListInteractor(

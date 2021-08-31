@@ -28,6 +28,8 @@ abstract class BaseFragment<VM : BaseViewModel, VMC : BaseViewModelContract, VB 
     val viewModel: VMC
         get() = _viewModel as VMC
 
+    abstract var viewModelProviderFactory: ViewModelProvider.Factory
+
     abstract fun getLayoutId(): Int
 
     abstract fun getViewModelClass(): Class<VM>

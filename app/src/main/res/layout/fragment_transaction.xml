@@ -5,6 +5,15 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="showSum"
+            type="Boolean" />
+
+        <variable
+            name="total"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,12 +45,34 @@
             android:paddingVertical="@dimen/input_padding"
             app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_product"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/srl_transaction"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/spacing_normal"
-            app:layout_constraintTop_toBottomOf="@+id/edt_search" />
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edt_search">
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/nv_transaction"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_product"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/spacing_normal"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:spanCount="2"
+                        tools:listitem="@layout/list_item_product_cart" />
+                </RelativeLayout>
+            </androidx.core.widget.NestedScrollView>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/container_summary"
@@ -49,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/spacing_medium"
             android:layout_marginBottom="@dimen/spacing_medium"
-            android:visibility="gone"
+            android:visibility="@{showSum ? View.VISIBLE : View.GONE}"
             app:cardCornerRadius="@dimen/spacing_normal"
             app:layout_constraintBottom_toBottomOf="parent">
 
@@ -75,6 +106,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_h2"
+                    android:text="@{total}"
                     app:layout_constraintEnd_toStartOf="@+id/btn_summary"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_total"

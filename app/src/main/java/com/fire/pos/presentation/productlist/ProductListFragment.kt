@@ -8,10 +8,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fire.pos.R
 import com.fire.pos.base.fragment.BaseFragment
+import com.fire.pos.constant.AppConstant
 import com.fire.pos.model.view.Product
 import com.fire.pos.databinding.FragmentProductListBinding
 import com.fire.pos.di.appComponent
 import com.fire.pos.presentation.home.HomeFragmentDirections
+import com.fire.pos.presentation.productlist.adapter.ProductListAdapter
 import com.fire.pos.presentation.productlist.di.DaggerProductListComponent
 import com.fire.pos.presentation.productlist.viewmodel.ProductListViewModel
 import com.fire.pos.presentation.productlist.viewmodel.ProductListViewModelContract
@@ -28,7 +30,7 @@ class ProductListFragment :
     ProductListView {
 
     @Inject
-    lateinit var viewModelProviderFactory: ViewModelProvider.Factory
+    override lateinit var viewModelProviderFactory: ViewModelProvider.Factory
 
     @Inject
     lateinit var productListAdapter: ProductListAdapter
@@ -53,18 +55,18 @@ class ProductListFragment :
     }
 
     override fun subscribeLiveData() {
-        viewModel.isLoading.observe(this, {
+        viewModel.isLoading.observe(viewLifecycleOwner, {
             binding.srlProduct.isRefreshing = it
         })
 
-        viewModel.productListSuccess.observe(this, {
+        viewModel.productListSuccess.observe(viewLifecycleOwner, {
             binding.tvEmpty.visible(it.isEmpty())
             binding.rvProduct.visible(it.isNotEmpty())
-            productListAdapter.clear()
-            productListAdapter.setList(it)
+            productListAdapter.clearItems()
+            productListAdapter.setItems(it)
         })
 
-        viewModel.productListError.observe(this, {
+        viewModel.productListError.observe(viewLifecycleOwner, {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
         })
     }
@@ -76,23 +78,17 @@ class ProductListFragment :
             }
         }
 
-        productListAdapter.clear()
+        productListAdapter.clearItems()
         binding.rvProduct.adapter = productListAdapter
-
-        binding.edtSearch.doAfterTextChanged {
-            searchProduct(it.toString())
-        }
-
-        binding.fabAdd.setOnClickListener {
-            navigateToAddProduct()
-        }
-
+        binding.edtSearch.doAfterTextChanged { searchProduct(it.toString()) }
+        binding.fabAdd.setOnClickListener { navigateToAddProduct() }
         binding.srlProduct.setOnRefreshListener { getProductList() }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        observeNavigation()
         getProductList()
     }
 
@@ -106,6 +102,18 @@ class ProductListFragment :
         }
         productListAdapter.clear()
         productListAdapter.setList(filteredList)*/
+    }
+
+    override fun observeNavigation() {
+        findNavController().currentBackStackEntry
+            ?.savedStateHandle
+            ?.getLiveData<Boolean>(AppConstant.NEED_REFRESH)
+            ?.observe(viewLifecycleOwner, { needRefresh ->
+                if (needRefresh) {
+                    productListAdapter.clearItems()
+                    getProductList()
+                }
+            })
     }
 
     override fun navigateToAddProduct() {

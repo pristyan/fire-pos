@@ -68,6 +68,14 @@
                 app:argType="com.fire.pos.model.view.Product"
                 app:nullable="true" />
         </action>
+
+        <action
+            android:id="@+id/action_to_summary"
+            app:destination="@+id/transaction_summary_fragment"
+            app:enterAnim="@anim/nav_enter_anim"
+            app:exitAnim="@anim/nav_exit_anim"
+            app:popEnterAnim="@anim/pop_enter_anim"
+            app:popExitAnim="@anim/pop_exit_anim" />
     </fragment>
 
     <fragment
@@ -84,4 +92,9 @@
             app:argType="com.fire.pos.model.view.Product"
             app:nullable="true" />
     </fragment>
+
+    <fragment
+        android:id="@+id/transaction_summary_fragment"
+        android:name="com.fire.pos.presentation.transactionsummary.TransactionSummaryFragment"
+        tools:layout="@layout/fragment_transaction_summary"/>
 </navigation>

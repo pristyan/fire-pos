@@ -1,6 +1,7 @@
 package com.fire.pos.model.view
 
 import com.fire.pos.model.entity.ProductEntity
+import com.fire.pos.util.toIDR
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
@@ -30,14 +31,14 @@ data class Product(
     val imageFileName: String
 ) : Serializable {
 
-    @SerializedName("qty")
-    var qty: Long? = null
-
     val stringPrice: String
         get() = price.toString()
 
     val stringStock: String
         get() = stock.toString()
+
+    val formattedPrice: String
+        get() = price.toIDR()
 
     constructor(id: String, data: DocumentSnapshot) : this(
         id = id,

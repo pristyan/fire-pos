@@ -2,68 +2,141 @@ package com.fire.pos.presentation.transaction
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
-import com.fire.pos.model.view.Product
-import com.fire.pos.presentation.productlist.ProductListAdapter
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.fire.pos.R
+import com.fire.pos.base.fragment.BaseFragment
+import com.fire.pos.constant.AppConstant
+import com.fire.pos.databinding.FragmentTransactionBinding
+import com.fire.pos.di.appComponent
+import com.fire.pos.model.view.ProductCart
+import com.fire.pos.presentation.home.HomeFragmentDirections
+import com.fire.pos.presentation.transaction.adapter.ProductCartListAdapter
+import com.fire.pos.presentation.transaction.di.DaggerTransactionComponent
+import com.fire.pos.presentation.transaction.viewmodel.TransactionViewModel
+import com.fire.pos.presentation.transaction.viewmodel.TransactionViewModelContract
 import com.fire.pos.presentation.transactionqty.TransactionQtyDialog
+import javax.inject.Inject
 
 
 /**
  * Created by Chandra.
  **/
 
-class TransactionFragment: Fragment(), ProductListAdapter.ProductListCallback {
+class TransactionFragment :
+    BaseFragment<TransactionViewModel, TransactionViewModelContract, FragmentTransactionBinding>(),
+    TransactionView, ProductCartListAdapter.Callback {
 
-    private val productListAdapter by lazy { ProductListAdapter() }
+    @Inject
+    override lateinit var viewModelProviderFactory: ViewModelProvider.Factory
+
+    @Inject
+    lateinit var productAdapter: ProductCartListAdapter
+
+    override fun getLayoutId(): Int {
+        return R.layout.fragment_transaction
+    }
+
+    override fun getViewModelClass(): Class<TransactionViewModel> {
+        return TransactionViewModel::class.java
+    }
+
+    override fun getViewModelFactory(): ViewModelProvider.Factory {
+        return viewModelProviderFactory
+    }
+
+    override fun subscribeLiveData() {
+        viewModel.isLoading.observe(viewLifecycleOwner, {
+            binding.srlTransaction.isRefreshing = it
+        })
+
+        viewModel.errorMessage.observe(viewLifecycleOwner, {
+            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+        })
+
+        viewModel.productListSuccess.observe(viewLifecycleOwner, {
+            productAdapter.setItems(it)
+        })
+
+        viewModel.addCartSuccess.observe(viewLifecycleOwner, {
+            productAdapter.update(it)
+        })
+
+        viewModel.updateCartSuccess.observe(viewLifecycleOwner, {
+            productAdapter.update(it)
+        })
+
+        viewModel.deleteCartSuccess.observe(viewLifecycleOwner, {
+            productAdapter.update(it)
+        })
+
+        viewModel.showCartModal.observe(this, {
+            binding.showSum = it.first
+            binding.total = it.second
+        })
+    }
+
+    override fun setupDependencyInjection() {
+        DaggerTransactionComponent.builder()
+            .appComponent(appComponent())
+            .build()
+            .inject(this)
+    }
+
+    override fun initView() {
+        productAdapter.callback = this
+        binding.rvProduct.adapter = productAdapter
+        binding.srlTransaction.setOnRefreshListener { getProductList() }
+        binding.btnSummary.setOnClickListener { navigateToSummary() }
+    }
+
+    override fun observeNavigation() {
+        findNavController().currentBackStackEntry
+            ?.savedStateHandle
+            ?.getLiveData<Boolean>(AppConstant.NEED_REFRESH)
+            ?.observe(viewLifecycleOwner, { getProductList() })
+    }
+
+    override fun navigateToSummary() {
+        val action = HomeFragmentDirections.actionToSummary()
+        findNavController().navigate(action)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //binding.rvProduct.layoutManager = GridLayoutManager(context, 2)
-        //binding.rvProduct.adapter = productListAdapter
-
-        productListAdapter.clear()
-
-
-        /*binding.edtSearch.doAfterTextChanged {
-            search(it.toString())
-        }*/
-
-        updateSummaryState()
+        initView()
+        observeNavigation()
+        getProductList()
     }
 
-    private fun search(keyword: String) {
-        /*val filteredList = products.filter {
-            it.name.contains(keyword, true)
-        }
-        productListAdapter.clear()
-        productListAdapter.setList(filteredList)*/
+    override fun getProductList() {
+        productAdapter.clearItems()
+        viewModel.getProductList()
     }
 
-    private fun updateSummaryState() {
-        /*val totalPrice = products.sumOf { it.price * (it.qty ?: 0) }
-        if (totalPrice > 0) {
-            binding.containerSummary.visibility = View.VISIBLE
-            binding.tvPriceTotal.text = totalPrice.toIDR()
-        } else {
-            binding.containerSummary.visibility = View.GONE
-            binding.tvPriceTotal.text = 0L.toIDR()
-        }*/
-    }
+    override fun onItemClick(item: ProductCart) {
+        val action =
+            if (item.qty == 0) TransactionQtyDialog.Action.ADD
+            else TransactionQtyDialog.Action.UPDATE
 
-    override fun onItemClick(product: Product) {
-        val bundle = bundleOf("product" to product)
+        val bundle = bundleOf("product" to item, "action" to action)
         val dialog = TransactionQtyDialog.instance(bundle)
         dialog.callback = object : TransactionQtyDialog.Callback {
-            override fun onSaveQty(product: Product) {
-                /*productListAdapter.update(product)
-                products.findLast { it.name == product.name }.apply {
-                    this?.qty = product.qty
-                }
-                updateSummaryState()*/
+            override fun onAdd(product: ProductCart) {
+                viewModel.addCart(product)
+            }
+
+            override fun onUpdate(product: ProductCart) {
+                viewModel.updateCart(product)
+            }
+
+            override fun onDelete(product: ProductCart) {
+                viewModel.deleteCart(product)
             }
         }
-        dialog.show(parentFragmentManager, "QtyDialog")
+        dialog.show(childFragmentManager, "dialog")
     }
 
 }

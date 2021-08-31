@@ -1,8 +1,7 @@
 package com.fire.pos.presentation.account.di
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.fire.pos.base.viewmodel.ViewModelProviderFactory
+import com.fire.pos.di.module.BaseFeatureModule
 import com.fire.pos.presentation.account.viewmodel.AccountViewModel
 import dagger.Binds
 import dagger.Module
@@ -12,15 +11,10 @@ import dagger.Module
  * Created by Chandra.
  **/
 
-@Module
+@Module(includes = [BaseFeatureModule::class])
 interface AccountModule {
 
     @Binds
     fun bindViewModel(accountViewModel: AccountViewModel): ViewModel
-
-    @Binds
-    fun bindViewModelProviderFactory(
-        viewModelProviderFactory: ViewModelProviderFactory
-    ): ViewModelProvider.Factory
 
 }

@@ -24,7 +24,7 @@ class AccountFragment :
     AccountView {
 
     @Inject
-    lateinit var viewModelProviderFactory: ViewModelProvider.Factory
+    override lateinit var viewModelProviderFactory: ViewModelProvider.Factory
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_account

@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="data"
+            type="com.fire.pos.model.view.ProductCart" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -25,6 +28,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
+                android:text="@{data.productName}"
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toStartOf="@+id/tv_subtotal"
                 app:layout_constraintStart_toStartOf="parent"
@@ -35,6 +39,7 @@
                 android:id="@+id/tv_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:text="@{data.formattedPrice}"
                 android:textSize="@dimen/text_caption"
                 app:layout_constraintEnd_toStartOf="@+id/tv_subtotal"
                 app:layout_constraintStart_toStartOf="parent"
@@ -45,6 +50,7 @@
                 android:id="@+id/tv_subtotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@{data.formattedSubtotal}"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_content_title"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_price"
@@ -83,6 +89,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/spacing_small"
+                    android:text="@{String.valueOf(data.qty)}"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_appbar_title"
                     tools:text="2" />
@@ -91,6 +98,7 @@
                     android:id="@+id/tv_stock"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{data.formattedStock}"
                     android:textColor="#a0a0a0"
                     android:textSize="@dimen/text_caption"
                     tools:text="/10" />

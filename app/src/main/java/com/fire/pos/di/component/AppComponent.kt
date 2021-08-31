@@ -8,7 +8,6 @@ import com.fire.pos.data.source.local.account.AccountLocalDataSource
 import com.fire.pos.di.module.AndroidContextModule
 import com.fire.pos.di.module.AppModule
 import com.fire.pos.data.source.local.cart.CartLocalDataSource
-import com.fire.pos.data.source.local.product.ProductLocalDataSource
 import com.fire.pos.data.source.remote.account.AccountRemoteDataSource
 import com.fire.pos.data.source.remote.product.ProductRemoteDataSource
 import com.fire.pos.database.AppDatabase
@@ -49,8 +48,6 @@ interface AppComponent {
     fun accountLocalDataSource(): AccountLocalDataSource
 
     fun cartLocalDataSource(): CartLocalDataSource
-
-    fun productLocalDataSource(): ProductLocalDataSource
 
     // remote data source
     fun accountRemoteDataSource(): AccountRemoteDataSource

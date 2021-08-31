@@ -4,8 +4,6 @@ import com.fire.pos.data.source.local.account.AccountLocalDataSource
 import com.fire.pos.data.source.local.account.AccountLocalDataSourceImpl
 import com.fire.pos.data.source.local.cart.CartLocalDataSource
 import com.fire.pos.data.source.local.cart.CartLocalDataSourceImpl
-import com.fire.pos.data.source.local.product.ProductLocalDataSource
-import com.fire.pos.data.source.local.product.ProductLocalDataSourceImpl
 import com.fire.pos.data.source.remote.account.AccountRemoteDataSource
 import com.fire.pos.data.source.remote.account.AccountRemoteDataSourceImpl
 import com.fire.pos.data.source.remote.product.ProductRemoteDataSource
@@ -30,11 +28,6 @@ interface DataSourceModule {
     fun bindCartLocalDataSource(
         cartLocalDataSourceImpl: CartLocalDataSourceImpl
     ): CartLocalDataSource
-
-    @Binds
-    fun bindProductLocalDataSource(
-        productLocalDataSourceImpl: ProductLocalDataSourceImpl
-    ): ProductLocalDataSource
 
     @Binds
     fun bindAccountRemoteDataSource(

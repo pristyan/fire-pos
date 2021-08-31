@@ -1,10 +1,13 @@
 package com.fire.pos.data.repository.product
 
-import com.fire.pos.data.source.local.product.ProductLocalDataSource
+import com.fire.pos.data.source.local.cart.CartLocalDataSource
 import com.fire.pos.data.source.remote.product.ProductRemoteDataSource
+import com.fire.pos.model.db.ProductCartDbEntity
+import com.fire.pos.model.entity.ProductCartEntity
 import com.fire.pos.model.entity.ProductEntity
 import com.fire.pos.model.response.Result
 import java.io.File
+import java.util.*
 import javax.inject.Inject
 
 
@@ -13,49 +16,50 @@ import javax.inject.Inject
  **/
 
 class ProductRepositoryImpl @Inject constructor(
-    private val productLocalDataSource: ProductLocalDataSource,
-    private val productRemoteDataSource: ProductRemoteDataSource
+    private val productRemoteDataSource: ProductRemoteDataSource,
+    private val cartLocalDataSource: CartLocalDataSource
 ) : ProductRepository {
 
     override suspend fun getProductList(): Result<List<ProductEntity>> {
-
-        // check last fetch time
-        return if (productLocalDataSource.needFetchRemote()) {
-
-            // fetch from fire store
-            when (val result = productRemoteDataSource.getProductList()) {
-                is Result.Error -> Result.Error(result.message)
-                is Result.Success -> {
-
-                    val list = result.data?.documents?.map { doc ->
-                        ProductEntity(doc.id, doc)
-                    } ?: emptyList()
-
-                    // set last fetch time
-                    productLocalDataSource.setLastFetch(System.currentTimeMillis())
-
-                    // insert into room
-                    productLocalDataSource.insertProducts(list)
-
-                    Result.Success(list)
-                }
+        return when (val result = productRemoteDataSource.getProductList()) {
+            is Result.Error -> Result.Error(result.message)
+            is Result.Success -> {
+                val list = result.data?.documents?.map { doc ->
+                    ProductEntity(doc.id, doc)
+                } ?: emptyList()
+                Result.Success(list)
             }
-        } else {
+        }
+    }
 
-            // fetch from room
-            when (val result = productLocalDataSource.getProductList()) {
-                is Result.Error -> Result.Error(result.message)
-                is Result.Success -> Result.Success(
-                    result.data?.map { ProductEntity(it) } ?: emptyList()
-                )
+    override suspend fun getProductWithCart(): Result<List<ProductCartEntity>> {
+        return when (val result = productRemoteDataSource.getProductList()) {
+            is Result.Error -> Result.Error(result.message)
+            is Result.Success -> {
+                val list = result.data?.documents?.map {
+                    ProductCartEntity(it.id, it)
+                } ?: emptyList()
+
+                when (val cartResult = cartLocalDataSource.getCart()) {
+                    is Result.Error -> Result.Error(cartResult.message)
+                    is Result.Success -> {
+                        cartResult.data?.forEach {
+                            list.firstOrNull { p -> p.productId == it.productId }.apply {
+                                this?.id = it.id
+                                this?.qty = it.qty
+                            }
+                        }
+                        Result.Success(list)
+                    }
+                }
             }
         }
     }
 
     override suspend fun getProductId(id: String): Result<ProductEntity> {
-        return when (val result = productLocalDataSource.getProductById(id)) {
+        return when (val result = productRemoteDataSource.getProductById(id)) {
             is Result.Error -> Result.Error(result.message)
-            is Result.Success -> Result.Success(ProductEntity(result.data))
+            is Result.Success -> Result.Success(ProductEntity(id, result.data))
         }
     }
 
@@ -81,12 +85,7 @@ class ProductRepositoryImpl @Inject constructor(
                         // set product id from fire store
                         val docRefs = remoteResult.data
                         productEntity.id = docRefs?.id
-
-                        // add to room
-                        when (val result = productLocalDataSource.insertProduct(productEntity)) {
-                            is Result.Error -> Result.Error(result.message)
-                            is Result.Success -> Result.Success(productEntity)
-                        }
+                        Result.Success(productEntity)
                     }
                 }
             }
@@ -99,18 +98,9 @@ class ProductRepositoryImpl @Inject constructor(
     ): Result<ProductEntity> {
 
         suspend fun update(entity: ProductEntity): Result<ProductEntity> {
-
-            // update fire store
             return when (val remoteResult = productRemoteDataSource.updateProduct(entity)) {
                 is Result.Error -> Result.Error(remoteResult.message)
-                is Result.Success -> {
-
-                    // update room
-                    when (val localResult = productLocalDataSource.updateProduct(entity)) {
-                        is Result.Error -> Result.Error(localResult.message)
-                        is Result.Success -> Result.Success(entity)
-                    }
-                }
+                is Result.Success -> Result.Success(entity)
             }
         }
 
@@ -138,18 +128,49 @@ class ProductRepositoryImpl @Inject constructor(
     }
 
     override suspend fun deleteProduct(id: String): Result<Boolean> {
-
-        // delete from fire store
         return when (val result = productRemoteDataSource.deleteProduct(id)) {
             is Result.Error -> Result.Error(result.message)
-            is Result.Success -> {
+            is Result.Success -> Result.Success(true)
+        }
+    }
 
-                // delete from room
-                when (val localResult = productLocalDataSource.deleteProduct(id)) {
-                    is Result.Error -> Result.Error(localResult.message)
-                    is Result.Success -> Result.Success(localResult.data ?: false)
-                }
-            }
+    override suspend fun addProductToCart(productCartEntity: ProductCartEntity): Result<ProductCartEntity> {
+        val request = ProductCartDbEntity(productCartEntity)
+        return when (val result = cartLocalDataSource.insertCart(request)) {
+            is Result.Error -> Result.Error(result.message)
+            is Result.Success -> Result.Success(ProductCartEntity(result.data))
+        }
+    }
+
+    override suspend fun updateCart(productCartEntity: ProductCartEntity): Result<ProductCartEntity> {
+        val request = ProductCartDbEntity(productCartEntity)
+        return when (val result = cartLocalDataSource.updateCart(request)) {
+            is Result.Error -> Result.Error(result.message)
+            is Result.Success -> Result.Success(ProductCartEntity(result.data))
+        }
+    }
+
+    override suspend fun deleteProductFromCart(productCartEntity: ProductCartEntity): Result<Boolean> {
+        val request = ProductCartDbEntity(productCartEntity)
+        return when (val result = cartLocalDataSource.deleteCart(request)) {
+            is Result.Error -> Result.Error(result.message)
+            is Result.Success -> Result.Success(result.data ?: false)
+        }
+    }
+
+    override suspend fun clearCart(): Result<Boolean> {
+        return when (val result = cartLocalDataSource.clearCart()) {
+            is Result.Error -> Result.Error(result.message)
+            is Result.Success -> Result.Success(result.data ?: false)
+        }
+    }
+
+    override suspend fun getCart(): Result<List<ProductCartEntity>> {
+        return when (val result = cartLocalDataSource.getCart()) {
+            is Result.Error -> Result.Error(result.message)
+            is Result.Success -> Result.Success(
+                result.data?.map { ProductCartEntity(it) } ?: emptyList()
+            )
         }
     }
 

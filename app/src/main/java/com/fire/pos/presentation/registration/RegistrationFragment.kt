@@ -25,7 +25,7 @@ class RegistrationFragment :
     RegistrationView {
 
     @Inject
-    lateinit var viewModelProviderFactory: ViewModelProvider.Factory
+    override lateinit var viewModelProviderFactory: ViewModelProvider.Factory
 
     private var loadingDialog: LoadingDialogFragment? = null
 

@@ -4,6 +4,7 @@ import android.net.Uri
 import com.fire.pos.model.entity.ProductEntity
 import com.fire.pos.model.response.Result
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 import java.io.File
 
@@ -15,6 +16,8 @@ import java.io.File
 interface ProductRemoteDataSource {
 
     suspend fun getProductList(): Result<QuerySnapshot>
+
+    suspend fun getProductById(id: String): Result<DocumentSnapshot>
 
     suspend fun uploadImage(file: File): Result<Uri>
 

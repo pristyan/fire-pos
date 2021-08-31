@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
 import com.fire.pos.util.toIDR
-import com.fire.pos.model.view.Product
 import com.fire.pos.databinding.DialogTransactionQtyBinding
+import com.fire.pos.model.view.ProductCart
 
 
 /**
@@ -20,7 +20,8 @@ class TransactionQtyDialog : DialogFragment() {
 
     private lateinit var binding: DialogTransactionQtyBinding
 
-    private var product: Product? = null
+    private var product: ProductCart? = null
+    private var action: Action? = null
 
     var callback: Callback? = null
 
@@ -56,15 +57,16 @@ class TransactionQtyDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
-            product = it.getSerializable("product") as? Product?
+            product = it.getSerializable("product") as? ProductCart?
+            action = it.get("action") as Action?
         }
 
-        Glide.with(this).load(product?.image).into(binding.imgProduct)
-        binding.tvName.text = product?.name
-        binding.tvPrice.text = product?.price?.toIDR()
+        Glide.with(this).load(product?.productImage).into(binding.imgProduct)
+        binding.tvName.text = product?.productName
+        binding.tvPrice.text = product?.productPrice?.toIDR()
 
         binding.tvQty.text = (product?.qty ?: 1).toString()
-        binding.tvStock.text = "/${product?.stock?.toString()}"
+        binding.tvStock.text = "/${product?.productStock?.toString()}"
 
         binding.btnPlus.setOnClickListener {
             product?.qty = (product?.qty ?: 1) + 1
@@ -80,16 +82,16 @@ class TransactionQtyDialog : DialogFragment() {
 
         binding.btnSave.setOnClickListener {
             product?.let { p ->
-                if (p.qty == null) p.qty = 1
-                callback?.onSaveQty(p)
+                if (action == Action.ADD) callback?.onAdd(p)
+                else callback?.onUpdate(p)
             }
             dismiss()
         }
 
         binding.btnDelete.setOnClickListener {
             product?.let { p ->
-                p.qty = null
-                callback?.onSaveQty(p)
+                p.qty = 0
+                callback?.onDelete(p)
             }
             dismiss()
         }
@@ -98,10 +100,10 @@ class TransactionQtyDialog : DialogFragment() {
     }
 
     private fun updateBtnState() {
-        binding.btnPlus.isEnabled = (product?.qty ?: 1) < (product?.stock ?: 0)
+        binding.btnPlus.isEnabled = (product?.qty ?: 1) < (product?.productStock ?: 0)
         binding.btnMinus.isEnabled = (product?.qty ?: 1) > 0
 
-        if (product?.qty == 0L) {
+        if (product?.qty == 0) {
             binding.btnSave.visibility = View.GONE
             binding.btnDelete.visibility = View.VISIBLE
         } else if (binding.btnSave.visibility == View.GONE) {
@@ -110,7 +112,13 @@ class TransactionQtyDialog : DialogFragment() {
         }
     }
 
+    enum class Action {
+        ADD, UPDATE
+    }
+
     interface Callback {
-        fun onSaveQty(product: Product)
+        fun onAdd(product: ProductCart)
+        fun onUpdate(product: ProductCart)
+        fun onDelete(product: ProductCart)
     }
 }

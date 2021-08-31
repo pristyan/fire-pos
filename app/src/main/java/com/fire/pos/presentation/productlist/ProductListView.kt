@@ -15,6 +15,8 @@ interface ProductListView {
 
     fun searchProduct(keyword: String)
 
+    fun observeNavigation()
+
     fun navigateToProductDetail(product: Product)
 
     fun navigateToAddProduct()

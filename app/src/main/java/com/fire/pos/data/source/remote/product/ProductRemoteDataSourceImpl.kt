@@ -7,10 +7,7 @@ import com.fire.pos.model.entity.ProductEntity
 import com.fire.pos.model.response.Result
 import com.fire.pos.util.await
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.*
 import com.google.firebase.storage.FirebaseStorage
 import java.io.File
 import javax.inject.Inject
@@ -39,11 +36,12 @@ class ProductRemoteDataSourceImpl @Inject constructor(
             .child(StorageConstant.REFERENCE_PRODUCTS)
 
     override suspend fun getProductList(): Result<QuerySnapshot> {
-        val task = firebaseFirestore
-            .collection(FirestoreConstant.COLLECTION_USERS)
-            .document(firebaseAuth.uid as String)
-            .collection(FirestoreConstant.COLLECTION_PRODUCTS)
-            .get()
+        val task = productCollection.get()
+        return task.await()
+    }
+
+    override suspend fun getProductById(id: String): Result<DocumentSnapshot> {
+        val task = productCollection.document(id).get()
         return task.await()
     }
 
