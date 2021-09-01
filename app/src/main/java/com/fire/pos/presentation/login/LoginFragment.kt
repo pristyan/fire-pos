@@ -2,7 +2,6 @@ package com.fire.pos.presentation.login
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fire.pos.R
@@ -13,6 +12,7 @@ import com.fire.pos.presentation.loadingdialog.LoadingDialogFragment
 import com.fire.pos.presentation.login.di.DaggerLoginComponent
 import com.fire.pos.presentation.login.viewmodel.LoginViewModel
 import com.fire.pos.presentation.login.viewmodel.LoginViewModelContract
+import com.fire.pos.util.toast
 import javax.inject.Inject
 
 /**
@@ -53,7 +53,7 @@ class LoginFragment: BaseFragment<LoginViewModel, LoginViewModelContract, Fragme
         })
 
         viewModel.loginError.observe(this, {
-            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            context?.toast(it)
         })
     }
 

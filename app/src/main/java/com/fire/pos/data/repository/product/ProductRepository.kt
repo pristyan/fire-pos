@@ -22,6 +22,8 @@ interface ProductRepository {
 
     suspend fun updateProduct(productEntity: ProductEntity, file: File?): Result<ProductEntity>
 
+    suspend fun updateProductStock(items: List<ProductCartEntity>): Result<Boolean>
+
     suspend fun deleteProduct(id: String): Result<Boolean>
 
     suspend fun addProductToCart(productCartEntity: ProductCartEntity): Result<ProductCartEntity>

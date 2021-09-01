@@ -1,5 +1,7 @@
 package com.fire.pos.presentation.productlist.adapter
 
+import android.graphics.ColorMatrix
+import android.graphics.ColorMatrixColorFilter
 import com.bumptech.glide.Glide
 import com.fire.pos.R
 import com.fire.pos.base.recyclerview.BaseRecyclerAdapter
@@ -27,9 +29,12 @@ class ProductListAdapter @Inject constructor() : BaseRecyclerAdapter<Product, Li
     override fun onBind(binding: ListItemProductBinding, position: Int, item: Product) {
         binding.data = item
         Glide.with(binding.root).load(item.image).into(binding.imgProduct)
-        binding.root.setOnClickListener {
-            callback?.onItemClick(item)
-        }
+
+        val matrix = ColorMatrix()
+        matrix.setSaturation(if (item.isOutOfStock) 0F else 1F)
+        binding.imgProduct.colorFilter = ColorMatrixColorFilter(matrix)
+
+        binding.root.setOnClickListener { callback?.onItemClick(item) }
     }
 
 }

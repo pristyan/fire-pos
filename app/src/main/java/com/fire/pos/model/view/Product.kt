@@ -40,6 +40,9 @@ data class Product(
     val formattedPrice: String
         get() = price.toIDR()
 
+    val isOutOfStock: Boolean
+        get() = stock == 0L
+
     constructor(id: String, data: DocumentSnapshot) : this(
         id = id,
         name = data["name"]?.toString().orEmpty(),

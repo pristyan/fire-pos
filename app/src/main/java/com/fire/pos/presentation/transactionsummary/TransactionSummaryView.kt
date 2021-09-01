@@ -15,4 +15,6 @@ interface TransactionSummaryView {
 
     fun observeNavigation()
 
+    fun navigateToPayment()
+
 }

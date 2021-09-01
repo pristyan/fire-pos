@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="total"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            style="@style/Toolbar.WithNavigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="Payment" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_total_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:layout_marginEnd="@dimen/spacing_medium"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:text="@{total}"
+            android:textColor="@color/color_text_primary"
+            android:textSize="@dimen/text_h1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            tools:text="Rp 100,000" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_label_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/spacing_medium"
+            android:text="@string/tv_total"
+            android:textColor="@color/color_text_secondary"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_total_pay"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_total_pay" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_amount"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:hint="@string/tv_pay_amount"
+            app:boxCornerRadiusBottomEnd="@dimen/spacing_normal"
+            app:boxCornerRadiusBottomStart="@dimen/spacing_normal"
+            app:boxCornerRadiusTopEnd="@dimen/spacing_normal"
+            app:boxCornerRadiusTopStart="@dimen/spacing_normal"
+            app:layout_constraintTop_toBottomOf="@+id/tv_total_pay"
+            app:prefixText="Rp"
+            app:prefixTextColor="@color/color_text_secondary">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:inputType="number"
+                android:textAlignment="textEnd" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/cg_pay_option"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_medium"
+            app:layout_constraintTop_toBottomOf="@+id/til_amount"
+            app:singleSelection="true" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_change"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing_medium"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:enabled="false"
+            app:boxCornerRadiusBottomEnd="@dimen/spacing_normal"
+            app:boxCornerRadiusBottomStart="@dimen/spacing_normal"
+            app:boxCornerRadiusTopEnd="@dimen/spacing_normal"
+            app:boxCornerRadiusTopStart="@dimen/spacing_normal"
+            app:layout_constraintTop_toBottomOf="@+id/cg_pay_option"
+            app:prefixText="@string/tv_change">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_change"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:gravity="end"
+                android:inputType="number"
+                android:text="Rp 0"
+                android:textColor="@color/color_text_secondary"
+                tools:text="- Rp 100,000" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/color_divider" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_pay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_medium"
+                android:enabled="false"
+                android:text="@string/btn_pay" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

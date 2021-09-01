@@ -54,6 +54,9 @@ data class ProductCart(
     val formattedStock: String
         get() = "/$productStock"
 
+    val isSoldOut: Boolean
+        get() = productStock == 0L
+
     constructor(entity: ProductEntity) : this(
         id = "",
         productId = entity.id.orEmpty(),

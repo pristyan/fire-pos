@@ -1,10 +1,14 @@
 package com.fire.pos.presentation.transaction.adapter
 
+import android.graphics.ColorMatrix
+import android.graphics.ColorMatrixColorFilter
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.fire.pos.R
 import com.fire.pos.base.recyclerview.BaseRecyclerAdapter
 import com.fire.pos.databinding.ListItemProductCartBinding
 import com.fire.pos.model.view.ProductCart
+import com.fire.pos.util.toast
 import javax.inject.Inject
 
 
@@ -28,8 +32,13 @@ class ProductCartListAdapter @Inject constructor() :
     override fun onBind(binding: ListItemProductCartBinding, position: Int, item: ProductCart) {
         binding.data = item
         Glide.with(binding.imgProduct.context).load(item.productImage).into(binding.imgProduct)
+
+        val matrix = ColorMatrix()
+        matrix.setSaturation(if (item.isSoldOut) 0F else 1F)
+        binding.imgProduct.colorFilter = ColorMatrixColorFilter(matrix)
         binding.root.setOnClickListener {
-            callback?.onItemClick(item)
+            if (item.isSoldOut) binding.root.context.toast("Sold Out")
+            else callback?.onItemClick(item)
         }
         binding.executePendingBindings()
     }

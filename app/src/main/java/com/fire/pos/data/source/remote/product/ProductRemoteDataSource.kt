@@ -1,6 +1,7 @@
 package com.fire.pos.data.source.remote.product
 
 import android.net.Uri
+import com.fire.pos.model.entity.ProductCartEntity
 import com.fire.pos.model.entity.ProductEntity
 import com.fire.pos.model.response.Result
 import com.google.firebase.firestore.DocumentReference
@@ -26,6 +27,8 @@ interface ProductRemoteDataSource {
     suspend fun addProduct(product: ProductEntity): Result<DocumentReference>
 
     suspend fun updateProduct(product: ProductEntity): Result<Void>
+
+    suspend fun updateProductStock(items: List<ProductCartEntity>): Result<Void>
 
     suspend fun deleteProduct(id: String): Result<Void>
 

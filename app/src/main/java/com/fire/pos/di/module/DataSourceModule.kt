@@ -8,6 +8,8 @@ import com.fire.pos.data.source.remote.account.AccountRemoteDataSource
 import com.fire.pos.data.source.remote.account.AccountRemoteDataSourceImpl
 import com.fire.pos.data.source.remote.product.ProductRemoteDataSource
 import com.fire.pos.data.source.remote.product.ProductRemoteDataSourceImpl
+import com.fire.pos.data.source.remote.transaction.TransactionRemoteDataSource
+import com.fire.pos.data.source.remote.transaction.TransactionRemoteDataSourceImpl
 import dagger.Binds
 import dagger.Module
 
@@ -39,4 +41,8 @@ interface DataSourceModule {
         productRemoteDataSourceImpl: ProductRemoteDataSourceImpl
     ): ProductRemoteDataSource
 
+    @Binds
+    fun bindTransactionDataSource(
+        transactionDataSourceImpl: TransactionRemoteDataSourceImpl
+    ): TransactionRemoteDataSource
 }

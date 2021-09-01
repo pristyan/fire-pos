@@ -3,6 +3,7 @@ package com.fire.pos.data.source.remote.product
 import android.net.Uri
 import com.fire.pos.constant.FirestoreConstant
 import com.fire.pos.constant.StorageConstant
+import com.fire.pos.model.entity.ProductCartEntity
 import com.fire.pos.model.entity.ProductEntity
 import com.fire.pos.model.response.Result
 import com.fire.pos.util.await
@@ -85,6 +86,17 @@ class ProductRemoteDataSourceImpl @Inject constructor(
         )
         val task = productCollection.document(product.id as String).set(data)
         return task.await()
+    }
+
+    override suspend fun updateProductStock(items: List<ProductCartEntity>): Result<Void> {
+        val batch = firebaseFirestore.batch()
+        items.forEach {
+            val newStock = (it.productStock ?: 0L) - it.qty
+            val parameter = mapOf<String, Any>(FirestoreConstant.FIELD_STOCK to newStock)
+            val document = productCollection.document(it.productId)
+            batch.update(document, parameter)
+        }
+        return batch.commit().await()
     }
 
     override suspend fun deleteProduct(id: String): Result<Void> {

@@ -2,7 +2,6 @@ package com.fire.pos.presentation.transaction
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -18,6 +17,7 @@ import com.fire.pos.presentation.transaction.di.DaggerTransactionComponent
 import com.fire.pos.presentation.transaction.viewmodel.TransactionViewModel
 import com.fire.pos.presentation.transaction.viewmodel.TransactionViewModelContract
 import com.fire.pos.presentation.transactionqty.TransactionQtyDialog
+import com.fire.pos.util.toast
 import javax.inject.Inject
 
 
@@ -53,7 +53,7 @@ class TransactionFragment :
         })
 
         viewModel.errorMessage.observe(viewLifecycleOwner, {
-            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            context?.toast(it)
         })
 
         viewModel.productListSuccess.observe(viewLifecycleOwner, {

@@ -2,7 +2,6 @@ package com.fire.pos.presentation.registration
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fire.pos.R
@@ -13,6 +12,7 @@ import com.fire.pos.presentation.loadingdialog.LoadingDialogFragment
 import com.fire.pos.presentation.registration.di.DaggerRegistrationComponent
 import com.fire.pos.presentation.registration.viewmodel.RegistrationViewModel
 import com.fire.pos.presentation.registration.viewmodel.RegistrationViewModelContract
+import com.fire.pos.util.toast
 import javax.inject.Inject
 
 
@@ -48,12 +48,12 @@ class RegistrationFragment :
         })
 
         viewModel.isRegistrationSuccess.observe(this, {
-            Toast.makeText(context, "Registration Success", Toast.LENGTH_SHORT).show()
+            context?.toast("Registration Success")
             navigateToMain()
         })
 
         viewModel.isRegistrationError.observe(this, {
-            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            context?.toast(it)
         })
     }
 

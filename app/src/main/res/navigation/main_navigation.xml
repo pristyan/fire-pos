@@ -96,5 +96,26 @@
     <fragment
         android:id="@+id/transaction_summary_fragment"
         android:name="com.fire.pos.presentation.transactionsummary.TransactionSummaryFragment"
-        tools:layout="@layout/fragment_transaction_summary"/>
+        tools:layout="@layout/fragment_transaction_summary">
+        <action
+            android:id="@+id/action_to_payment"
+            app:destination="@+id/payment_fragment"
+            app:enterAnim="@anim/nav_enter_anim"
+            app:exitAnim="@anim/nav_exit_anim"
+            app:popEnterAnim="@anim/pop_enter_anim"
+            app:popExitAnim="@anim/pop_exit_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/payment_fragment"
+        android:name="com.fire.pos.presentation.payment.PaymentFragment"
+        tools:layout="@layout/fragment_payment">
+        <action
+            android:id="@+id/action_to_home"
+            app:destination="@+id/home_fragment"
+            app:enterAnim="@anim/nav_enter_anim"
+            app:exitAnim="@anim/nav_exit_anim"
+            app:popUpTo="@id/main_navigation"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

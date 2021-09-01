@@ -3,13 +3,13 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="color_primary">#7e57c2</color>
-    <color name="color_primary_dark">#4d2c91</color>
-    <color name="color_primary_light">#b085f5</color>
+    <color name="color_primary">#64B76C</color>
+    <color name="color_primary_dark">#38823F</color>
+    <color name="color_primary_light">#9CD8A2</color>
 
-    <color name="color_secondary">#ffa726</color>
-    <color name="color_secondary_dark">#c77800</color>
-    <color name="color_secondary_light">#ffd95b</color>
+    <color name="color_secondary">#FFD058</color>
+    <color name="color_secondary_dark">#D2A01D</color>
+    <color name="color_secondary_light">#FFE08F</color>
 
     <color name="color_text_primary">#000000</color>
     <color name="color_text_secondary">#898989</color>

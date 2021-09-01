@@ -36,6 +36,22 @@
                 tools:ignore="ImageContrastCheck" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_sold"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:background="#80000000"
+                android:text="SOLD OUT"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_h2"
+                android:fontFamily="sans-serif-black"
+                android:visibility="@{data.isSoldOut ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="@+id/img_product"
+                app:layout_constraintEnd_toEndOf="@+id/img_product"
+                app:layout_constraintStart_toStartOf="@+id/img_product"
+                app:layout_constraintTop_toTopOf="@+id/img_product" />
+
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

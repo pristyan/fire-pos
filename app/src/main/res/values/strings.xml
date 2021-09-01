@@ -32,4 +32,8 @@
     <string name="dialog_title_confirmation">Confirmation</string>
     <string name="dialog_msg_update_product">Are you sure want to update this product?</string>
     <string name="dialog_msg_delete_product">Are you sure want to delete this product?</string>
+    <string name="dialog_msg_payment">Are you sure want to complete this transaction?</string>
+    <string name="btn_pay">Pay</string>
+    <string name="tv_pay_amount">Pay Amount</string>
+    <string name="tv_change">Change</string>
 </resources>

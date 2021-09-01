@@ -127,6 +127,13 @@ class ProductRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun updateProductStock(items: List<ProductCartEntity>): Result<Boolean> {
+        return when (val result = productRemoteDataSource.updateProductStock(items)) {
+            is Result.Error -> Result.Error(result.message)
+            is Result.Success -> Result.Success(true)
+        }
+    }
+
     override suspend fun deleteProduct(id: String): Result<Boolean> {
         return when (val result = productRemoteDataSource.deleteProduct(id)) {
             is Result.Error -> Result.Error(result.message)

@@ -72,9 +72,13 @@
                     android:paddingStart="@dimen/button_padding"
                     android:paddingEnd="@dimen/button_padding"
                     app:icon="@drawable/ic_remove_black_24dp"
+                    app:iconTint="@color/black"
                     app:layout_constraintBottom_toTopOf="@+id/btn_save"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_price" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_price"
+                    app:rippleColor="@color/color_secondary_light"
+                    app:strokeColor="@color/color_secondary"
+                    app:strokeWidth="2dp" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="wrap_content"
@@ -114,10 +118,13 @@
                     android:insetBottom="0dp"
                     android:paddingStart="@dimen/button_padding"
                     android:paddingEnd="@dimen/button_padding"
+                    app:backgroundTint="@color/color_secondary"
                     app:icon="@drawable/ic_add_black_24dp"
+                    app:iconTint="@color/black"
                     app:layout_constraintBottom_toBottomOf="@+id/btn_minus"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/btn_minus" />
+                    app:layout_constraintTop_toTopOf="@+id/btn_minus"
+                    app:rippleColor="@color/color_secondary_dark" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_save"

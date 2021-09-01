@@ -2,7 +2,6 @@ package com.fire.pos.presentation.productlist
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -17,6 +16,7 @@ import com.fire.pos.presentation.productlist.adapter.ProductListAdapter
 import com.fire.pos.presentation.productlist.di.DaggerProductListComponent
 import com.fire.pos.presentation.productlist.viewmodel.ProductListViewModel
 import com.fire.pos.presentation.productlist.viewmodel.ProductListViewModelContract
+import com.fire.pos.util.toast
 import com.fire.pos.util.visible
 import javax.inject.Inject
 
@@ -67,7 +67,7 @@ class ProductListFragment :
         })
 
         viewModel.productListError.observe(viewLifecycleOwner, {
-            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            context?.toast(it)
         })
     }
 

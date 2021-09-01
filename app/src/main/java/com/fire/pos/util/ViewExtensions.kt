@@ -2,12 +2,17 @@ package com.fire.pos.util
 
 import android.content.Context
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 
 
 /**
  * Created by Chandra.
  **/
+
+fun Context.toast(message: String) {
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+}
 
 fun View.visible(isVisible: Boolean) {
     visibility = if (isVisible) View.VISIBLE else View.GONE

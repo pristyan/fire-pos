@@ -2,7 +2,6 @@ package com.fire.pos.presentation.transactionsummary
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -17,6 +16,7 @@ import com.fire.pos.presentation.transactionsummary.di.DaggerTransactionSummaryC
 import com.fire.pos.presentation.transactionsummary.viewmodel.TransactionSummaryViewModel
 import com.fire.pos.presentation.transactionsummary.viewmodel.TransactionSummaryViewModelContract
 import com.fire.pos.util.showConfirmationDialog
+import com.fire.pos.util.toast
 import javax.inject.Inject
 
 
@@ -64,7 +64,7 @@ class TransactionSummaryFragment :
         })
 
         viewModel.errorMessage.observe(viewLifecycleOwner, {
-            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            context?.toast(it)
         })
 
         viewModel.totalUpdate.observe(viewLifecycleOwner, {
@@ -80,18 +80,14 @@ class TransactionSummaryFragment :
     }
 
     override fun initView() {
-        binding.toolbar.setupNavigationBack {
-            setBackStackState()
-        }
+        binding.toolbar.setupNavigationBack { setBackStackState() }
 
         binding.btnAddMore.setOnClickListener {
             setBackStackState()
             findNavController().popBackStack()
         }
 
-        binding.btnPay.setOnClickListener {
-
-        }
+        binding.btnPay.setOnClickListener { navigateToPayment() }
 
         binding.srlCart.setOnRefreshListener { getCartList() }
 
@@ -144,5 +140,10 @@ class TransactionSummaryFragment :
                     findNavController().popBackStack()
                 }
             })
+    }
+
+    override fun navigateToPayment() {
+        val action = TransactionSummaryFragmentDirections.actionToPayment()
+        findNavController().navigate(action)
     }
 }

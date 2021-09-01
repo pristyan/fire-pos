@@ -4,12 +4,14 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.fire.pos.data.repository.account.AccountRepository
 import com.fire.pos.data.repository.product.ProductRepository
+import com.fire.pos.data.repository.transaction.TransactionRepository
 import com.fire.pos.data.source.local.account.AccountLocalDataSource
 import com.fire.pos.di.module.AndroidContextModule
 import com.fire.pos.di.module.AppModule
 import com.fire.pos.data.source.local.cart.CartLocalDataSource
 import com.fire.pos.data.source.remote.account.AccountRemoteDataSource
 import com.fire.pos.data.source.remote.product.ProductRemoteDataSource
+import com.fire.pos.data.source.remote.transaction.TransactionRemoteDataSource
 import com.fire.pos.database.AppDatabase
 import com.fire.pos.scheduler.SchedulerProvider
 import com.google.firebase.auth.FirebaseAuth
@@ -44,6 +46,8 @@ interface AppComponent {
 
     fun productRepository(): ProductRepository
 
+    fun transactionRepository(): TransactionRepository
+
     // local data source
     fun accountLocalDataSource(): AccountLocalDataSource
 
@@ -54,4 +58,5 @@ interface AppComponent {
 
     fun productRemoteDataSource(): ProductRemoteDataSource
 
+    fun transactionRemoteDataSource(): TransactionRemoteDataSource
 }

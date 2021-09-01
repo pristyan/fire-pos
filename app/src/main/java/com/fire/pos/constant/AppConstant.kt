@@ -20,4 +20,6 @@ object AppConstant {
     const val COL_PRODUCT_CART_QTY = "qty"
 
     const val NEED_REFRESH = "need_refresh"
+
+    const val PAYMENT_METHOD_CASH = "cash"
 }

@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
@@ -102,23 +101,23 @@ class ProductDetailFragment :
         })
 
         viewModel.productError.observe(this, {
-            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+            context?.toast(it)
         })
 
         viewModel.addProductSuccess.observe(this, {
-            Toast.makeText(context, "Product added successfully", Toast.LENGTH_SHORT).show()
+            context?.toast("Product added successfully")
             setBackStackState(true)
             findNavController().popBackStack()
         })
 
         viewModel.updateProductSuccess.observe(this, {
-            Toast.makeText(context, "Product updated successfully", Toast.LENGTH_SHORT).show()
+            context?.toast("Product updated successfully")
             setBackStackState(true)
             findNavController().popBackStack()
         })
 
         viewModel.deleteProductSuccess.observe(this, {
-            Toast.makeText(context, "Product deleted successfully", Toast.LENGTH_SHORT).show()
+            context?.toast("Product deleted successfully")
             setBackStackState(true)
             findNavController().popBackStack()
         })
@@ -272,11 +271,7 @@ class ProductDetailFragment :
 
                 override fun onImagePickerError(error: Throwable, source: MediaSource) {
                     error.printStackTrace()
-                    Toast.makeText(
-                        requireContext(),
-                        error.message ?: "Failed to pick an image",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    context?.toast(error.message ?: "Failed to pick an image")
                 }
 
                 override fun onMediaFilesPicked(imageFiles: Array<MediaFile>, source: MediaSource) {
