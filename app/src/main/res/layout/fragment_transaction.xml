@@ -22,14 +22,13 @@
         android:background="#fefefe"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
+            style="@style/Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/design_default_color_primary"
             app:layout_constraintTop_toTopOf="parent"
-            app:title="Transaction"
-            app:titleTextColor="@color/white" />
+            app:title="Transaction" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edt_search"
@@ -95,8 +94,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/tv_total"
                     android:textAllCaps="true"
-                    android:textColor="#808080"
-                    android:textSize="@dimen/text_caption"
+                    android:textAppearance="@style/Text.Caption"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -104,9 +102,10 @@
                     android:id="@+id/tv_price_total"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_h2"
+                    android:fontFamily="sans-serif-condensed-medium"
                     android:text="@{total}"
+                    android:textColor="@color/color_text_primary"
+                    android:textSize="@dimen/text_h2"
                     app:layout_constraintEnd_toStartOf="@+id/btn_summary"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_total"

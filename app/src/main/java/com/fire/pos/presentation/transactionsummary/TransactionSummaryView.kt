@@ -11,7 +11,7 @@ interface TransactionSummaryView {
 
     fun getCartList()
 
-    fun navigateBack()
+    fun setBackStackState()
 
     fun observeNavigation()
 

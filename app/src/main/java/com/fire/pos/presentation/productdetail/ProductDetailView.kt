@@ -20,6 +20,6 @@ interface ProductDetailView {
 
     fun updateProduct()
 
-    fun navigateBack(needRefresh: Boolean)
+    fun setBackStackState(needRefresh: Boolean)
 
 }

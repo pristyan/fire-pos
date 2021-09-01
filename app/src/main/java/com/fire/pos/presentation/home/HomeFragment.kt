@@ -69,7 +69,7 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeViewModelContract, Fragment
     }
 
     private fun setActivePage(position: Int): Boolean {
-        binding.vpHome.currentItem = position
+        binding.vpHome.setCurrentItem(position, false)
         return true
     }
 

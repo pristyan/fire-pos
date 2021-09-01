@@ -11,12 +11,11 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
+            style="@style/Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/design_default_color_primary"
-            app:title="Account"
-            app:titleTextColor="@color/white" />
+            app:title="Account" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_logout"

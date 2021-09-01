@@ -14,14 +14,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
+            style="@style/Toolbar.WithNavigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:elevation="@dimen/spacing_small"
-            app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
-            app:title="Product Detail"
-            app:titleTextColor="@color/black" />
+            app:title="Product Detail" />
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"

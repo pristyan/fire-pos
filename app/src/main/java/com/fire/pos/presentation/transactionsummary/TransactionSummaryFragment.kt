@@ -80,7 +80,18 @@ class TransactionSummaryFragment :
     }
 
     override fun initView() {
-        binding.toolbar.setNavigationOnClickListener { navigateBack() }
+        binding.toolbar.setupNavigationBack {
+            setBackStackState()
+        }
+
+        binding.btnAddMore.setOnClickListener {
+            setBackStackState()
+            findNavController().popBackStack()
+        }
+
+        binding.btnPay.setOnClickListener {
+
+        }
 
         binding.srlCart.setOnRefreshListener { getCartList() }
 
@@ -118,18 +129,20 @@ class TransactionSummaryFragment :
         getCartList()
     }
 
-    override fun navigateBack() {
+    override fun setBackStackState() {
         findNavController().previousBackStackEntry
             ?.savedStateHandle
             ?.set(AppConstant.NEED_REFRESH, true)
-        findNavController().popBackStack()
     }
 
     override fun observeNavigation() {
         requireActivity()
             .onBackPressedDispatcher
             .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() = navigateBack()
+                override fun handleOnBackPressed() {
+                    setBackStackState()
+                    findNavController().popBackStack()
+                }
             })
     }
 }

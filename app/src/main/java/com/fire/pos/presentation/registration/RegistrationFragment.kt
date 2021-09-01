@@ -65,10 +65,7 @@ class RegistrationFragment :
     }
 
     override fun initView() {
-        binding.toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp)
-        binding.toolbar.setNavigationOnClickListener {
-            findNavController().popBackStack()
-        }
+        binding.toolbar.setupNavigationBack()
         binding.btnRegistration.setOnClickListener { register() }
         loadingDialog = LoadingDialogFragment.instance()
     }

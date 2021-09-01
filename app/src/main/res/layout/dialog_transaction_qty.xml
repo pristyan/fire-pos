@@ -40,7 +40,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/spacing_medium"
                     android:layout_marginTop="@dimen/spacing_medium"
-                    android:textColor="@color/black"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:textColor="@color/color_text_primary"
+                    android:textSize="@dimen/text_content_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/img_product"
@@ -51,7 +53,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/spacing_medium"
-                    android:textColor="#808080"
+                    android:textColor="@color/color_text_secondary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_name"
@@ -89,8 +91,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_small"
-                        android:textColor="@color/black"
+                        android:textColor="@color/color_text_primary"
                         android:textSize="@dimen/text_appbar_title"
+                        android:textStyle="bold"
                         tools:text="2" />
 
                     <androidx.appcompat.widget.AppCompatTextView
@@ -98,8 +101,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/spacing_medium"
-                        android:textColor="#a0a0a0"
-                        android:textSize="@dimen/text_caption"
+                        android:textAppearance="@style/Text.Caption"
                         tools:text="/10" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 

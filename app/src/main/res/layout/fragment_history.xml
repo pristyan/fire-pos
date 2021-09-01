@@ -10,10 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             app:title="History"
-            app:titleTextColor="@color/white"
-            android:background="@color/design_default_color_primary"
+            style="@style/Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

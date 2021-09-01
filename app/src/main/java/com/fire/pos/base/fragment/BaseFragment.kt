@@ -9,8 +9,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.fire.pos.base.viewmodel.BaseViewModel
 import com.fire.pos.base.viewmodel.BaseViewModelContract
+import com.google.android.material.appbar.MaterialToolbar
 
 
 /**
@@ -47,6 +49,13 @@ abstract class BaseFragment<VM : BaseViewModel, VMC : BaseViewModelContract, VB 
     ): View? {
         binding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
         return binding.root
+    }
+
+    fun MaterialToolbar.setupNavigationBack(beforeBack: (() -> Unit)? = null) {
+        setNavigationOnClickListener {
+            beforeBack?.invoke()
+            findNavController().popBackStack()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

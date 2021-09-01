@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
+
         <variable
             name="data"
             type="com.fire.pos.model.view.ProductCart" />
@@ -39,8 +41,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/spacing_normal"
                 android:layout_marginTop="@dimen/spacing_normal"
-                android:textColor="@color/black"
+                android:fontFamily="sans-serif-condensed-medium"
                 android:text="@{data.productName}"
+                android:textColor="@color/color_text_primary"
                 app:layout_constraintEnd_toStartOf="@+id/tv_qty"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/img_product"
@@ -53,7 +56,7 @@
                 android:layout_marginHorizontal="@dimen/spacing_normal"
                 android:layout_marginBottom="@dimen/spacing_normal"
                 android:text="@{data.formattedPrice}"
-                android:textColor="#757575"
+                android:textColor="@color/color_text_secondary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tv_qty"
                 app:layout_constraintStart_toStartOf="parent"
@@ -62,17 +65,17 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_qty"
-                app:layout_constraintTop_toTopOf="@+id/tv_name"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_price"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/spacing_normal"
-                android:textColor="@color/design_default_color_primary"
+                android:text="@{data.formattedQty}"
+                android:textColor="@color/color_primary"
                 android:textSize="@dimen/text_content_title"
                 android:textStyle="bold"
-                android:text="@{data.formattedQty}"
                 android:visibility="@{data.showQty ? View.VISIBLE : View.INVISIBLE}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                app:layout_constraintBottom_toBottomOf="@+id/tv_price"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tv_name" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>

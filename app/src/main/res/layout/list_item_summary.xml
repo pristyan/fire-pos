@@ -27,9 +27,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
+                android:fontFamily="sans-serif-condensed-medium"
                 android:maxLines="1"
                 android:text="@{data.productName}"
-                android:textColor="@color/black"
+                android:textColor="@color/color_text_primary"
                 app:layout_constraintEnd_toStartOf="@+id/tv_subtotal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -39,8 +40,8 @@
                 android:id="@+id/tv_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@{data.formattedPrice}"
-                android:textSize="@dimen/text_caption"
+                android:text="@{data.formattedPriceCart}"
+                android:textAppearance="@style/Text.Caption"
                 app:layout_constraintEnd_toStartOf="@+id/tv_subtotal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_name"
@@ -50,8 +51,9 @@
                 android:id="@+id/tv_subtotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed-medium"
                 android:text="@{data.formattedSubtotal}"
-                android:textColor="@color/black"
+                android:textColor="@color/color_text_primary"
                 android:textSize="@dimen/text_content_title"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_price"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -90,8 +92,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/spacing_small"
                     android:text="@{String.valueOf(data.qty)}"
-                    android:textColor="@color/black"
+                    android:textColor="@color/color_text_primary"
                     android:textSize="@dimen/text_appbar_title"
+                    android:textStyle="bold"
                     tools:text="2" />
 
                 <androidx.appcompat.widget.AppCompatTextView
@@ -99,8 +102,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{data.formattedStock}"
-                    android:textColor="#a0a0a0"
-                    android:textSize="@dimen/text_caption"
+                    android:textAppearance="@style/Text.Caption"
                     tools:text="/10" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 

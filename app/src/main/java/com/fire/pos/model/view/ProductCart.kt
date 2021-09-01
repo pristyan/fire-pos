@@ -42,6 +42,9 @@ data class ProductCart(
     val formattedPrice: String
         get() = productPrice.toIDR()
 
+    val formattedPriceCart: String
+        get() = "@${productPrice.toIDR()}"
+
     val formattedQty: String
         get() = "x$qty"
 

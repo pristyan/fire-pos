@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="data"
             type="com.fire.pos.model.view.Product" />
@@ -37,8 +38,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/spacing_normal"
                 android:layout_marginTop="@dimen/spacing_normal"
-                android:textColor="@color/black"
                 android:text="@{data.name}"
+                android:textColor="@color/color_text_primary"
+                android:fontFamily="sans-serif-condensed-medium"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/img_product"
@@ -50,8 +52,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/spacing_normal"
                 android:layout_marginBottom="@dimen/spacing_normal"
-                android:textColor="#808080"
                 android:text="@{data.formattedPrice}"
+                android:textColor="@color/color_text_secondary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -107,22 +107,25 @@ class ProductDetailFragment :
 
         viewModel.addProductSuccess.observe(this, {
             Toast.makeText(context, "Product added successfully", Toast.LENGTH_SHORT).show()
-            navigateBack(true)
+            setBackStackState(true)
+            findNavController().popBackStack()
         })
 
         viewModel.updateProductSuccess.observe(this, {
             Toast.makeText(context, "Product updated successfully", Toast.LENGTH_SHORT).show()
-            navigateBack(true)
+            setBackStackState(true)
+            findNavController().popBackStack()
         })
 
         viewModel.deleteProductSuccess.observe(this, {
             Toast.makeText(context, "Product deleted successfully", Toast.LENGTH_SHORT).show()
-            navigateBack(true)
+            setBackStackState(true)
+            findNavController().popBackStack()
         })
     }
 
     override fun initView() {
-        binding.toolbar.setNavigationOnClickListener { navigateBack(false) }
+        binding.toolbar.setupNavigationBack { setBackStackState(true) }
 
         arguments?.let {
             val isEditMode = ProductDetailFragmentArgs.fromBundle(it).isEditMode
@@ -283,11 +286,10 @@ class ProductDetailFragment :
             })
     }
 
-    override fun navigateBack(needRefresh: Boolean) {
+    override fun setBackStackState(needRefresh: Boolean) {
         findNavController().previousBackStackEntry
             ?.savedStateHandle
             ?.set(AppConstant.NEED_REFRESH, needRefresh)
-        findNavController().popBackStack()
     }
 
 }

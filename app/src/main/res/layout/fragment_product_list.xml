@@ -11,14 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
+            style="@style/Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/design_default_color_primary"
             app:layout_constraintTop_toTopOf="parent"
-            app:title="Product"
-            app:titleTextColor="@color/white" />
+            app:title="Product" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edt_search"

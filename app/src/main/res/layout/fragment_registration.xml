@@ -11,13 +11,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.Toolbar
+        <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
+            style="@style/Toolbar.WithNavigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/design_default_color_primary"
-            app:title="Registration"
-            app:titleTextColor="@color/white" />
+            app:title="Registration" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_email"
