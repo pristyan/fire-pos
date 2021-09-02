@@ -12,4 +12,7 @@ interface TransactionRepository {
 
     suspend fun createTransaction(entity: TransactionEntity): Result<Boolean>
 
+    suspend fun getTransactionList(): Result<List<TransactionEntity>>
+
+    suspend fun getTransactionDetail(id: String): Result<TransactionEntity>
 }

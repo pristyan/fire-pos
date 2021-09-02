@@ -1,5 +1,6 @@
 package com.fire.pos.model.entity
 
+import com.fire.pos.constant.FirestoreConstant
 import com.fire.pos.model.db.ProductCartDbEntity
 import com.fire.pos.model.view.ProductCart
 import com.google.firebase.firestore.DocumentSnapshot
@@ -64,6 +65,16 @@ data class ProductCartEntity(
         productImage = data.productImage,
         productStock = data.productStock,
         qty = data.qty
+    )
+
+    constructor(data: DocumentSnapshot?) : this(
+        id = data?.id.orEmpty(),
+        productId = data?.getString(FirestoreConstant.FIELD_CART_PRODUCT_ID).orEmpty(),
+        productName = data?.getString(FirestoreConstant.FIELD_CART_PRODUCT_NAME).orEmpty(),
+        productPrice = data?.getLong(FirestoreConstant.FIELD_CART_PRODUCT_PRICE) ?: 0L,
+        productImage = data?.getString(FirestoreConstant.FIELD_CART_PRODUCT_IMAGE).orEmpty(),
+        productStock = null,
+        qty = (data?.get(FirestoreConstant.FIELD_CART_QTY)?.toString() ?: "0").toInt()
     )
 
 }

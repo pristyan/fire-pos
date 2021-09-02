@@ -5,12 +5,10 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
-import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fire.pos.R
 import com.fire.pos.base.fragment.BaseFragment
-import com.fire.pos.constant.AppConstant
 import com.fire.pos.databinding.FragmentPaymentBinding
 import com.fire.pos.di.appComponent
 import com.fire.pos.presentation.loadingdialog.LoadingDialogFragment
@@ -88,7 +86,7 @@ class PaymentFragment :
 
     override fun initView() {
         loadingDialog = LoadingDialogFragment.instance()
-        binding.toolbar.setupNavigationBack { setBackStackState() }
+        binding.toolbar.setupNavigationBack()
         binding.edtAmount.requestFocus()
 
         binding.btnPay.setOnClickListener {
@@ -170,23 +168,6 @@ class PaymentFragment :
         viewModel.pay()
     }
 
-    override fun setBackStackState() {
-        findNavController().previousBackStackEntry
-            ?.savedStateHandle
-            ?.set(AppConstant.NEED_REFRESH, true)
-    }
-
-    override fun observeBackPress() {
-        requireActivity()
-            .onBackPressedDispatcher
-            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    setBackStackState()
-                    findNavController().popBackStack()
-                }
-            })
-    }
-
     override fun navigateToHome() {
         val action = PaymentFragmentDirections.actionToHome()
         findNavController().navigate(action)
@@ -194,7 +175,6 @@ class PaymentFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observeBackPress()
         initView()
         getCartTotal()
     }

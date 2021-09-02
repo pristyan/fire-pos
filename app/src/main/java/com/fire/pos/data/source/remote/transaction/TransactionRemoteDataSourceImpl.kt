@@ -5,9 +5,7 @@ import com.fire.pos.model.entity.TransactionEntity
 import com.fire.pos.model.response.Result
 import com.fire.pos.util.await
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.*
 import javax.inject.Inject
 
 
@@ -18,7 +16,7 @@ import javax.inject.Inject
 class TransactionRemoteDataSourceImpl @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val firebaseFirestore: FirebaseFirestore
-): TransactionRemoteDataSource {
+) : TransactionRemoteDataSource {
 
     private val transactionCollection: CollectionReference
         get() = firebaseFirestore
@@ -26,25 +24,23 @@ class TransactionRemoteDataSourceImpl @Inject constructor(
             .document(firebaseAuth.uid as String)
             .collection(FirestoreConstant.COLLECTION_TRANSACTIONS)
 
-    override suspend fun createTransaction(entity: TransactionEntity): Result<DocumentReference> {
+    override suspend fun createTransaction(entity: TransactionEntity): Result<Void> {
         val parameter = mapOf<String, Any>(
+            FirestoreConstant.FIELD_TRANSACTION_ID to entity.id.orEmpty(),
             FirestoreConstant.FIELD_PAYMENT_METHOD to entity.paymentMethod.orEmpty(),
             FirestoreConstant.FIELD_TOTAL to entity.totalPrice,
             FirestoreConstant.FIELD_CREATED_AT to entity.createdAt.orEmpty()
         )
-        val task = transactionCollection.add(parameter)
+        val task = transactionCollection.document(entity.id.orEmpty()).set(parameter)
         return task.await()
     }
 
-    override suspend fun insertTransactionItems(
-        id: String,
-        entity: TransactionEntity
-    ): Result<Void> {
+    override suspend fun insertTransactionItems(entity: TransactionEntity): Result<Void> {
         val batch = firebaseFirestore.batch()
 
         entity.items?.forEach {
             val collection = transactionCollection
-                .document(id)
+                .document(entity.id.orEmpty())
                 .collection(FirestoreConstant.COLLECTION_TRANSACTION_ITEMS)
 
             val parameter = mapOf<String, Any>(
@@ -62,4 +58,21 @@ class TransactionRemoteDataSourceImpl @Inject constructor(
         return batch.commit().await()
     }
 
+    override suspend fun getTransactionList(): Result<QuerySnapshot> {
+        val task = transactionCollection.get()
+        return task.await()
+    }
+
+    override suspend fun getTransactionDetail(id: String): Result<DocumentSnapshot> {
+        val task = transactionCollection.document(id).get()
+        return task.await()
+    }
+
+    override suspend fun getTransactionItems(id: String): Result<QuerySnapshot> {
+        val task = transactionCollection
+            .document(id)
+            .collection(FirestoreConstant.COLLECTION_TRANSACTION_ITEMS)
+            .get()
+        return task.await()
+    }
 }

@@ -76,6 +76,20 @@
             app:exitAnim="@anim/nav_exit_anim"
             app:popEnterAnim="@anim/pop_enter_anim"
             app:popExitAnim="@anim/pop_exit_anim" />
+
+        <action
+            android:id="@+id/action_to_history_detail"
+            app:destination="@+id/history_detail_fragment"
+            app:enterAnim="@anim/nav_enter_anim"
+            app:exitAnim="@anim/nav_exit_anim"
+            app:popEnterAnim="@anim/pop_enter_anim"
+            app:popExitAnim="@anim/pop_exit_anim">
+
+            <argument
+                android:name="transactionId"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
     </fragment>
 
     <fragment
@@ -117,5 +131,15 @@
             app:exitAnim="@anim/nav_exit_anim"
             app:popUpTo="@id/main_navigation"
             app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/history_detail_fragment"
+        android:name="com.fire.pos.presentation.historydetail.HistoryDetailFragment"
+        tools:layout="@layout/fragment_history_detail">
+        <argument
+            android:name="transactionId"
+            app:argType="string"
+            app:nullable="false" />
     </fragment>
 </navigation>

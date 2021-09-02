@@ -1,6 +1,8 @@
 package com.fire.pos.model.view
 
 import com.fire.pos.model.entity.TransactionEntity
+import com.fire.pos.util.normalizeDate
+import com.fire.pos.util.toIDR
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
@@ -30,4 +32,9 @@ data class Transaction(
         items = entity?.items?.map { ProductCart(it) } ?: emptyList()
     )
 
+    val formattedTotal: String
+        get() = total.toIDR()
+
+    val normalizedDate: String
+        get() = createdAt.normalizeDate()
 }

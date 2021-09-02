@@ -1,5 +1,7 @@
 package com.fire.pos.model.entity
 
+import com.fire.pos.constant.FirestoreConstant
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
@@ -27,7 +29,22 @@ data class TransactionEntity(
 
 ): Serializable {
 
+    constructor(data: DocumentSnapshot?): this(
+        id = data?.id,
+        paymentMethod = data?.getString(FirestoreConstant.FIELD_PAYMENT_METHOD).orEmpty(),
+        total = data?.getLong(FirestoreConstant.FIELD_TOTAL) ?: 0L,
+        createdAt = data?.getString(FirestoreConstant.FIELD_CREATED_AT).orEmpty(),
+        items = null
+    )
+
+    constructor(data: DocumentSnapshot?, items: List<ProductCartEntity>): this(
+        id = data?.id,
+        paymentMethod = data?.getString(FirestoreConstant.FIELD_PAYMENT_METHOD).orEmpty(),
+        total = data?.getLong(FirestoreConstant.FIELD_TOTAL) ?: 0L,
+        createdAt = data?.getString(FirestoreConstant.FIELD_CREATED_AT).orEmpty(),
+        items = items
+    )
+
     val totalPrice: Long
         get() = items?.sumOf { it.qty * it.productPrice } ?: 0L
-
 }

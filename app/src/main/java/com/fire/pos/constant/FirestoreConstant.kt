@@ -22,6 +22,7 @@ object FirestoreConstant {
     const val FIELD_IMAGE = "image"
     const val FIELD_IMAGE_FILE_NAME = "image_file_name"
 
+    const val FIELD_TRANSACTION_ID = "id"
     const val FIELD_PAYMENT_METHOD = "payment_method"
     const val FIELD_TOTAL = "total"
     const val FIELD_CREATED_AT = "created_at"

@@ -33,7 +33,7 @@ class PaymentInteractorImpl @Inject constructor(
     override suspend fun pay(items: List<ProductCart>): Result<Boolean> {
         val cartList = items.map { ProductCartEntity(it) }
         val request = TransactionEntity(
-            id = null,
+            id = "TRX-${System.currentTimeMillis()}",
             items = cartList,
             paymentMethod = AppConstant.PAYMENT_METHOD_CASH,
             total = items.sumOf { it.qty * it.productPrice },

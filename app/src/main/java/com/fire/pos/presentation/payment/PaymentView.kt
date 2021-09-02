@@ -15,10 +15,6 @@ interface PaymentView {
 
     fun calculateChange()
 
-    fun setBackStackState()
-
-    fun observeBackPress()
-
     fun pay()
 
     fun navigateToHome()
