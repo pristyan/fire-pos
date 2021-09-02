@@ -2,6 +2,7 @@ package com.fire.pos.presentation.transaction
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -86,6 +87,15 @@ class TransactionFragment :
     }
 
     override fun initView() {
+        val searchView = binding.toolbar.menu.getItem(0).actionView as SearchView
+        searchView.queryHint = "Product Name"
+        searchView.setIconifiedByDefault(true)
+        searchView.setOnCloseListener { searchProduct("") }
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean = true
+            override fun onQueryTextChange(newText: String?): Boolean = searchProduct(newText)
+        })
+
         productAdapter.callback = this
         binding.rvProduct.adapter = productAdapter
         binding.srlTransaction.setOnRefreshListener { getProductList() }
@@ -137,6 +147,15 @@ class TransactionFragment :
             }
         }
         dialog.show(childFragmentManager, "dialog")
+    }
+
+    override fun searchProduct(keyword: String?): Boolean {
+        val filteredList = viewModel.productListSuccess.value?.filter {
+            it.productName.contains(keyword.orEmpty(), true)
+        } ?: emptyList()
+        productAdapter.clearItems()
+        productAdapter.setItems(filteredList)
+        return true
     }
 
 }

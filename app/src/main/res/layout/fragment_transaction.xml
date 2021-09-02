@@ -22,34 +22,27 @@
         android:background="#fefefe"
         android:orientation="vertical">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            style="@style/Toolbar"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:title="Transaction" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/edt_search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#e6e6e6"
-            android:drawableEnd="@drawable/ic_search_black_24dp"
-            android:hint="@string/hint_search_product"
-            android:imeOptions="actionDone"
-            android:inputType="text"
-            android:maxLines="1"
-            android:paddingHorizontal="@dimen/spacing_medium"
-            android:paddingVertical="@dimen/input_padding"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                style="@style/Toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:menu="@menu/menu_search"
+                app:title="Product" />
+        </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/srl_transaction"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edt_search">
+            app:layout_constraintTop_toBottomOf="@+id/appbar">
 
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/nv_transaction"

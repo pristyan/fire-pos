@@ -13,7 +13,7 @@ interface ProductListView {
 
     fun getProductList()
 
-    fun searchProduct(keyword: String)
+    fun searchProduct(keyword: String?): Boolean
 
     fun observeNavigation()
 

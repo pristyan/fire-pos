@@ -15,4 +15,5 @@ interface TransactionView {
 
     fun navigateToSummary()
 
+    fun searchProduct(keyword: String?): Boolean
 }

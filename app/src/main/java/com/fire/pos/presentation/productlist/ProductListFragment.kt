@@ -2,6 +2,7 @@ package com.fire.pos.presentation.productlist
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -79,8 +80,17 @@ class ProductListFragment :
         }
 
         productListAdapter.clearItems()
+
+        val searchView = binding.toolbar.menu.getItem(0).actionView as SearchView
+        searchView.queryHint = "Product Name"
+        searchView.setIconifiedByDefault(true)
+        searchView.setOnCloseListener { searchProduct("") }
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean = true
+            override fun onQueryTextChange(newText: String?): Boolean = searchProduct(newText)
+        })
+
         binding.rvProduct.adapter = productListAdapter
-        binding.edtSearch.doAfterTextChanged { searchProduct(it.toString()) }
         binding.fabAdd.setOnClickListener { navigateToAddProduct() }
         binding.srlProduct.setOnRefreshListener { getProductList() }
     }
@@ -96,12 +106,13 @@ class ProductListFragment :
         viewModel.getProductList()
     }
 
-    override fun searchProduct(keyword: String) {
-        /*val filteredList = products.filter {
-            it.name.contains(keyword, true)
-        }
-        productListAdapter.clear()
-        productListAdapter.setList(filteredList)*/
+    override fun searchProduct(keyword: String?): Boolean {
+        val filteredList = viewModel.productListSuccess.value?.filter {
+            it.name.contains(keyword.orEmpty(), true)
+        } ?: emptyList()
+        productListAdapter.clearItems()
+        productListAdapter.setItems(filteredList)
+        return true
     }
 
     override fun observeNavigation() {
