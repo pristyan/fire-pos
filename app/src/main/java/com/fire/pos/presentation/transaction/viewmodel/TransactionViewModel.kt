@@ -64,7 +64,7 @@ class TransactionViewModel @Inject constructor(
     override fun getProductList(): Job = launch(schedulerProvider.ui()){
         setLoading(true)
         val result = withContext(schedulerProvider.io()) {
-            transactionInteractor.getProductList()
+            transactionInteractor.getProductWithCartList()
         }
 
         when (result) {

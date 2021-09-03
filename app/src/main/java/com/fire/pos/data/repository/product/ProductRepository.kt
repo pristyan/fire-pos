@@ -14,8 +14,6 @@ interface ProductRepository {
 
     suspend fun getProductList(): Result<List<ProductEntity>>
 
-    suspend fun getProductWithCart(): Result<List<ProductCartEntity>>
-
     suspend fun getProductId(id: String): Result<ProductEntity>
 
     suspend fun addProduct(productEntity: ProductEntity, file: File): Result<ProductEntity>
@@ -25,15 +23,5 @@ interface ProductRepository {
     suspend fun updateProductStock(items: List<ProductCartEntity>): Result<Boolean>
 
     suspend fun deleteProduct(id: String): Result<Boolean>
-
-    suspend fun addProductToCart(productCartEntity: ProductCartEntity): Result<ProductCartEntity>
-
-    suspend fun updateCart(productCartEntity: ProductCartEntity): Result<ProductCartEntity>
-
-    suspend fun deleteProductFromCart(productCartEntity: ProductCartEntity): Result<Boolean>
-
-    suspend fun clearCart(): Result<Boolean>
-
-    suspend fun getCart(): Result<List<ProductCartEntity>>
 
 }

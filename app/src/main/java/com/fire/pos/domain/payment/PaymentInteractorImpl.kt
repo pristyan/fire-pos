@@ -1,6 +1,7 @@
 package com.fire.pos.domain.payment
 
 import com.fire.pos.constant.AppConstant
+import com.fire.pos.data.repository.cart.CartRepository
 import com.fire.pos.data.repository.product.ProductRepository
 import com.fire.pos.data.repository.transaction.TransactionRepository
 import com.fire.pos.model.entity.ProductCartEntity
@@ -17,11 +18,12 @@ import javax.inject.Inject
 
 class PaymentInteractorImpl @Inject constructor(
     private val productRepository: ProductRepository,
-    private val transactionRepository: TransactionRepository
+    private val transactionRepository: TransactionRepository,
+    private val cartRepository: CartRepository
 ) : PaymentInteractor {
 
     override suspend fun getCartList(): Result<List<ProductCart>> {
-        return when (val result = productRepository.getCart()) {
+        return when (val result = cartRepository.getCart()) {
             is Result.Error -> Result.Error(result.message)
             is Result.Success -> {
                 val list = result.data?.map { ProductCart(it) } ?: emptyList()
@@ -51,7 +53,7 @@ class PaymentInteractorImpl @Inject constructor(
                     is Result.Success -> {
 
                         // clear cart
-                        when (val cResult = productRepository.clearCart()) {
+                        when (val cResult = cartRepository.clearCart()) {
                             is Result.Error -> Result.Error(cResult.message)
                             is Result.Success -> Result.Success(cResult.data ?: false)
                         }

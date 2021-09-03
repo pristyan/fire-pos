@@ -2,6 +2,8 @@ package com.fire.pos.di.module
 
 import com.fire.pos.data.repository.account.AccountRepository
 import com.fire.pos.data.repository.account.AccountRepositoryImpl
+import com.fire.pos.data.repository.cart.CartRepository
+import com.fire.pos.data.repository.cart.CartRepositoryImpl
 import com.fire.pos.data.repository.product.ProductRepository
 import com.fire.pos.data.repository.product.ProductRepositoryImpl
 import com.fire.pos.data.repository.transaction.TransactionRepository
@@ -21,6 +23,9 @@ interface RepositoryModule {
 
     @Binds
     fun bindProductRepository(productRepositoryImpl: ProductRepositoryImpl): ProductRepository
+
+    @Binds
+    fun bindCartRepository(cartRepositoryImpl: CartRepositoryImpl): CartRepository
 
     @Binds
     fun bindTransactionRepository(

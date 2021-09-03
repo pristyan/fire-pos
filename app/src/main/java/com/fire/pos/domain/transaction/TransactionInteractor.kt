@@ -10,7 +10,7 @@ import com.fire.pos.model.view.ProductCart
 
 interface TransactionInteractor {
 
-    suspend fun getProductList(): Result<List<ProductCart>>
+    suspend fun getProductWithCartList(): Result<List<ProductCart>>
 
     suspend fun addCart(productCart: ProductCart): Result<ProductCart>
 
