@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:menu="@menu/menu_search"
-                app:title="Transaction" />
+                app:title="Cashier" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -108,7 +108,7 @@
                     android:id="@+id/btn_summary"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tv_summary"
+                    android:text="@string/tv_cart"
                     android:textAllCaps="true"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_price_total"
                     app:layout_constraintEnd_toEndOf="parent"

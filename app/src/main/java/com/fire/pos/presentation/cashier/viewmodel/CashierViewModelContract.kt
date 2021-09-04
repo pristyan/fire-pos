@@ -1,4 +1,4 @@
-package com.fire.pos.presentation.transaction.viewmodel
+package com.fire.pos.presentation.cashier.viewmodel
 
 import androidx.lifecycle.LiveData
 import com.fire.pos.base.viewmodel.BaseViewModelContract
@@ -10,7 +10,7 @@ import kotlinx.coroutines.Job
  * Created by Chandra.
  **/
 
-interface TransactionViewModelContract : BaseViewModelContract {
+interface CashierViewModelContract : BaseViewModelContract {
 
     val productListSuccess: LiveData<List<ProductCart>>
 

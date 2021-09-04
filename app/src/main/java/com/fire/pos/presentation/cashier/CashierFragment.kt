@@ -1,4 +1,4 @@
-package com.fire.pos.presentation.transaction
+package com.fire.pos.presentation.cashier
 
 import android.os.Bundle
 import android.view.View
@@ -9,14 +9,14 @@ import androidx.navigation.fragment.findNavController
 import com.fire.pos.R
 import com.fire.pos.base.fragment.BaseFragment
 import com.fire.pos.constant.AppConstant
-import com.fire.pos.databinding.FragmentTransactionBinding
+import com.fire.pos.databinding.FragmentCashierBinding
 import com.fire.pos.di.appComponent
 import com.fire.pos.model.view.ProductCart
 import com.fire.pos.presentation.home.HomeFragmentDirections
-import com.fire.pos.presentation.transaction.adapter.ProductCartListAdapter
-import com.fire.pos.presentation.transaction.di.DaggerTransactionComponent
-import com.fire.pos.presentation.transaction.viewmodel.TransactionViewModel
-import com.fire.pos.presentation.transaction.viewmodel.TransactionViewModelContract
+import com.fire.pos.presentation.cashier.adapter.ProductCartListAdapter
+import com.fire.pos.presentation.cashier.di.DaggerCashierComponent
+import com.fire.pos.presentation.cashier.viewmodel.CashierViewModel
+import com.fire.pos.presentation.cashier.viewmodel.CashierViewModelContract
 import com.fire.pos.presentation.transactionqty.TransactionQtyDialog
 import com.fire.pos.util.toast
 import javax.inject.Inject
@@ -26,9 +26,9 @@ import javax.inject.Inject
  * Created by Chandra.
  **/
 
-class TransactionFragment :
-    BaseFragment<TransactionViewModel, TransactionViewModelContract, FragmentTransactionBinding>(),
-    TransactionView, ProductCartListAdapter.Callback {
+class CashierFragment :
+    BaseFragment<CashierViewModel, CashierViewModelContract, FragmentCashierBinding>(),
+    CashierView, ProductCartListAdapter.Callback {
 
     @Inject
     override lateinit var viewModelProviderFactory: ViewModelProvider.Factory
@@ -37,11 +37,11 @@ class TransactionFragment :
     lateinit var productAdapter: ProductCartListAdapter
 
     override fun getLayoutId(): Int {
-        return R.layout.fragment_transaction
+        return R.layout.fragment_cashier
     }
 
-    override fun getViewModelClass(): Class<TransactionViewModel> {
-        return TransactionViewModel::class.java
+    override fun getViewModelClass(): Class<CashierViewModel> {
+        return CashierViewModel::class.java
     }
 
     override fun getViewModelFactory(): ViewModelProvider.Factory {
@@ -80,7 +80,7 @@ class TransactionFragment :
     }
 
     override fun setupDependencyInjection() {
-        DaggerTransactionComponent.builder()
+        DaggerCashierComponent.builder()
             .appComponent(appComponent())
             .build()
             .inject(this)

@@ -14,7 +14,7 @@
     <string name="hint_search_product">Search Product</string>
 
     <string name="tv_total">Total</string>
-    <string name="tv_summary">Summary</string>
+    <string name="tv_cart">Cart</string>
 
     <string name="btn_save">Save</string>
     <string name="btn_delete">Delete</string>

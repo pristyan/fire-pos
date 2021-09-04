@@ -1,11 +1,11 @@
-package com.fire.pos.presentation.transaction
+package com.fire.pos.presentation.cashier
 
 
 /**
  * Created by Chandra.
  **/
 
-interface TransactionView {
+interface CashierView {
 
     fun initView()
 

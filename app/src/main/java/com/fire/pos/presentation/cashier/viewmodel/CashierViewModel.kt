@@ -1,9 +1,9 @@
-package com.fire.pos.presentation.transaction.viewmodel
+package com.fire.pos.presentation.cashier.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.fire.pos.base.viewmodel.BaseViewModel
-import com.fire.pos.domain.transaction.TransactionInteractor
+import com.fire.pos.domain.cashier.CashierInteractor
 import com.fire.pos.model.response.Result
 import com.fire.pos.model.view.ProductCart
 import com.fire.pos.scheduler.SchedulerProvider
@@ -18,10 +18,10 @@ import javax.inject.Inject
  * Created by Chandra.
  **/
 
-class TransactionViewModel @Inject constructor(
+class CashierViewModel @Inject constructor(
     private val schedulerProvider: SchedulerProvider,
-    private val transactionInteractor: TransactionInteractor
-): BaseViewModel(), TransactionViewModelContract {
+    private val cashierInteractor: CashierInteractor
+): BaseViewModel(), CashierViewModelContract {
 
     private val _productListSuccess = MutableLiveData<List<ProductCart>>()
     override val productListSuccess: LiveData<List<ProductCart>>
@@ -64,7 +64,7 @@ class TransactionViewModel @Inject constructor(
     override fun getProductList(): Job = launch(schedulerProvider.ui()){
         setLoading(true)
         val result = withContext(schedulerProvider.io()) {
-            transactionInteractor.getProductWithCartList()
+            cashierInteractor.getProductWithCartList()
         }
 
         when (result) {
@@ -80,7 +80,7 @@ class TransactionViewModel @Inject constructor(
 
     override fun addCart(item: ProductCart): Job = launch(schedulerProvider.ui()) {
         val result = withContext(schedulerProvider.io()) {
-            transactionInteractor.addCart(item)
+            cashierInteractor.addCart(item)
         }
 
         when (result) {
@@ -94,7 +94,7 @@ class TransactionViewModel @Inject constructor(
 
     override fun updateCart(item: ProductCart): Job = launch(schedulerProvider.ui()) {
         val result = withContext(schedulerProvider.io()) {
-            transactionInteractor.updateCart(item)
+            cashierInteractor.updateCart(item)
         }
 
         when (result) {
@@ -108,7 +108,7 @@ class TransactionViewModel @Inject constructor(
 
     override fun deleteCart(item: ProductCart): Job = launch(schedulerProvider.ui()) {
         val result = withContext(schedulerProvider.io()) {
-            transactionInteractor.deleteCart(item)
+            cashierInteractor.deleteCart(item)
         }
 
         when (result) {

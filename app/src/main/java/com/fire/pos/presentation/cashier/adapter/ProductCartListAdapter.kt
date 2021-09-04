@@ -1,8 +1,7 @@
-package com.fire.pos.presentation.transaction.adapter
+package com.fire.pos.presentation.cashier.adapter
 
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
-import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.fire.pos.R
 import com.fire.pos.base.recyclerview.BaseRecyclerAdapter

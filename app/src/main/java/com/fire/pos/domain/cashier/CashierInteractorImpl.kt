@@ -1,11 +1,10 @@
-package com.fire.pos.domain.transaction
+package com.fire.pos.domain.cashier
 
 import com.fire.pos.data.repository.cart.CartRepository
 import com.fire.pos.data.repository.product.ProductRepository
 import com.fire.pos.model.entity.ProductCartEntity
 import com.fire.pos.model.response.Result
 import com.fire.pos.model.view.ProductCart
-import java.util.*
 import javax.inject.Inject
 
 
@@ -13,10 +12,10 @@ import javax.inject.Inject
  * Created by Chandra.
  **/
 
-class TransactionInteractorImpl @Inject constructor(
+class CashierInteractorImpl @Inject constructor(
     private val productRepository: ProductRepository,
     private val cartRepository: CartRepository
-) : TransactionInteractor {
+) : CashierInteractor {
 
     override suspend fun getProductWithCartList(): Result<List<ProductCart>> {
         // get product list

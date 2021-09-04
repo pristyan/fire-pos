@@ -59,7 +59,7 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeViewModelContract, Fragment
 
         binding.bottomNavigation.setOnItemSelectedListener {
             when (it.itemId) {
-                R.id.nav_transaction -> setActivePage(0)
+                R.id.nav_cashier -> setActivePage(0)
                 R.id.nav_product -> setActivePage(1)
                 R.id.nav_history -> setActivePage(2)
                 R.id.nav_account -> setActivePage(3)
