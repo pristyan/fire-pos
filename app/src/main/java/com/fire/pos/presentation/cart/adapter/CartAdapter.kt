@@ -1,8 +1,8 @@
-package com.fire.pos.presentation.transactionsummary.adapter
+package com.fire.pos.presentation.cart.adapter
 
 import com.fire.pos.R
 import com.fire.pos.base.recyclerview.BaseRecyclerAdapter
-import com.fire.pos.databinding.ListItemSummaryBinding
+import com.fire.pos.databinding.ListItemCartBinding
 import com.fire.pos.model.view.ProductCart
 import javax.inject.Inject
 
@@ -11,16 +11,16 @@ import javax.inject.Inject
  * Created by Chandra.
  **/
 
-class TransactionSummaryAdapter @Inject constructor() :
-    BaseRecyclerAdapter<ProductCart, ListItemSummaryBinding>() {
+class CartAdapter @Inject constructor() :
+    BaseRecyclerAdapter<ProductCart, ListItemCartBinding>() {
 
     var callback: Callback? = null
 
     override fun getLayoutId(): Int {
-        return R.layout.list_item_summary
+        return R.layout.list_item_cart
     }
 
-    override fun onBind(binding: ListItemSummaryBinding, position: Int, item: ProductCart) {
+    override fun onBind(binding: ListItemCartBinding, position: Int, item: ProductCart) {
         binding.data = item
         binding.btnPlus.setOnClickListener {
             item.qty++

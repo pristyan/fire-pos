@@ -20,7 +20,7 @@
             style="@style/Toolbar.WithNavigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="Summary" />
+            app:title="Cart" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/srl_cart"

@@ -1,4 +1,4 @@
-package com.fire.pos.presentation.transactionsummary
+package com.fire.pos.presentation.cart
 
 import android.os.Bundle
 import android.view.View
@@ -8,13 +8,13 @@ import androidx.navigation.fragment.findNavController
 import com.fire.pos.R
 import com.fire.pos.base.fragment.BaseFragment
 import com.fire.pos.constant.AppConstant
-import com.fire.pos.databinding.FragmentTransactionSummaryBinding
+import com.fire.pos.databinding.FragmentCartBinding
 import com.fire.pos.di.appComponent
 import com.fire.pos.model.view.ProductCart
-import com.fire.pos.presentation.transactionsummary.adapter.TransactionSummaryAdapter
-import com.fire.pos.presentation.transactionsummary.di.DaggerTransactionSummaryComponent
-import com.fire.pos.presentation.transactionsummary.viewmodel.TransactionSummaryViewModel
-import com.fire.pos.presentation.transactionsummary.viewmodel.TransactionSummaryViewModelContract
+import com.fire.pos.presentation.cart.adapter.CartAdapter
+import com.fire.pos.presentation.cart.di.DaggerCartComponent
+import com.fire.pos.presentation.cart.viewmodel.CartViewModel
+import com.fire.pos.presentation.cart.viewmodel.CartViewModelContract
 import com.fire.pos.util.showConfirmationDialog
 import com.fire.pos.util.toast
 import javax.inject.Inject
@@ -24,22 +24,22 @@ import javax.inject.Inject
  * Created by Chandra.
  **/
 
-class TransactionSummaryFragment :
-    BaseFragment<TransactionSummaryViewModel, TransactionSummaryViewModelContract, FragmentTransactionSummaryBinding>(),
-    TransactionSummaryView {
+class CartFragment :
+    BaseFragment<CartViewModel, CartViewModelContract, FragmentCartBinding>(),
+    CartView {
 
     @Inject
     override lateinit var viewModelProviderFactory: ViewModelProvider.Factory
 
     @Inject
-    lateinit var transactionSummaryAdapter: TransactionSummaryAdapter
+    lateinit var cartAdapter: CartAdapter
 
     override fun getLayoutId(): Int {
-        return R.layout.fragment_transaction_summary
+        return R.layout.fragment_cart
     }
 
-    override fun getViewModelClass(): Class<TransactionSummaryViewModel> {
-        return TransactionSummaryViewModel::class.java
+    override fun getViewModelClass(): Class<CartViewModel> {
+        return CartViewModel::class.java
     }
 
     override fun getViewModelFactory(): ViewModelProvider.Factory {
@@ -52,15 +52,15 @@ class TransactionSummaryFragment :
         })
 
         viewModel.cartSuccess.observe(viewLifecycleOwner, {
-            transactionSummaryAdapter.setItems(it)
+            cartAdapter.setItems(it)
         })
 
         viewModel.updateCartSuccess.observe(viewLifecycleOwner, {
-            transactionSummaryAdapter.update(it)
+            cartAdapter.update(it)
         })
 
         viewModel.deleteCartSuccess.observe(viewLifecycleOwner, {
-            transactionSummaryAdapter.delete(it)
+            cartAdapter.delete(it)
         })
 
         viewModel.errorMessage.observe(viewLifecycleOwner, {
@@ -73,7 +73,7 @@ class TransactionSummaryFragment :
     }
 
     override fun setupDependencyInjection() {
-        DaggerTransactionSummaryComponent.builder()
+        DaggerCartComponent.builder()
             .appComponent(appComponent())
             .build()
             .inject(this)
@@ -91,7 +91,7 @@ class TransactionSummaryFragment :
 
         binding.srlCart.setOnRefreshListener { getCartList() }
 
-        transactionSummaryAdapter.callback = object : TransactionSummaryAdapter.Callback {
+        cartAdapter.callback = object : CartAdapter.Callback {
             override fun onPlus(item: ProductCart) {
                 viewModel.updateCart(item)
             }
@@ -110,7 +110,7 @@ class TransactionSummaryFragment :
             }
         }
 
-        binding.rvCart.adapter = transactionSummaryAdapter
+        binding.rvCart.adapter = cartAdapter
         binding.rvCart.itemAnimator?.changeDuration = 0L
     }
 
@@ -143,7 +143,7 @@ class TransactionSummaryFragment :
     }
 
     override fun navigateToPayment() {
-        val action = TransactionSummaryFragmentDirections.actionToPayment()
+        val action = CartFragmentDirections.actionToPayment()
         findNavController().navigate(action)
     }
 }

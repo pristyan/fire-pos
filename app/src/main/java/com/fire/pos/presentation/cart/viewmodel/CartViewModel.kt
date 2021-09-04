@@ -1,9 +1,9 @@
-package com.fire.pos.presentation.transactionsummary.viewmodel
+package com.fire.pos.presentation.cart.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.fire.pos.base.viewmodel.BaseViewModel
-import com.fire.pos.domain.transactionsummary.TransactionSummaryInteractor
+import com.fire.pos.domain.cart.CartInteractor
 import com.fire.pos.model.response.Result
 import com.fire.pos.model.view.ProductCart
 import com.fire.pos.scheduler.SchedulerProvider
@@ -18,10 +18,10 @@ import javax.inject.Inject
  * Created by Chandra.
  **/
 
-class TransactionSummaryViewModel @Inject constructor(
+class CartViewModel @Inject constructor(
     private val schedulerProvider: SchedulerProvider,
-    private val transactionSummaryInteractor: TransactionSummaryInteractor
-): BaseViewModel(), TransactionSummaryViewModelContract {
+    private val cartInteractor: CartInteractor
+): BaseViewModel(), CartViewModelContract {
 
     private val _cartSuccess = MutableLiveData<List<ProductCart>>()
     override val cartSuccess: LiveData<List<ProductCart>>
@@ -58,7 +58,7 @@ class TransactionSummaryViewModel @Inject constructor(
         setLoading(true)
 
         val result = withContext(schedulerProvider.io()) {
-            transactionSummaryInteractor.getCartList()
+            cartInteractor.getCartList()
         }
 
         when (result) {
@@ -74,7 +74,7 @@ class TransactionSummaryViewModel @Inject constructor(
 
     override fun updateCart(item: ProductCart): Job = launch(schedulerProvider.ui()) {
         val result = withContext(schedulerProvider.io()) {
-            transactionSummaryInteractor.updateCart(item)
+            cartInteractor.updateCart(item)
         }
 
         when (result) {
@@ -88,7 +88,7 @@ class TransactionSummaryViewModel @Inject constructor(
 
     override fun deleteCart(item: ProductCart): Job = launch(schedulerProvider.ui()) {
         val result = withContext(schedulerProvider.io()) {
-            transactionSummaryInteractor.deleteCart(item)
+            cartInteractor.deleteCart(item)
         }
 
         when (result) {

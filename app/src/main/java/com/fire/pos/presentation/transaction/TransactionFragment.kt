@@ -112,7 +112,7 @@ class TransactionFragment :
     }
 
     override fun navigateToSummary() {
-        val action = HomeFragmentDirections.actionToSummary()
+        val action = HomeFragmentDirections.actionToCart()
         findNavController().navigate(action)
     }
 

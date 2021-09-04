@@ -1,4 +1,4 @@
-package com.fire.pos.domain.transactionsummary
+package com.fire.pos.domain.cart
 
 import com.fire.pos.model.response.Result
 import com.fire.pos.model.view.ProductCart
@@ -8,7 +8,7 @@ import com.fire.pos.model.view.ProductCart
  * Created by Chandra.
  **/
 
-interface TransactionSummaryInteractor {
+interface CartInteractor {
 
     suspend fun getCartList(): Result<List<ProductCart>>
 

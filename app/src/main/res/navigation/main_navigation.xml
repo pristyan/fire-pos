@@ -91,8 +91,8 @@
         </action>
 
         <action
-            android:id="@+id/action_to_summary"
-            app:destination="@+id/transaction_summary_fragment"
+            android:id="@+id/action_to_cart"
+            app:destination="@+id/cart_fragment"
             app:enterAnim="@anim/nav_enter_anim"
             app:exitAnim="@anim/nav_exit_anim"
             app:popEnterAnim="@anim/pop_enter_anim"
@@ -129,9 +129,9 @@
     </fragment>
 
     <fragment
-        android:id="@+id/transaction_summary_fragment"
-        android:name="com.fire.pos.presentation.transactionsummary.TransactionSummaryFragment"
-        tools:layout="@layout/fragment_transaction_summary">
+        android:id="@+id/cart_fragment"
+        android:name="com.fire.pos.presentation.cart.CartFragment"
+        tools:layout="@layout/fragment_cart">
         <action
             android:id="@+id/action_to_payment"
             app:destination="@+id/payment_fragment"

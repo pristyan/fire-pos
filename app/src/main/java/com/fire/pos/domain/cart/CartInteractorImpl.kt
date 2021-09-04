@@ -1,4 +1,4 @@
-package com.fire.pos.domain.transactionsummary
+package com.fire.pos.domain.cart
 
 import com.fire.pos.data.repository.cart.CartRepository
 import com.fire.pos.model.entity.ProductCartEntity
@@ -11,9 +11,9 @@ import javax.inject.Inject
  * Created by Chandra.
  **/
 
-class TransactionSummaryInteractorImpl @Inject constructor(
+class CartInteractorImpl @Inject constructor(
     private val cartRepository: CartRepository
-): TransactionSummaryInteractor {
+): CartInteractor {
 
     override suspend fun getCartList(): Result<List<ProductCart>> {
         return when (val result = cartRepository.getCart()) {

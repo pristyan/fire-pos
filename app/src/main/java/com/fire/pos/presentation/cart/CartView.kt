@@ -1,11 +1,11 @@
-package com.fire.pos.presentation.transactionsummary
+package com.fire.pos.presentation.cart
 
 
 /**
  * Created by Chandra.
  **/
 
-interface TransactionSummaryView {
+interface CartView {
 
     fun initView()
 
