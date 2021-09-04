@@ -20,6 +20,8 @@ object FirestoreIdGenerator {
             .append(ALPHANUMERIC[Random.nextInt(ALPHANUMERIC.length)])
             .append(ALPHANUMERIC[Random.nextInt(ALPHANUMERIC.length)])
             .append(ALPHANUMERIC[Random.nextInt(ALPHANUMERIC.length)])
+            .append(ALPHANUMERIC[Random.nextInt(ALPHANUMERIC.length)])
+            .append(ALPHANUMERIC[Random.nextInt(ALPHANUMERIC.length)])
             .toString()
     }
 
@@ -33,5 +35,9 @@ object FirestoreIdGenerator {
 
     fun generateStoreId(): String {
         return "STR-${generateId()}"
+    }
+
+    fun generateCategoryId(): String {
+        return "CAT-${generateId()}"
     }
 }

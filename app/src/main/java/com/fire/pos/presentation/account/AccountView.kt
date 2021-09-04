@@ -11,4 +11,5 @@ interface AccountView {
 
     fun logout()
 
+    fun navigateToCategory()
 }

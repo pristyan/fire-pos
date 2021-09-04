@@ -62,7 +62,7 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeViewModelContract, Fragment
                 R.id.nav_cashier -> setActivePage(0)
                 R.id.nav_product -> setActivePage(1)
                 R.id.nav_transaction -> setActivePage(2)
-                R.id.nav_store -> setActivePage(3)
+                R.id.nav_account -> setActivePage(3)
                 else -> false
             }
         }

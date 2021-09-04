@@ -111,6 +111,14 @@
                 app:argType="string"
                 app:nullable="false" />
         </action>
+
+        <action
+            android:id="@+id/action_to_category_list"
+            app:destination="@+id/category_list_fragment"
+            app:enterAnim="@anim/nav_enter_anim"
+            app:exitAnim="@anim/nav_exit_anim"
+            app:popEnterAnim="@anim/pop_enter_anim"
+            app:popExitAnim="@anim/pop_exit_anim" />
     </fragment>
 
     <fragment
@@ -163,4 +171,9 @@
             app:argType="string"
             app:nullable="false" />
     </fragment>
+
+    <fragment
+        android:id="@+id/category_list_fragment"
+        android:name="com.fire.pos.presentation.categorylist.CategoryListFragment"
+        tools:layout="@layout/fragment_category_list"/>
 </navigation>

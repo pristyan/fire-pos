@@ -70,6 +70,8 @@ class AccountFragment :
                 positiveCallback = { logout() }
             )
         }
+
+        binding.btnCategory.setOnClickListener { navigateToCategory() }
     }
 
     override fun logout() {
@@ -84,5 +86,10 @@ class AccountFragment :
     override fun onDestroy() {
         super.onDestroy()
         loadingDialog = null
+    }
+
+    override fun navigateToCategory() {
+        val action = HomeFragmentDirections.actionToCategoryList()
+        findNavController().navigate(action)
     }
 }

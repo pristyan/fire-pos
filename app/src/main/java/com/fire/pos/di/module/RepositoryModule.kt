@@ -4,6 +4,8 @@ import com.fire.pos.data.repository.account.AccountRepository
 import com.fire.pos.data.repository.account.AccountRepositoryImpl
 import com.fire.pos.data.repository.cart.CartRepository
 import com.fire.pos.data.repository.cart.CartRepositoryImpl
+import com.fire.pos.data.repository.category.CategoryRepository
+import com.fire.pos.data.repository.category.CategoryRepositoryImpl
 import com.fire.pos.data.repository.product.ProductRepository
 import com.fire.pos.data.repository.product.ProductRepositoryImpl
 import com.fire.pos.data.repository.transaction.TransactionRepository
@@ -31,4 +33,9 @@ interface RepositoryModule {
     fun bindTransactionRepository(
         transactionRepositoryImpl: TransactionRepositoryImpl
     ): TransactionRepository
+
+    @Binds
+    fun bindCategoryRepository(
+        categoryRepositoryImpl: CategoryRepositoryImpl
+    ): CategoryRepository
 }

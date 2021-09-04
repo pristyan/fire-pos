@@ -10,6 +10,7 @@ object FirestoreConstant {
     const val COLLECTION_USERS = "users"
     const val COLLECTION_PRODUCTS = "products"
     const val COLLECTION_STORES = "store"
+    const val COLLECTION_CATEGORIES = "categories"
     const val COLLECTION_TRANSACTIONS = "transactions"
     const val COLLECTION_TRANSACTION_ITEMS = "items"
 
