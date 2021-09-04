@@ -2,6 +2,7 @@ package com.fire.pos.data.repository.account
 
 import com.fire.pos.data.source.local.account.AccountLocalDataSource
 import com.fire.pos.data.source.remote.account.AccountRemoteDataSource
+import com.fire.pos.model.entity.StoreEntity
 import com.fire.pos.model.entity.UserEntity
 import com.fire.pos.model.response.Result
 import javax.inject.Inject
@@ -37,7 +38,7 @@ class AccountRepositoryImpl @Inject constructor(
     override suspend fun registerWithEmailPassword(
         email: String,
         password: String,
-        storeName: String
+        storeEntity: StoreEntity
     ): Result<UserEntity> {
         return when (
             val userResult = accountRemoteDataSource.registerWithEmailPassword(email, password)
@@ -48,7 +49,7 @@ class AccountRepositoryImpl @Inject constructor(
                 if (user != null) {
                     when (
                         val storeResult = accountRemoteDataSource.registerToFirestore(
-                            user.uid, storeName
+                            user.uid, storeEntity
                         )
                     ) {
                         is Result.Error -> Result.Error(storeResult.message)

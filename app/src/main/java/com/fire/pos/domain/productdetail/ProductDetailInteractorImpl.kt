@@ -4,6 +4,7 @@ import com.fire.pos.data.repository.product.ProductRepository
 import com.fire.pos.model.entity.ProductEntity
 import com.fire.pos.model.response.Result
 import com.fire.pos.model.view.Product
+import com.fire.pos.util.FirestoreIdGenerator
 import java.io.File
 import javax.inject.Inject
 
@@ -23,7 +24,7 @@ class ProductDetailInteractorImpl @Inject constructor(
         image: File
     ): Result<Product> {
         val productEntity = ProductEntity(
-            id = null,
+            id = FirestoreIdGenerator.generateProductId(),
             name = name,
             price = price,
             stock = stock,

@@ -2,6 +2,7 @@ package com.fire.pos.data.source.remote.account
 
 import com.fire.pos.model.response.Result
 import com.fire.pos.constant.FirestoreConstant
+import com.fire.pos.model.entity.StoreEntity
 import com.fire.pos.util.await
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
@@ -45,18 +46,20 @@ class AccountRemoteDataSourceImpl @Inject constructor(
 
     override suspend fun registerToFirestore(
         uid: String,
-        storeName: String
-    ): Result<DocumentReference> {
+        storeEntity: StoreEntity
+    ): Result<Void> {
         val data = mapOf(
-            FirestoreConstant.FIELD_NAME to storeName,
-            FirestoreConstant.FIELD_ADDRESS to "",
-            FirestoreConstant.FIELD_PHONE to ""
+            FirestoreConstant.FIELD_ID to storeEntity.id.orEmpty(),
+            FirestoreConstant.FIELD_NAME to storeEntity.name.orEmpty(),
+            FirestoreConstant.FIELD_ADDRESS to storeEntity.address.orEmpty(),
+            FirestoreConstant.FIELD_PHONE to storeEntity.phone.orEmpty()
         )
         val task = firebaseFirestore
             .collection(FirestoreConstant.COLLECTION_USERS)
             .document(uid)
             .collection(FirestoreConstant.COLLECTION_STORES)
-            .add(data)
+            .document(storeEntity.id.orEmpty())
+            .set(data)
 
         return task.await()
     }

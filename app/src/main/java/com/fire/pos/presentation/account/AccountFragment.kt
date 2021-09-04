@@ -12,6 +12,8 @@ import com.fire.pos.presentation.account.di.DaggerAccountComponent
 import com.fire.pos.presentation.account.viewmodel.AccountViewModel
 import com.fire.pos.presentation.account.viewmodel.AccountViewModelContract
 import com.fire.pos.presentation.home.HomeFragmentDirections
+import com.fire.pos.presentation.loadingdialog.LoadingDialogFragment
+import com.fire.pos.util.showConfirmationDialog
 import javax.inject.Inject
 
 
@@ -26,6 +28,8 @@ class AccountFragment :
     @Inject
     override lateinit var viewModelProviderFactory: ViewModelProvider.Factory
 
+    private var loadingDialog: LoadingDialogFragment? = null
+
     override fun getLayoutId(): Int {
         return R.layout.fragment_account
     }
@@ -39,7 +43,12 @@ class AccountFragment :
     }
 
     override fun subscribeLiveData() {
-        viewModel.logoutSuccess.observe(this, {
+        viewModel.isLoading.observe(viewLifecycleOwner, {
+            if (it) loadingDialog?.show(childFragmentManager, "loading")
+            else loadingDialog?.dismiss()
+        })
+
+        viewModel.logoutSuccess.observe(viewLifecycleOwner, {
             val action = HomeFragmentDirections.actionToLogin()
             findNavController().navigate(action)
         })
@@ -53,8 +62,13 @@ class AccountFragment :
     }
 
     override fun initView() {
+        loadingDialog = LoadingDialogFragment.instance()
         binding.btnLogout.setOnClickListener {
-            logout()
+            context?.showConfirmationDialog(
+                title = R.string.dialog_title_confirmation,
+                message = R.string.dialog_msg_logout,
+                positiveCallback = { logout() }
+            )
         }
     }
 
@@ -67,4 +81,8 @@ class AccountFragment :
         initView()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        loadingDialog = null
+    }
 }

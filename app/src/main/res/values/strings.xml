@@ -30,6 +30,7 @@
     <string name="msg_storage_rationale">This feature needs to access your storage to choose an image your product.</string>
 
     <string name="dialog_title_confirmation">Confirmation</string>
+    <string name="dialog_msg_logout">Are you sure want to logout your account?</string>
     <string name="dialog_msg_update_product">Are you sure want to update this product?</string>
     <string name="dialog_msg_delete_product">Are you sure want to delete this product?</string>
     <string name="dialog_msg_payment">Are you sure want to complete this transaction?</string>

@@ -8,6 +8,7 @@ import com.fire.pos.model.entity.ProductCartEntity
 import com.fire.pos.model.entity.TransactionEntity
 import com.fire.pos.model.response.Result
 import com.fire.pos.model.view.ProductCart
+import com.fire.pos.util.FirestoreIdGenerator
 import com.fire.pos.util.getCurrentDateTime
 import javax.inject.Inject
 
@@ -35,7 +36,7 @@ class PaymentInteractorImpl @Inject constructor(
     override suspend fun pay(items: List<ProductCart>): Result<Boolean> {
         val cartList = items.map { ProductCartEntity(it) }
         val request = TransactionEntity(
-            id = "TRX-${System.currentTimeMillis()}",
+            id = FirestoreIdGenerator.generateTransactionId(),
             items = cartList,
             paymentMethod = AppConstant.PAYMENT_METHOD_CASH,
             total = items.sumOf { it.qty * it.productPrice },

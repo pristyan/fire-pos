@@ -1,5 +1,6 @@
 package com.fire.pos.data.source.remote.account
 
+import com.fire.pos.model.entity.StoreEntity
 import com.fire.pos.model.response.Result
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser
@@ -18,7 +19,7 @@ interface AccountRemoteDataSource {
 
     suspend fun registerWithEmailPassword(email: String, password: String): Result<AuthResult>
 
-    suspend fun registerToFirestore(uid: String, storeName: String): Result<DocumentReference>
+    suspend fun registerToFirestore(uid: String, storeEntity: StoreEntity): Result<Void>
 
     suspend fun logout()
 }

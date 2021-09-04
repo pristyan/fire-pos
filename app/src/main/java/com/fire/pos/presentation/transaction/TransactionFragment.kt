@@ -98,6 +98,8 @@ class TransactionFragment :
 
         productAdapter.callback = this
         binding.rvProduct.adapter = productAdapter
+        binding.rvProduct.itemAnimator = null
+
         binding.srlTransaction.setOnRefreshListener { getProductList() }
         binding.btnSummary.setOnClickListener { navigateToSummary() }
     }

@@ -9,10 +9,16 @@ import java.io.Serializable
  **/
 data class StoreEntity(
 
-    @SerializedName("uid")
-    val uid: String?,
+    @SerializedName("id")
+    val id: String? = null,
 
-    @SerializedName("store_name")
-    val storeName: String?
+    @SerializedName("name")
+    val name: String? = null,
+
+    @SerializedName("address")
+    val address: String? = null,
+
+    @SerializedName("phone")
+    val phone: String? = null
 
 ): Serializable

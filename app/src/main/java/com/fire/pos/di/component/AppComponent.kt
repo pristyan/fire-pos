@@ -3,6 +3,7 @@ package com.fire.pos.di.component
 import android.content.Context
 import android.content.SharedPreferences
 import com.fire.pos.data.repository.account.AccountRepository
+import com.fire.pos.data.repository.cart.CartRepository
 import com.fire.pos.data.repository.product.ProductRepository
 import com.fire.pos.data.repository.transaction.TransactionRepository
 import com.fire.pos.data.source.local.account.AccountLocalDataSource
@@ -47,6 +48,8 @@ interface AppComponent {
     fun productRepository(): ProductRepository
 
     fun transactionRepository(): TransactionRepository
+
+    fun cartRepository(): CartRepository
 
     // local data source
     fun accountLocalDataSource(): AccountLocalDataSource

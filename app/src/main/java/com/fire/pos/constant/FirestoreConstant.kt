@@ -14,6 +14,7 @@ object FirestoreConstant {
     const val COLLECTION_TRANSACTION_ITEMS = "items"
 
     // fields
+    const val FIELD_ID = "id"
     const val FIELD_NAME = "name"
     const val FIELD_ADDRESS = "address"
     const val FIELD_PHONE = "phone"

@@ -6,6 +6,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.fire.pos.R
 import com.fire.pos.base.fragment.BaseFragment
 import com.fire.pos.constant.AppConstant
@@ -91,6 +92,8 @@ class ProductListFragment :
         })
 
         binding.rvProduct.adapter = productListAdapter
+        binding.rvProduct.itemAnimator = null
+
         binding.fabAdd.setOnClickListener { navigateToAddProduct() }
         binding.srlProduct.setOnRefreshListener { getProductList() }
     }
