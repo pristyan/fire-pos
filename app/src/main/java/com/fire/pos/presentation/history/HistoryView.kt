@@ -15,4 +15,8 @@ interface HistoryView {
 
     fun getTransactionList()
 
+    fun chooseStartDate()
+
+    fun chooseEndDate()
+
 }

@@ -8,30 +8,30 @@ import kotlin.random.Random
  **/
 object FirestoreIdGenerator {
 
-    private const val ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    private const val ALPHANUMERIC = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-    private fun generateNumbers(): String {
-        return Random.nextInt(9999).toString().padStart(4, '0')
-    }
-
-    private fun generateWords(): String {
+    private fun generateId(): String {
         return StringBuilder()
-            .append(ALPHABET[Random.nextInt(ALPHABET.length)])
-            .append(ALPHABET[Random.nextInt(ALPHABET.length)])
-            .append(ALPHABET[Random.nextInt(ALPHABET.length)])
-            .append(ALPHABET[Random.nextInt(ALPHABET.length)])
+            .append(ALPHANUMERIC[Random.nextInt(ALPHANUMERIC.length)])
+            .append(ALPHANUMERIC[Random.nextInt(ALPHANUMERIC.length)])
+            .append(ALPHANUMERIC[Random.nextInt(ALPHANUMERIC.length)])
+            .append(ALPHANUMERIC[Random.nextInt(ALPHANUMERIC.length)])
+            .append(ALPHANUMERIC[Random.nextInt(ALPHANUMERIC.length)])
+            .append(ALPHANUMERIC[Random.nextInt(ALPHANUMERIC.length)])
+            .append(ALPHANUMERIC[Random.nextInt(ALPHANUMERIC.length)])
+            .append(ALPHANUMERIC[Random.nextInt(ALPHANUMERIC.length)])
             .toString()
     }
 
     fun generateProductId(): String {
-        return "PRD-${generateNumbers()}-${generateWords()}-${generateNumbers()}"
+        return "PRD-${generateId()}"
     }
 
     fun generateTransactionId(): String {
-        return "TRX-${generateNumbers()}-${generateWords()}-${generateNumbers()}"
+        return "TRX-${generateId()}"
     }
 
     fun generateStoreId(): String {
-        return "STR-${generateNumbers()}-${generateWords()}-${generateNumbers()}"
+        return "STR-${generateId()}"
     }
 }

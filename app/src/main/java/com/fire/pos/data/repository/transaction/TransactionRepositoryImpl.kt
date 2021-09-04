@@ -4,6 +4,7 @@ import com.fire.pos.data.source.remote.transaction.TransactionRemoteDataSource
 import com.fire.pos.model.entity.ProductCartEntity
 import com.fire.pos.model.entity.TransactionEntity
 import com.fire.pos.model.response.Result
+import java.util.*
 import javax.inject.Inject
 
 
@@ -29,8 +30,13 @@ class TransactionRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getTransactionList(): Result<List<TransactionEntity>> {
-        return when (val result = transactionRemoteDataSource.getTransactionList()) {
+    override suspend fun getTransactionList(
+        startDate: Date,
+        endDate: Date
+    ): Result<List<TransactionEntity>> {
+        return when (
+            val result = transactionRemoteDataSource.getTransactionList(startDate, endDate)
+        ) {
             is Result.Error -> Result.Error(result.message)
             is Result.Success -> {
                 val list = result.data?.documents?.map { TransactionEntity(it) }

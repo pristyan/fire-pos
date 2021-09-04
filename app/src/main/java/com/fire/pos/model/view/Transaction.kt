@@ -1,6 +1,7 @@
 package com.fire.pos.model.view
 
 import com.fire.pos.model.entity.TransactionEntity
+import com.fire.pos.util.getStringDateTime
 import com.fire.pos.util.normalizeDate
 import com.fire.pos.util.toIDR
 import com.google.gson.annotations.SerializedName
@@ -28,7 +29,7 @@ data class Transaction(
     constructor(entity: TransactionEntity?) : this(
         id = entity?.id.orEmpty(),
         total = entity?.total ?: 0L,
-        createdAt = entity?.createdAt.orEmpty(),
+        createdAt = entity?.createdAt?.toDate()?.getStringDateTime().orEmpty(),
         items = entity?.items?.map { ProductCart(it) } ?: emptyList()
     )
 

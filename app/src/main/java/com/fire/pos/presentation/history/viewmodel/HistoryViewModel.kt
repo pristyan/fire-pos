@@ -10,6 +10,7 @@ import com.fire.pos.scheduler.SchedulerProvider
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.*
 import javax.inject.Inject
 
 
@@ -30,11 +31,14 @@ class HistoryViewModel @Inject constructor(
     override val errorMessage: LiveData<String>
         get() = _errorMessage
 
-    override fun getTransactionList(): Job = launch(schedulerProvider.ui()) {
+    override fun getTransactionList(
+        startDate: Date,
+        endDate: Date
+    ): Job = launch(schedulerProvider.ui()) {
         setLoading(true)
 
         val result = withContext(schedulerProvider.io()) {
-            historyInteractor.getTransactionList()
+            historyInteractor.getTransactionList(startDate, endDate)
         }
 
         when (result) {

@@ -3,9 +3,8 @@
     android:shape="rectangle">
 
     <corners
-        android:topLeftRadius="24dp"
-        android:topRightRadius="24dp"/>
-
-    <solid android:color="@color/white"/>
+        android:topLeftRadius="@dimen/spacing_large"
+        android:topRightRadius="@dimen/spacing_large" />
+    <solid android:color="@color/white" />
 
 </shape>

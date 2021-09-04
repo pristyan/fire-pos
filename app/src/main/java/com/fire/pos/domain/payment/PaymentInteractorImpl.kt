@@ -9,7 +9,8 @@ import com.fire.pos.model.entity.TransactionEntity
 import com.fire.pos.model.response.Result
 import com.fire.pos.model.view.ProductCart
 import com.fire.pos.util.FirestoreIdGenerator
-import com.fire.pos.util.getCurrentDateTime
+import com.google.firebase.Timestamp
+import java.util.*
 import javax.inject.Inject
 
 
@@ -40,7 +41,7 @@ class PaymentInteractorImpl @Inject constructor(
             items = cartList,
             paymentMethod = AppConstant.PAYMENT_METHOD_CASH,
             total = items.sumOf { it.qty * it.productPrice },
-            createdAt = getCurrentDateTime()
+            createdAt = Timestamp(Date())
         )
 
         // create transaction

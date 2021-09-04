@@ -10,29 +10,124 @@
         <variable
             name="isEmpty"
             type="Boolean" />
+
+        <variable
+            name="startDate"
+            type="String" />
+
+        <variable
+            name="endDate"
+            type="String" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/color_primary"
         android:orientation="vertical">
 
         <com.google.android.material.appbar.MaterialToolbar
             style="@style/Toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="History" />
+            android:elevation="0dp"
+            app:title="Transaction History" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="@dimen/spacing_medium">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_start_date"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/spacing_medium"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:focusable="false"
+                android:hint="From"
+                android:textColorHint="@color/white"
+                app:boxCornerRadiusBottomEnd="@dimen/spacing_normal"
+                app:boxCornerRadiusBottomStart="@dimen/spacing_normal"
+                app:boxCornerRadiusTopEnd="@dimen/spacing_normal"
+                app:boxCornerRadiusTopStart="@dimen/spacing_normal"
+                app:boxStrokeColor="@color/date_picker_stroke_color"
+                app:boxStrokeWidth="2dp"
+                app:layout_constraintEnd_toStartOf="@+id/center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_start_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/ic_round_event_white_24"
+                    android:focusable="false"
+                    android:text="@{startDate}"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    tools:text="2020-09-10" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Space
+                android:id="@+id/center"
+                android:layout_width="@dimen/spacing_medium"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_end_date"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_normal"
+                android:layout_marginEnd="@dimen/spacing_medium"
+                android:focusable="false"
+                android:hint="To"
+                android:textColorHint="@color/white"
+                app:boxCornerRadiusBottomEnd="@dimen/spacing_normal"
+                app:boxCornerRadiusBottomStart="@dimen/spacing_normal"
+                app:boxCornerRadiusTopEnd="@dimen/spacing_normal"
+                app:boxCornerRadiusTopStart="@dimen/spacing_normal"
+                app:boxStrokeColor="@color/date_picker_stroke_color"
+                app:boxStrokeWidth="2dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/center"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_end_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/ic_round_event_white_24"
+                    android:focusable="false"
+                    android:text="@{endDate}"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white"
+                    tools:text="2020-09-10" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/srl_history"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_container_round">
 
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/nv_history"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fillViewport="true">
+                android:fillViewport="true"
+                android:paddingTop="@dimen/spacing_normal">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -42,7 +137,8 @@
                         android:id="@+id/rv_history"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingVertical="@dimen/spacing_normal"
+                        android:paddingTop="@dimen/spacing_medium"
+                        android:paddingBottom="@dimen/spacing_normal"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:itemCount="3"
                         tools:listitem="@layout/list_item_history" />

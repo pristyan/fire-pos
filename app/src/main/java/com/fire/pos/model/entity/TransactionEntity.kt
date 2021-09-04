@@ -1,6 +1,7 @@
 package com.fire.pos.model.entity
 
 import com.fire.pos.constant.FirestoreConstant
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
@@ -25,7 +26,7 @@ data class TransactionEntity(
     val total: Long?,
 
     @SerializedName("created_at")
-    val createdAt: String?
+    val createdAt: Timestamp?
 
 ): Serializable {
 
@@ -33,7 +34,7 @@ data class TransactionEntity(
         id = data?.id,
         paymentMethod = data?.getString(FirestoreConstant.FIELD_PAYMENT_METHOD).orEmpty(),
         total = data?.getLong(FirestoreConstant.FIELD_TOTAL) ?: 0L,
-        createdAt = data?.getString(FirestoreConstant.FIELD_CREATED_AT).orEmpty(),
+        createdAt = data?.getTimestamp(FirestoreConstant.FIELD_CREATED_AT),
         items = null
     )
 
@@ -41,7 +42,7 @@ data class TransactionEntity(
         id = data?.id,
         paymentMethod = data?.getString(FirestoreConstant.FIELD_PAYMENT_METHOD).orEmpty(),
         total = data?.getLong(FirestoreConstant.FIELD_TOTAL) ?: 0L,
-        createdAt = data?.getString(FirestoreConstant.FIELD_CREATED_AT).orEmpty(),
+        createdAt = data?.getTimestamp(FirestoreConstant.FIELD_CREATED_AT),
         items = items
     )
 

@@ -15,7 +15,10 @@ import com.fire.pos.presentation.history.di.DaggerHistoryComponent
 import com.fire.pos.presentation.history.viewmodel.HistoryViewModel
 import com.fire.pos.presentation.history.viewmodel.HistoryViewModelContract
 import com.fire.pos.presentation.home.HomeFragmentDirections
+import com.fire.pos.util.getStringDate
 import com.fire.pos.util.toast
+import com.fire.pos.widget.DatePickerDialogFragment
+import java.util.*
 import javax.inject.Inject
 
 
@@ -32,6 +35,31 @@ class HistoryFragment :
 
     @Inject
     lateinit var historyAdapter: HistoryAdapter
+
+    private var startDateCalendar = Calendar.getInstance().apply {
+        set(Calendar.HOUR_OF_DAY, 0)
+        set(Calendar.MINUTE, 0)
+        set(Calendar.SECOND, 0)
+    }
+
+    private var endDateCalendar = Calendar.getInstance().apply {
+        set(Calendar.HOUR_OF_DAY, 23)
+        set(Calendar.MINUTE, 59)
+        set(Calendar.SECOND, 59)
+    }
+
+    private val startDate: String
+        get() = startDateCalendar.time.getStringDate()
+
+    private val endDate: String
+        get() = endDateCalendar.time.getStringDate()
+
+    private var datePickerDialog: DatePickerDialogFragment? = null
+
+    companion object {
+        private const val START_DATE = "START_DATE"
+        private const val END_DATE = "END_DATE"
+    }
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_history
@@ -75,6 +103,30 @@ class HistoryFragment :
 
         binding.srlHistory.setOnRefreshListener { getTransactionList() }
         binding.rvHistory.adapter = historyAdapter
+
+        binding.startDate = startDate
+        binding.endDate = endDate
+
+        datePickerDialog = DatePickerDialogFragment.instance()
+        datePickerDialog?.callback = object : DatePickerDialogFragment.Callback {
+            override fun onDateSet(year: Int, month: Int, dayOfMonth: Int, tag: String?) {
+                when (tag) {
+                    START_DATE -> {
+                        startDateCalendar.set(year, month, dayOfMonth, 0, 0, 0)
+                        binding.startDate = startDate
+                    }
+                    END_DATE -> {
+                        endDateCalendar.set(year, month, dayOfMonth, 23, 59, 59)
+                        binding.endDate = endDate
+                    }
+                }
+
+                getTransactionList()
+            }
+        }
+
+        binding.edtStartDate.setOnClickListener { chooseStartDate() }
+        binding.edtEndDate.setOnClickListener { chooseEndDate() }
     }
 
     override fun observeBackStack() {
@@ -91,7 +143,7 @@ class HistoryFragment :
 
     override fun getTransactionList() {
         historyAdapter.clearItems()
-        viewModel.getTransactionList()
+        viewModel.getTransactionList(startDateCalendar.time, endDateCalendar.time)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -101,4 +153,23 @@ class HistoryFragment :
         getTransactionList()
     }
 
+    override fun chooseStartDate() {
+        datePickerDialog?.showDialog(
+            childFragmentManager,
+            START_DATE,
+            startDateCalendar,
+            null,
+            endDateCalendar
+        )
+    }
+
+    override fun chooseEndDate() {
+        datePickerDialog?.showDialog(
+            childFragmentManager,
+            END_DATE,
+            endDateCalendar,
+            startDateCalendar,
+            Calendar.getInstance()
+        )
+    }
 }

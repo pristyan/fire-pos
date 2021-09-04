@@ -20,3 +20,13 @@ fun String.normalizeDate(): String {
     formatter.applyPattern("dd MMM yyyy hh:mm:ss")
     return formatter.format(date ?: Date())
 }
+
+fun Date.getStringDate(): String {
+    val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+    return formatter.format(this)
+}
+
+fun Date.getStringDateTime(): String {
+    val formatter = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.US)
+    return formatter.format(this)
+}

@@ -4,8 +4,10 @@ import com.fire.pos.constant.FirestoreConstant
 import com.fire.pos.model.entity.TransactionEntity
 import com.fire.pos.model.response.Result
 import com.fire.pos.util.await
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
+import java.util.*
 import javax.inject.Inject
 
 
@@ -29,7 +31,7 @@ class TransactionRemoteDataSourceImpl @Inject constructor(
             FirestoreConstant.FIELD_TRANSACTION_ID to entity.id.orEmpty(),
             FirestoreConstant.FIELD_PAYMENT_METHOD to entity.paymentMethod.orEmpty(),
             FirestoreConstant.FIELD_TOTAL to entity.totalPrice,
-            FirestoreConstant.FIELD_CREATED_AT to entity.createdAt.orEmpty()
+            FirestoreConstant.FIELD_CREATED_AT to (entity.createdAt ?: Timestamp(Date()))
         )
         val task = transactionCollection.document(entity.id.orEmpty()).set(parameter)
         return task.await()
@@ -58,8 +60,15 @@ class TransactionRemoteDataSourceImpl @Inject constructor(
         return batch.commit().await()
     }
 
-    override suspend fun getTransactionList(): Result<QuerySnapshot> {
-        val task = transactionCollection.get()
+    override suspend fun getTransactionList(
+        startDate: Date,
+        endDate: Date
+    ): Result<QuerySnapshot> {
+        val task = transactionCollection
+            .whereGreaterThanOrEqualTo(FirestoreConstant.FIELD_CREATED_AT, startDate)
+            .whereLessThanOrEqualTo(FirestoreConstant.FIELD_CREATED_AT, endDate)
+            .orderBy(FirestoreConstant.FIELD_CREATED_AT, Query.Direction.DESCENDING)
+            .get()
         return task.await()
     }
 

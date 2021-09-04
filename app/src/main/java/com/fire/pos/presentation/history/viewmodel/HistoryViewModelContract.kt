@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.fire.pos.base.viewmodel.BaseViewModelContract
 import com.fire.pos.model.view.Transaction
 import kotlinx.coroutines.Job
+import java.util.*
 
 
 /**
@@ -16,6 +17,6 @@ interface HistoryViewModelContract : BaseViewModelContract {
 
     val errorMessage: LiveData<String>
 
-    fun getTransactionList(): Job
+    fun getTransactionList(startDate: Date, endDate: Date): Job
 
 }
