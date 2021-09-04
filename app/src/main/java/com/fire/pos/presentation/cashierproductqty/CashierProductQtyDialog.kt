@@ -1,4 +1,4 @@
-package com.fire.pos.presentation.transactionqty
+package com.fire.pos.presentation.cashierproductqty
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
+import com.fire.pos.databinding.DialogCashierProductQtyBinding
 import com.fire.pos.util.toIDR
-import com.fire.pos.databinding.DialogTransactionQtyBinding
 import com.fire.pos.model.view.ProductCart
 
 
@@ -16,9 +16,9 @@ import com.fire.pos.model.view.ProductCart
  * Created by Chandra.
  **/
 
-class TransactionQtyDialog : DialogFragment() {
+class CashierProductQtyDialog : DialogFragment() {
 
-    private lateinit var binding: DialogTransactionQtyBinding
+    private lateinit var binding: DialogCashierProductQtyBinding
 
     private var product: ProductCart? = null
     private var action: Action? = null
@@ -27,14 +27,14 @@ class TransactionQtyDialog : DialogFragment() {
 
     companion object {
 
-        private var transactionQtyDialog: TransactionQtyDialog? = null
+        private var cashierProductQtyDialog: CashierProductQtyDialog? = null
 
-        fun instance(bundle: Bundle): TransactionQtyDialog {
-            if (transactionQtyDialog == null) {
-                transactionQtyDialog = TransactionQtyDialog()
+        fun instance(bundle: Bundle): CashierProductQtyDialog {
+            if (cashierProductQtyDialog == null) {
+                cashierProductQtyDialog = CashierProductQtyDialog()
             }
-            transactionQtyDialog?.arguments = bundle
-            return transactionQtyDialog as TransactionQtyDialog
+            cashierProductQtyDialog?.arguments = bundle
+            return cashierProductQtyDialog as CashierProductQtyDialog
         }
 
     }
@@ -49,7 +49,7 @@ class TransactionQtyDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DialogTransactionQtyBinding.inflate(inflater, container, false)
+        binding = DialogCashierProductQtyBinding.inflate(inflater, container, false)
         return binding.root
     }
 

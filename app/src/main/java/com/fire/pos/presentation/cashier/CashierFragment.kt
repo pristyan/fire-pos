@@ -17,7 +17,7 @@ import com.fire.pos.presentation.cashier.adapter.ProductCartListAdapter
 import com.fire.pos.presentation.cashier.di.DaggerCashierComponent
 import com.fire.pos.presentation.cashier.viewmodel.CashierViewModel
 import com.fire.pos.presentation.cashier.viewmodel.CashierViewModelContract
-import com.fire.pos.presentation.transactionqty.TransactionQtyDialog
+import com.fire.pos.presentation.cashierproductqty.CashierProductQtyDialog
 import com.fire.pos.util.toast
 import javax.inject.Inject
 
@@ -130,12 +130,12 @@ class CashierFragment :
 
     override fun onItemClick(item: ProductCart) {
         val action =
-            if (item.qty == 0) TransactionQtyDialog.Action.ADD
-            else TransactionQtyDialog.Action.UPDATE
+            if (item.qty == 0) CashierProductQtyDialog.Action.ADD
+            else CashierProductQtyDialog.Action.UPDATE
 
         val bundle = bundleOf("product" to item, "action" to action)
-        val dialog = TransactionQtyDialog.instance(bundle)
-        dialog.callback = object : TransactionQtyDialog.Callback {
+        val dialog = CashierProductQtyDialog.instance(bundle)
+        dialog.callback = object : CashierProductQtyDialog.Callback {
             override fun onAdd(product: ProductCart) {
                 viewModel.addCart(product)
             }
