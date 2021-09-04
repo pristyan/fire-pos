@@ -1,4 +1,4 @@
-package com.fire.pos.domain.history
+package com.fire.pos.domain.transactionlist
 
 import com.fire.pos.data.repository.transaction.TransactionRepository
 import com.fire.pos.model.response.Result
@@ -11,9 +11,9 @@ import javax.inject.Inject
  * Created by Chandra.
  **/
 
-class HistoryInteractorImpl @Inject constructor(
+class TransactionListInteractorImpl @Inject constructor(
     private val transactionRepository: TransactionRepository
-) : HistoryInteractor {
+) : TransactionListInteractor {
 
     override suspend fun getTransactionList(
         startDate: Date,

@@ -1,4 +1,4 @@
-package com.fire.pos.presentation.history
+package com.fire.pos.presentation.transactionlist
 
 import android.os.Bundle
 import android.view.View
@@ -7,13 +7,13 @@ import androidx.navigation.fragment.findNavController
 import com.fire.pos.R
 import com.fire.pos.base.fragment.BaseFragment
 import com.fire.pos.constant.AppConstant
-import com.fire.pos.databinding.FragmentHistoryBinding
+import com.fire.pos.databinding.FragmentTransactionListBinding
 import com.fire.pos.di.appComponent
 import com.fire.pos.model.view.Transaction
-import com.fire.pos.presentation.history.adapter.HistoryAdapter
-import com.fire.pos.presentation.history.di.DaggerHistoryComponent
-import com.fire.pos.presentation.history.viewmodel.HistoryViewModel
-import com.fire.pos.presentation.history.viewmodel.HistoryViewModelContract
+import com.fire.pos.presentation.transactionlist.adapter.TransactionListAdapter
+import com.fire.pos.presentation.transactionlist.di.DaggerTransactionListComponent
+import com.fire.pos.presentation.transactionlist.viewmodel.TransactionListViewModel
+import com.fire.pos.presentation.transactionlist.viewmodel.TransactionListViewModelContract
 import com.fire.pos.presentation.home.HomeFragmentDirections
 import com.fire.pos.util.getStringDate
 import com.fire.pos.util.toast
@@ -26,15 +26,15 @@ import javax.inject.Inject
  * Created by Chandra.
  **/
 
-class HistoryFragment :
-    BaseFragment<HistoryViewModel, HistoryViewModelContract, FragmentHistoryBinding>(),
-    HistoryView {
+class TransactionListFragment :
+    BaseFragment<TransactionListViewModel, TransactionListViewModelContract, FragmentTransactionListBinding>(),
+    TransactionListView {
 
     @Inject
     override lateinit var viewModelProviderFactory: ViewModelProvider.Factory
 
     @Inject
-    lateinit var historyAdapter: HistoryAdapter
+    lateinit var transactionListAdapter: TransactionListAdapter
 
     private var startDateCalendar = Calendar.getInstance().apply {
         set(Calendar.HOUR_OF_DAY, 0)
@@ -62,11 +62,11 @@ class HistoryFragment :
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.fragment_history
+        return R.layout.fragment_transaction_list
     }
 
-    override fun getViewModelClass(): Class<HistoryViewModel> {
-        return HistoryViewModel::class.java
+    override fun getViewModelClass(): Class<TransactionListViewModel> {
+        return TransactionListViewModel::class.java
     }
 
     override fun getViewModelFactory(): ViewModelProvider.Factory {
@@ -83,26 +83,26 @@ class HistoryFragment :
         })
 
         viewModel.historySuccess.observe(viewLifecycleOwner, {
-            historyAdapter.setItems(it)
+            transactionListAdapter.setItems(it)
         })
     }
 
     override fun setupDependencyInjection() {
-        DaggerHistoryComponent.builder()
+        DaggerTransactionListComponent.builder()
             .appComponent(appComponent())
             .build()
             .inject(this)
     }
 
     override fun initView() {
-        historyAdapter.callback = object : HistoryAdapter.Callback {
+        transactionListAdapter.callback = object : TransactionListAdapter.Callback {
             override fun onItemClick(item: Transaction) {
                 navigateToDetail(item.id)
             }
         }
 
         binding.srlHistory.setOnRefreshListener { getTransactionList() }
-        binding.rvHistory.adapter = historyAdapter
+        binding.rvHistory.adapter = transactionListAdapter
 
         binding.startDate = startDate
         binding.endDate = endDate
@@ -137,12 +137,12 @@ class HistoryFragment :
     }
 
     override fun navigateToDetail(id: String) {
-        val action = HomeFragmentDirections.actionToHistoryDetail(id)
+        val action = HomeFragmentDirections.actionToTransactionDetail(id)
         findNavController().navigate(action)
     }
 
     override fun getTransactionList() {
-        historyAdapter.clearItems()
+        transactionListAdapter.clearItems()
         viewModel.getTransactionList(startDateCalendar.time, endDateCalendar.time)
     }
 

@@ -1,4 +1,4 @@
-package com.fire.pos.domain.historydetail
+package com.fire.pos.domain.transactiondetail
 
 import com.fire.pos.data.repository.transaction.TransactionRepository
 import com.fire.pos.model.response.Result
@@ -10,9 +10,9 @@ import javax.inject.Inject
  * Created by Chandra.
  **/
 
-class HistoryDetailInteractorImpl @Inject constructor(
+class TransactionDetailInteractorImpl @Inject constructor(
     private val transactionRepository: TransactionRepository
-): HistoryDetailInteractor {
+): TransactionDetailInteractor {
 
     override suspend fun getTransactionDetail(id: String): Result<Transaction> {
         return when (val result = transactionRepository.getTransactionDetail(id)) {

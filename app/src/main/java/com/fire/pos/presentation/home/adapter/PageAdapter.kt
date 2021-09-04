@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.fire.pos.presentation.account.AccountFragment
-import com.fire.pos.presentation.history.HistoryFragment
+import com.fire.pos.presentation.transactionlist.TransactionListFragment
 import com.fire.pos.presentation.productlist.ProductListFragment
 import com.fire.pos.presentation.cashier.CashierFragment
 
@@ -26,7 +26,7 @@ class PageAdapter(fragmentActivity: FragmentActivity): FragmentStateAdapter(frag
         return when (position) {
             0 -> CashierFragment()
             1 -> ProductListFragment()
-            2 -> HistoryFragment()
+            2 -> TransactionListFragment()
             else -> AccountFragment()
         }
     }

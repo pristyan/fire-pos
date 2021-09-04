@@ -1,8 +1,8 @@
-package com.fire.pos.presentation.history.adapter
+package com.fire.pos.presentation.transactionlist.adapter
 
 import com.fire.pos.R
 import com.fire.pos.base.recyclerview.BaseRecyclerAdapter
-import com.fire.pos.databinding.ListItemHistoryBinding
+import com.fire.pos.databinding.ListItemTransactionBinding
 import com.fire.pos.model.view.Transaction
 import javax.inject.Inject
 
@@ -11,8 +11,8 @@ import javax.inject.Inject
  * Created by Chandra.
  **/
 
-class HistoryAdapter @Inject constructor() :
-    BaseRecyclerAdapter<Transaction, ListItemHistoryBinding>() {
+class TransactionListAdapter @Inject constructor() :
+    BaseRecyclerAdapter<Transaction, ListItemTransactionBinding>() {
 
     var callback: Callback? = null
 
@@ -21,10 +21,10 @@ class HistoryAdapter @Inject constructor() :
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.list_item_history
+        return R.layout.list_item_transaction
     }
 
-    override fun onBind(binding: ListItemHistoryBinding, position: Int, item: Transaction) {
+    override fun onBind(binding: ListItemTransactionBinding, position: Int, item: Transaction) {
         binding.data = item
         binding.root.setOnClickListener { callback?.onItemClick(item) }
         binding.executePendingBindings()

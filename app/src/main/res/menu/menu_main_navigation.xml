@@ -11,12 +11,12 @@
         android:icon="@drawable/ic_category_black_24dp"/>
 
     <item
-        android:id="@+id/nav_history"
-        android:title="History"
-        android:icon="@drawable/ic_history_black_24dp"/>
+        android:id="@+id/nav_transaction"
+        android:title="Transaction"
+        android:icon="@drawable/ic_round_format_list_bulleted_24"/>
 
     <item
-        android:id="@+id/nav_account"
-        android:title="Account"
-        android:icon="@drawable/ic_person_black_24dp"/>
+        android:id="@+id/nav_store"
+        android:title="Store"
+        android:icon="@drawable/ic_round_store_24"/>
 </menu>

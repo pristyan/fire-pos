@@ -141,7 +141,7 @@
                         android:paddingBottom="@dimen/spacing_normal"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:itemCount="3"
-                        tools:listitem="@layout/list_item_history" />
+                        tools:listitem="@layout/list_item_transaction" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_empty"

@@ -1,16 +1,16 @@
-package com.fire.pos.presentation.historydetail
+package com.fire.pos.presentation.transactiondetail
 
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.fire.pos.R
 import com.fire.pos.base.fragment.BaseFragment
-import com.fire.pos.databinding.FragmentHistoryDetailBinding
+import com.fire.pos.databinding.FragmentTransactionDetailBinding
 import com.fire.pos.di.appComponent
-import com.fire.pos.presentation.historydetail.adapter.HistoryProductAdapter
-import com.fire.pos.presentation.historydetail.di.DaggerHistoryDetailComponent
-import com.fire.pos.presentation.historydetail.viewmodel.HistoryDetailViewModel
-import com.fire.pos.presentation.historydetail.viewmodel.HistoryDetailViewModelContract
+import com.fire.pos.presentation.transactiondetail.adapter.TransactionItemAdapter
+import com.fire.pos.presentation.transactiondetail.di.DaggerTransactionDetailComponent
+import com.fire.pos.presentation.transactiondetail.viewmodel.TransactionDetailViewModel
+import com.fire.pos.presentation.transactiondetail.viewmodel.TransactionDetailViewModelContract
 import com.fire.pos.util.toast
 import javax.inject.Inject
 
@@ -19,22 +19,22 @@ import javax.inject.Inject
  * Created by Chandra.
  **/
 
-class HistoryDetailFragment :
-    BaseFragment<HistoryDetailViewModel, HistoryDetailViewModelContract, FragmentHistoryDetailBinding>(),
-    HistoryDetailView {
+class TransactionDetailFragment :
+    BaseFragment<TransactionDetailViewModel, TransactionDetailViewModelContract, FragmentTransactionDetailBinding>(),
+    TransactionDetailView {
 
     @Inject
     override lateinit var viewModelProviderFactory: ViewModelProvider.Factory
 
     @Inject
-    lateinit var historyProductAdapter: HistoryProductAdapter
+    lateinit var transactionItemAdapter: TransactionItemAdapter
 
     override fun getLayoutId(): Int {
-        return R.layout.fragment_history_detail
+        return R.layout.fragment_transaction_detail
     }
 
-    override fun getViewModelClass(): Class<HistoryDetailViewModel> {
-        return HistoryDetailViewModel::class.java
+    override fun getViewModelClass(): Class<TransactionDetailViewModel> {
+        return TransactionDetailViewModel::class.java
     }
 
     override fun getViewModelFactory(): ViewModelProvider.Factory {
@@ -52,12 +52,12 @@ class HistoryDetailFragment :
 
         viewModel.detailSuccess.observe(viewLifecycleOwner, {
             binding.data = it
-            historyProductAdapter.setItems(it.items)
+            transactionItemAdapter.setItems(it.items)
         })
     }
 
     override fun setupDependencyInjection() {
-        DaggerHistoryDetailComponent.builder()
+        DaggerTransactionDetailComponent.builder()
             .appComponent(appComponent())
             .build()
             .inject(this)
@@ -66,17 +66,17 @@ class HistoryDetailFragment :
     override fun initView() {
         binding.toolbar.setupNavigationBack()
         binding.srlDetail.setOnRefreshListener { getTransactionDetail() }
-        binding.rvProduct.adapter = historyProductAdapter
+        binding.rvProduct.adapter = transactionItemAdapter
     }
 
     override fun getTransactionId(): String {
         return arguments?.run {
-            HistoryDetailFragmentArgs.fromBundle(this).transactionId
+            TransactionDetailFragmentArgs.fromBundle(this).transactionId
         }.orEmpty()
     }
 
     override fun getTransactionDetail() {
-        historyProductAdapter.clearItems()
+        transactionItemAdapter.clearItems()
         viewModel.getTransactionDetail(getTransactionId())
     }
 

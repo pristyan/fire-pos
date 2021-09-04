@@ -1,11 +1,11 @@
-package com.fire.pos.presentation.history
+package com.fire.pos.presentation.transactionlist
 
 
 /**
  * Created by Chandra.
  **/
 
-interface HistoryView {
+interface TransactionListView {
 
     fun initView()
 

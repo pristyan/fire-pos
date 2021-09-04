@@ -1,4 +1,4 @@
-package com.fire.pos.presentation.history.viewmodel
+package com.fire.pos.presentation.transactionlist.viewmodel
 
 import androidx.lifecycle.LiveData
 import com.fire.pos.base.viewmodel.BaseViewModelContract
@@ -11,7 +11,7 @@ import java.util.*
  * Created by Chandra.
  **/
 
-interface HistoryViewModelContract : BaseViewModelContract {
+interface TransactionListViewModelContract : BaseViewModelContract {
 
     val historySuccess: LiveData<List<Transaction>>
 

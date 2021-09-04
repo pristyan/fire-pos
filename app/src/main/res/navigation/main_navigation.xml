@@ -99,8 +99,8 @@
             app:popExitAnim="@anim/pop_exit_anim" />
 
         <action
-            android:id="@+id/action_to_history_detail"
-            app:destination="@+id/history_detail_fragment"
+            android:id="@+id/action_to_transaction_detail"
+            app:destination="@+id/transaction_detail_fragment"
             app:enterAnim="@anim/nav_enter_anim"
             app:exitAnim="@anim/nav_exit_anim"
             app:popEnterAnim="@anim/pop_enter_anim"
@@ -155,9 +155,9 @@
     </fragment>
 
     <fragment
-        android:id="@+id/history_detail_fragment"
-        android:name="com.fire.pos.presentation.historydetail.HistoryDetailFragment"
-        tools:layout="@layout/fragment_history_detail">
+        android:id="@+id/transaction_detail_fragment"
+        android:name="com.fire.pos.presentation.transactiondetail.TransactionDetailFragment"
+        tools:layout="@layout/fragment_transaction_detail">
         <argument
             android:name="transactionId"
             app:argType="string"

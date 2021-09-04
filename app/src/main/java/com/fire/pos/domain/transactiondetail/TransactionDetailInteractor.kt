@@ -1,4 +1,4 @@
-package com.fire.pos.domain.historydetail
+package com.fire.pos.domain.transactiondetail
 
 import com.fire.pos.model.response.Result
 import com.fire.pos.model.view.Transaction
@@ -8,7 +8,7 @@ import com.fire.pos.model.view.Transaction
  * Created by Chandra.
  **/
 
-interface HistoryDetailInteractor {
+interface TransactionDetailInteractor {
 
     suspend fun getTransactionDetail(id: String): Result<Transaction>
 

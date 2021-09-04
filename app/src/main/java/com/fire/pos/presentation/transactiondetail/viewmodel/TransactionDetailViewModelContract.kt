@@ -1,4 +1,4 @@
-package com.fire.pos.presentation.historydetail.viewmodel
+package com.fire.pos.presentation.transactiondetail.viewmodel
 
 import androidx.lifecycle.LiveData
 import com.fire.pos.base.viewmodel.BaseViewModelContract
@@ -10,7 +10,7 @@ import kotlinx.coroutines.Job
  * Created by Chandra.
  **/
 
-interface HistoryDetailViewModelContract : BaseViewModelContract {
+interface TransactionDetailViewModelContract : BaseViewModelContract {
 
     val detailSuccess: LiveData<Transaction>
 
