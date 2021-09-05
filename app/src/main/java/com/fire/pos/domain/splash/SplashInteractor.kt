@@ -1,6 +1,6 @@
 package com.fire.pos.domain.splash
 
-import com.fire.pos.model.response.Result
+import com.fire.core.model.Result
 
 
 /**

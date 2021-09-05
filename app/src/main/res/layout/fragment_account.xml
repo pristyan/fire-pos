@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -42,9 +43,10 @@
                     android:foreground="?android:attr/selectableItemBackground"
                     android:paddingHorizontal="@dimen/spacing_medium"
                     android:paddingVertical="12dp"
-                    android:text="Product Category"
+                    android:text="@string/tv_product_category"
                     android:textColor="@color/color_text_primary"
-                    android:textSize="@dimen/text_content_title" />
+                    android:textSize="@dimen/text_content_title"
+                    tools:targetApi="m" />
 
                 <View
                     android:layout_width="match_parent"

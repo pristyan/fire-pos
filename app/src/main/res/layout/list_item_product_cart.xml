@@ -41,7 +41,7 @@
                 android:layout_height="0dp"
                 android:gravity="center"
                 android:background="#80000000"
-                android:text="SOLD OUT"
+                android:text="@string/tv_sold_out"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_h2"
                 android:fontFamily="sans-serif-black"

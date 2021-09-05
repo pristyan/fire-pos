@@ -1,7 +1,7 @@
 package com.fire.pos.presentation.cashier.viewmodel
 
 import androidx.lifecycle.LiveData
-import com.fire.pos.base.viewmodel.BaseViewModelContract
+import com.fire.core.base.viewmodel.BaseViewModelContract
 import com.fire.pos.model.view.ProductCart
 import kotlinx.coroutines.Job
 

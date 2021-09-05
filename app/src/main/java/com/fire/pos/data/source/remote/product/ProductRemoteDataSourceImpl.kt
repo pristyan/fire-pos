@@ -5,8 +5,8 @@ import com.fire.pos.constant.FirestoreConstant
 import com.fire.pos.constant.StorageConstant
 import com.fire.pos.model.entity.ProductCartEntity
 import com.fire.pos.model.entity.ProductEntity
-import com.fire.pos.model.response.Result
-import com.fire.pos.util.await
+import com.fire.core.model.Result
+import com.fire.core.util.await
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.google.firebase.storage.FirebaseStorage

@@ -2,10 +2,10 @@ package com.fire.pos.presentation.splash.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.fire.pos.base.viewmodel.BaseViewModel
+import com.fire.core.base.viewmodel.BaseViewModel
+import com.fire.core.scheduler.SchedulerProvider
 import com.fire.pos.domain.splash.SplashInteractor
-import com.fire.pos.model.response.Result
-import com.fire.pos.scheduler.SchedulerProvider
+import com.fire.core.model.Result
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

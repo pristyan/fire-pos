@@ -1,8 +1,8 @@
 package com.fire.pos.presentation.productlist.di
 
-import com.fire.pos.base.fragment.BaseFragmentComponent
+import com.fire.core.base.fragment.BaseFragmentComponent
 import com.fire.pos.di.component.AppComponent
-import com.fire.pos.di.scope.FeatureScope
+import com.fire.core.di.scope.FeatureScope
 import com.fire.pos.presentation.productlist.ProductListFragment
 import dagger.Component
 

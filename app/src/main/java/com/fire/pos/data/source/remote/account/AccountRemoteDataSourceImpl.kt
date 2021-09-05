@@ -1,13 +1,12 @@
 package com.fire.pos.data.source.remote.account
 
-import com.fire.pos.model.response.Result
+import com.fire.core.model.Result
 import com.fire.pos.constant.FirestoreConstant
 import com.fire.pos.model.entity.StoreEntity
-import com.fire.pos.util.await
+import com.fire.core.util.await
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import javax.inject.Inject
 

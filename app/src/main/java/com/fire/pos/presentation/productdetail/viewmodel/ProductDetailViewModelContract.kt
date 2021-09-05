@@ -2,7 +2,7 @@ package com.fire.pos.presentation.productdetail.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import com.fire.pos.base.viewmodel.BaseViewModelContract
+import com.fire.core.base.viewmodel.BaseViewModelContract
 import com.fire.pos.model.view.Product
 import kotlinx.coroutines.Job
 import java.io.File

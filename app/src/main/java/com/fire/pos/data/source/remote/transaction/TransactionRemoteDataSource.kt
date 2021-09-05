@@ -1,7 +1,7 @@
 package com.fire.pos.data.source.remote.transaction
 
 import com.fire.pos.model.entity.TransactionEntity
-import com.fire.pos.model.response.Result
+import com.fire.core.model.Result
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 import java.util.*

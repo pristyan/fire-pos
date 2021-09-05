@@ -5,14 +5,14 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fire.pos.R
-import com.fire.pos.base.fragment.BaseFragment
+import com.fire.core.base.fragment.BaseFragment
 import com.fire.pos.databinding.FragmentRegistrationBinding
 import com.fire.pos.di.appComponent
 import com.fire.pos.presentation.loadingdialog.LoadingDialogFragment
 import com.fire.pos.presentation.registration.di.DaggerRegistrationComponent
 import com.fire.pos.presentation.registration.viewmodel.RegistrationViewModel
 import com.fire.pos.presentation.registration.viewmodel.RegistrationViewModelContract
-import com.fire.pos.util.toast
+import com.fire.core.util.toast
 import javax.inject.Inject
 
 

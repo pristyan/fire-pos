@@ -2,9 +2,9 @@ package com.fire.pos.domain.categorylist
 
 import com.fire.pos.data.repository.category.CategoryRepository
 import com.fire.pos.model.entity.CategoryEntity
-import com.fire.pos.model.response.Result
+import com.fire.core.model.Result
 import com.fire.pos.model.view.Category
-import com.fire.pos.util.FirestoreIdGenerator
+import com.fire.core.util.FirestoreIdGenerator
 import java.util.*
 import javax.inject.Inject
 

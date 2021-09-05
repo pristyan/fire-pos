@@ -7,7 +7,7 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fire.pos.R
-import com.fire.pos.base.fragment.BaseFragment
+import com.fire.core.base.fragment.BaseFragment
 import com.fire.pos.constant.AppConstant
 import com.fire.pos.databinding.FragmentCashierBinding
 import com.fire.pos.di.appComponent
@@ -18,7 +18,7 @@ import com.fire.pos.presentation.cashier.di.DaggerCashierComponent
 import com.fire.pos.presentation.cashier.viewmodel.CashierViewModel
 import com.fire.pos.presentation.cashier.viewmodel.CashierViewModelContract
 import com.fire.pos.presentation.cashierproductqty.CashierProductQtyDialog
-import com.fire.pos.util.toast
+import com.fire.core.util.toast
 import javax.inject.Inject
 
 

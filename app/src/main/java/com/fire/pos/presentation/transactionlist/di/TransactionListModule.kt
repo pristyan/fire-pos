@@ -1,7 +1,7 @@
 package com.fire.pos.presentation.transactionlist.di
 
 import androidx.lifecycle.ViewModel
-import com.fire.pos.di.module.BaseFeatureModule
+import com.fire.core.di.module.BaseFeatureModule
 import com.fire.pos.domain.transactionlist.TransactionListInteractor
 import com.fire.pos.domain.transactionlist.TransactionListInteractorImpl
 import com.fire.pos.presentation.transactionlist.viewmodel.TransactionListViewModel

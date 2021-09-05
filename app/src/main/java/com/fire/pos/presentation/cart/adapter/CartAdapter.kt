@@ -1,7 +1,7 @@
 package com.fire.pos.presentation.cart.adapter
 
 import com.fire.pos.R
-import com.fire.pos.base.recyclerview.BaseRecyclerAdapter
+import com.fire.core.base.recyclerview.BaseRecyclerAdapter
 import com.fire.pos.databinding.ListItemCartBinding
 import com.fire.pos.model.view.ProductCart
 import javax.inject.Inject

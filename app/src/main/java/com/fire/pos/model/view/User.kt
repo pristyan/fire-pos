@@ -1,7 +1,6 @@
 package com.fire.pos.model.view
 
 import com.fire.pos.model.entity.UserEntity
-import com.google.firebase.auth.FirebaseUser
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 

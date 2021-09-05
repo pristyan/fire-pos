@@ -5,7 +5,7 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fire.pos.R
-import com.fire.pos.base.fragment.BaseFragment
+import com.fire.core.base.fragment.BaseFragment
 import com.fire.pos.databinding.FragmentSplashBinding
 import com.fire.pos.di.appComponent
 import com.fire.pos.presentation.splash.di.DaggerSplashComponent

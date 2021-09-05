@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.fire.pos.R
-import com.fire.pos.base.fragment.BaseFragment
+import com.fire.core.base.fragment.BaseFragment
 import com.fire.pos.databinding.FragmentHomeBinding
 import com.fire.pos.di.appComponent
 import com.fire.pos.presentation.home.adapter.PageAdapter
@@ -18,7 +18,9 @@ import javax.inject.Inject
  * Created by Chandra.
  **/
 
-class HomeFragment : BaseFragment<HomeViewModel, HomeViewModelContract, FragmentHomeBinding>() {
+class HomeFragment :
+    BaseFragment<HomeViewModel, HomeViewModelContract, FragmentHomeBinding>(),
+    HomeView {
 
     @Inject
     override lateinit var viewModelProviderFactory: ViewModelProvider.Factory

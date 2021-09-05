@@ -1,6 +1,23 @@
 package com.fire.pos.di.component
 
-interface AppComponentProvider {
+import com.fire.core.di.component.CoreComponent
 
-    fun provideAppComponent(): AppComponent
+
+/**
+ * Created by Chandra.
+ **/
+
+object AppComponentProvider {
+
+    private var appComponent: AppComponent? = null
+
+    fun provide(coreComponent: CoreComponent): AppComponent {
+        if (appComponent == null) {
+            appComponent = DaggerAppComponent.builder()
+                .coreComponent(coreComponent)
+                .build()
+        }
+
+        return appComponent as AppComponent
+    }
 }

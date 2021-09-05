@@ -1,7 +1,7 @@
 package com.fire.pos.domain.productlist
 
 import com.fire.pos.data.repository.product.ProductRepository
-import com.fire.pos.model.response.Result
+import com.fire.core.model.Result
 import com.fire.pos.model.view.Product
 import javax.inject.Inject
 

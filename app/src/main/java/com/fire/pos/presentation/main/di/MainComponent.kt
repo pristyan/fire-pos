@@ -1,8 +1,8 @@
 package com.fire.pos.presentation.main.di
 
-import com.fire.pos.base.activity.BaseActivityComponent
+import com.fire.core.base.activity.BaseActivityComponent
 import com.fire.pos.di.component.AppComponent
-import com.fire.pos.di.scope.FeatureScope
+import com.fire.core.di.scope.FeatureScope
 import com.fire.pos.presentation.main.MainActivity
 import dagger.Component
 

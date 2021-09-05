@@ -41,7 +41,7 @@
                 android:background="#80000000"
                 android:fontFamily="sans-serif-black"
                 android:gravity="center"
-                android:text="OUT OF STOCK"
+                android:text="@string/tv_out_of_stock"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_appbar_title"
                 android:visibility="@{data.isOutOfStock ? View.VISIBLE : View.GONE}"

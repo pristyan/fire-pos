@@ -1,7 +1,7 @@
 package com.fire.pos.data.source.local.cart
 
 import com.fire.pos.model.db.ProductCartDbEntity
-import com.fire.pos.model.response.Result
+import com.fire.core.model.Result
 
 
 /**

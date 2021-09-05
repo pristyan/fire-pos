@@ -2,8 +2,8 @@ package com.fire.pos.data.source.remote.transaction
 
 import com.fire.pos.constant.FirestoreConstant
 import com.fire.pos.model.entity.TransactionEntity
-import com.fire.pos.model.response.Result
-import com.fire.pos.util.await
+import com.fire.core.model.Result
+import com.fire.core.util.await
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*

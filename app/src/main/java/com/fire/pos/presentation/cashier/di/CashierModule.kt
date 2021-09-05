@@ -1,7 +1,7 @@
 package com.fire.pos.presentation.cashier.di
 
 import androidx.lifecycle.ViewModel
-import com.fire.pos.di.module.BaseFeatureModule
+import com.fire.core.di.module.BaseFeatureModule
 import com.fire.pos.domain.cashier.CashierInteractor
 import com.fire.pos.domain.cashier.CashierInteractorImpl
 import com.fire.pos.presentation.cashier.viewmodel.CashierViewModel

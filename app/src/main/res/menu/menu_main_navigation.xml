@@ -2,21 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/nav_cashier"
-        android:title="Cashier"
+        android:title="@string/title_cashier"
         android:icon="@drawable/ic_point_of_sale_black_24dp"/>
 
     <item
         android:id="@+id/nav_product"
-        android:title="Product"
+        android:title="@string/title_product"
         android:icon="@drawable/ic_category_black_24dp"/>
 
     <item
         android:id="@+id/nav_transaction"
-        android:title="Transaction"
+        android:title="@string/title_transaction"
         android:icon="@drawable/ic_round_format_list_bulleted_24"/>
 
     <item
         android:id="@+id/nav_account"
-        android:title="Account"
+        android:title="@string/title_account"
         android:icon="@drawable/ic_round_person_24"/>
 </menu>

@@ -12,7 +12,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.fire.pos.R
-import com.fire.pos.base.fragment.BaseFragment
+import com.fire.core.base.fragment.BaseFragment
+import com.fire.core.util.showConfirmationDialog
+import com.fire.core.util.showMessageDialog
+import com.fire.core.util.toast
 import com.fire.pos.constant.AppConstant
 import com.fire.pos.model.view.Product
 import com.fire.pos.databinding.FragmentProductDetailBinding
@@ -21,7 +24,6 @@ import com.fire.pos.presentation.loadingdialog.LoadingDialogFragment
 import com.fire.pos.presentation.productdetail.di.DaggerProductDetailComponent
 import com.fire.pos.presentation.productdetail.viewmodel.ProductDetailViewModel
 import com.fire.pos.presentation.productdetail.viewmodel.ProductDetailViewModelContract
-import com.fire.pos.util.*
 import pl.aprilapps.easyphotopicker.ChooserType
 import pl.aprilapps.easyphotopicker.EasyImage
 import pl.aprilapps.easyphotopicker.MediaFile
@@ -128,8 +130,6 @@ class ProductDetailFragment :
 
         arguments?.let {
             val isEditMode = ProductDetailFragmentArgs.fromBundle(it).isEditMode
-            binding.containerActionAdd.visible(!isEditMode)
-            binding.containerActionUpdate.visible(isEditMode)
             currentProduct = ProductDetailFragmentArgs.fromBundle(it).product
             currentProduct?.let { product ->
                 binding.product = product

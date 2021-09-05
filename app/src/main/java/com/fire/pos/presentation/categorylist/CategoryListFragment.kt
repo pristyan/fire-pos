@@ -5,7 +5,7 @@ import android.view.View
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import com.fire.pos.R
-import com.fire.pos.base.fragment.BaseFragment
+import com.fire.core.base.fragment.BaseFragment
 import com.fire.pos.databinding.FragmentCategoryListBinding
 import com.fire.pos.di.appComponent
 import com.fire.pos.model.view.Category
@@ -15,7 +15,7 @@ import com.fire.pos.presentation.categorylist.di.DaggerCategoryListComponent
 import com.fire.pos.presentation.categorylist.viewmodel.CategoryListViewModel
 import com.fire.pos.presentation.categorylist.viewmodel.CategoryListViewModelContract
 import com.fire.pos.presentation.loadingdialog.LoadingDialogFragment
-import com.fire.pos.util.toast
+import com.fire.core.util.toast
 import javax.inject.Inject
 
 

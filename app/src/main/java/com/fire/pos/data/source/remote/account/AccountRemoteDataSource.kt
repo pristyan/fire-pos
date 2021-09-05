@@ -1,10 +1,9 @@
 package com.fire.pos.data.source.remote.account
 
 import com.fire.pos.model.entity.StoreEntity
-import com.fire.pos.model.response.Result
+import com.fire.core.model.Result
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.firestore.DocumentReference
 
 
 /**

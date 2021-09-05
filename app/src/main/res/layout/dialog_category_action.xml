@@ -43,7 +43,7 @@
                         android:id="@+id/edt_category"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Category name"
+                        android:hint="@string/hint_category_name"
                         android:imeOptions="actionDone"
                         android:inputType="textCapWords"
                         android:text="@{data.name}" />

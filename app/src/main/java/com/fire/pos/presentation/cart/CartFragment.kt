@@ -6,7 +6,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fire.pos.R
-import com.fire.pos.base.fragment.BaseFragment
+import com.fire.core.base.fragment.BaseFragment
 import com.fire.pos.constant.AppConstant
 import com.fire.pos.databinding.FragmentCartBinding
 import com.fire.pos.di.appComponent
@@ -15,8 +15,8 @@ import com.fire.pos.presentation.cart.adapter.CartAdapter
 import com.fire.pos.presentation.cart.di.DaggerCartComponent
 import com.fire.pos.presentation.cart.viewmodel.CartViewModel
 import com.fire.pos.presentation.cart.viewmodel.CartViewModelContract
-import com.fire.pos.util.showConfirmationDialog
-import com.fire.pos.util.toast
+import com.fire.core.util.showConfirmationDialog
+import com.fire.core.util.toast
 import javax.inject.Inject
 
 

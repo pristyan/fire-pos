@@ -1,26 +1,26 @@
 package com.fire.pos
 
 import android.app.Application
-import com.fire.pos.di.component.AppComponent
-import com.fire.pos.di.component.AppComponentProvider
-import com.fire.pos.di.component.DaggerAppComponent
-import com.fire.pos.di.module.AndroidContextModule
+import com.fire.core.di.component.CoreComponent
+import com.fire.core.di.component.CoreComponentProvider
+import com.fire.core.di.component.DaggerCoreComponent
+import com.fire.core.di.module.AndroidContextModule
 
 
 /**
  * Created by Chandra.
  **/
 
-class MyApplication: Application(), AppComponentProvider {
+class MyApplication: Application(), CoreComponentProvider {
 
-    private lateinit var appComponent: AppComponent
+    private lateinit var coreComponent: CoreComponent
 
-    override fun provideAppComponent(): AppComponent {
-        return appComponent
+    override fun provideCoreComponent(): CoreComponent {
+        return coreComponent
     }
 
     private fun setupDagger() {
-        appComponent = DaggerAppComponent.builder()
+        coreComponent = DaggerCoreComponent.builder()
             .androidContextModule(AndroidContextModule(this))
             .build()
     }

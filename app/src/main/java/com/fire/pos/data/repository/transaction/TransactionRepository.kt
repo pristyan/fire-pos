@@ -1,7 +1,7 @@
 package com.fire.pos.data.repository.transaction
 
 import com.fire.pos.model.entity.TransactionEntity
-import com.fire.pos.model.response.Result
+import com.fire.core.model.Result
 import java.util.*
 
 

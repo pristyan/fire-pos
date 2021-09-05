@@ -3,7 +3,7 @@ package com.fire.pos.data.repository.cart
 import com.fire.pos.data.source.local.cart.CartLocalDataSource
 import com.fire.pos.model.db.ProductCartDbEntity
 import com.fire.pos.model.entity.ProductCartEntity
-import com.fire.pos.model.response.Result
+import com.fire.core.model.Result
 import javax.inject.Inject
 
 

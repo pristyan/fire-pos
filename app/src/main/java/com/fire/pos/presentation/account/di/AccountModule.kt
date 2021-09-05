@@ -1,7 +1,7 @@
 package com.fire.pos.presentation.account.di
 
 import androidx.lifecycle.ViewModel
-import com.fire.pos.di.module.BaseFeatureModule
+import com.fire.core.di.module.BaseFeatureModule
 import com.fire.pos.domain.account.AccountInteractor
 import com.fire.pos.domain.account.AccountInteractorImpl
 import com.fire.pos.presentation.account.viewmodel.AccountViewModel
@@ -20,5 +20,7 @@ interface AccountModule {
     fun bindViewModel(accountViewModel: AccountViewModel): ViewModel
 
     @Binds
-    fun bindAccountInteractor(accountInteractorImpl: AccountInteractorImpl): AccountInteractor
+    fun bindAccountInteractor(
+        accountInteractorImpl: AccountInteractorImpl
+    ): AccountInteractor
 }

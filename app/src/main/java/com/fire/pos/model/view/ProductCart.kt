@@ -2,7 +2,7 @@ package com.fire.pos.model.view
 
 import com.fire.pos.model.entity.ProductCartEntity
 import com.fire.pos.model.entity.ProductEntity
-import com.fire.pos.util.toIDR
+import com.fire.core.util.toIDR
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 

@@ -2,9 +2,9 @@ package com.fire.pos.domain.registration
 
 import com.fire.pos.data.repository.account.AccountRepository
 import com.fire.pos.model.entity.StoreEntity
-import com.fire.pos.model.response.Result
+import com.fire.core.model.Result
 import com.fire.pos.model.view.User
-import com.fire.pos.util.FirestoreIdGenerator
+import com.fire.core.util.FirestoreIdGenerator
 import javax.inject.Inject
 
 

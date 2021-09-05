@@ -5,7 +5,7 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fire.pos.R
-import com.fire.pos.base.fragment.BaseFragment
+import com.fire.core.base.fragment.BaseFragment
 import com.fire.pos.databinding.FragmentAccountBinding
 import com.fire.pos.di.appComponent
 import com.fire.pos.presentation.account.di.DaggerAccountComponent
@@ -13,7 +13,7 @@ import com.fire.pos.presentation.account.viewmodel.AccountViewModel
 import com.fire.pos.presentation.account.viewmodel.AccountViewModelContract
 import com.fire.pos.presentation.home.HomeFragmentDirections
 import com.fire.pos.presentation.loadingdialog.LoadingDialogFragment
-import com.fire.pos.util.showConfirmationDialog
+import com.fire.core.util.showConfirmationDialog
 import javax.inject.Inject
 
 

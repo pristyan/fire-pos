@@ -52,7 +52,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Transaction"
+                                android:text="@string/tv_transaction"
                                 android:textAppearance="@style/Text.Caption" />
 
                             <androidx.appcompat.widget.AppCompatTextView
@@ -89,7 +89,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Items"
+                                android:text="@string/tv_items"
                                 android:textAppearance="@style/Text.Caption" />
 
                             <androidx.recyclerview.widget.RecyclerView
@@ -120,7 +120,7 @@
                             <androidx.appcompat.widget.AppCompatTextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Total"
+                                android:text="@string/tv_total"
                                 android:textAppearance="@style/Text.Caption" />
 
                             <androidx.appcompat.widget.AppCompatTextView

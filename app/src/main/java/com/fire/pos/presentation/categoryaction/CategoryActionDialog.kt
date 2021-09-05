@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.fire.pos.databinding.DialogCategoryActionBinding
 import com.fire.pos.model.view.Category
-import com.fire.pos.util.toast
+import com.fire.core.util.toast
 
 
 /**

@@ -4,7 +4,7 @@ import com.fire.pos.data.source.local.account.AccountLocalDataSource
 import com.fire.pos.data.source.remote.account.AccountRemoteDataSource
 import com.fire.pos.model.entity.StoreEntity
 import com.fire.pos.model.entity.UserEntity
-import com.fire.pos.model.response.Result
+import com.fire.core.model.Result
 import javax.inject.Inject
 
 

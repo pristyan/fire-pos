@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{data.formattedDate}"
                 android:textColor="@color/color_text_secondary"
-                android:textSize="10sp"
+                android:textSize="11sp"
                 tools:text="20 Sep 2020 10:00:00" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.cardview.widget.CardView>

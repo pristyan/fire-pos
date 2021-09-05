@@ -3,6 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="isEditMode"
+            type="Boolean" />
 
         <variable
             name="product"
@@ -130,7 +135,7 @@
             android:background="@color/white"
             android:orientation="horizontal"
             android:padding="@dimen/spacing_medium"
-            android:visibility="gone">
+            android:visibility="@{isEditMode ? View.GONE : View.VISIBLE}">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_add_product"
@@ -147,7 +152,7 @@
             android:background="@color/white"
             android:orientation="horizontal"
             android:padding="@dimen/spacing_medium"
-            android:visibility="gone">
+            android:visibility="@{isEditMode ? View.VISIBLE : View.GONE}">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_delete"

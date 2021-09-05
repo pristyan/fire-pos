@@ -1,9 +1,9 @@
 package com.fire.pos.model.view
 
 import com.fire.pos.model.entity.TransactionEntity
-import com.fire.pos.util.getStringDateTime
-import com.fire.pos.util.normalizeDate
-import com.fire.pos.util.toIDR
+import com.fire.core.util.getStringDateTime
+import com.fire.core.util.normalizeDate
+import com.fire.core.util.toIDR
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 

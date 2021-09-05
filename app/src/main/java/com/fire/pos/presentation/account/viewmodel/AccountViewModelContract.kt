@@ -1,7 +1,7 @@
 package com.fire.pos.presentation.account.viewmodel
 
 import androidx.lifecycle.LiveData
-import com.fire.pos.base.viewmodel.BaseViewModelContract
+import com.fire.core.base.viewmodel.BaseViewModelContract
 import kotlinx.coroutines.Job
 
 

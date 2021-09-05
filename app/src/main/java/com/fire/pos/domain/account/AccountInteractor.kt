@@ -1,6 +1,6 @@
 package com.fire.pos.domain.account
 
-import com.fire.pos.model.response.Result
+import com.fire.core.model.Result
 
 
 /**

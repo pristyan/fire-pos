@@ -8,16 +8,16 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.fire.pos.R
-import com.fire.pos.base.fragment.BaseFragment
+import com.fire.core.base.fragment.BaseFragment
 import com.fire.pos.databinding.FragmentPaymentBinding
 import com.fire.pos.di.appComponent
 import com.fire.pos.presentation.loadingdialog.LoadingDialogFragment
 import com.fire.pos.presentation.payment.di.DaggerPaymentComponent
 import com.fire.pos.presentation.payment.viewmodel.PaymentViewModel
 import com.fire.pos.presentation.payment.viewmodel.PaymentViewModelContract
-import com.fire.pos.util.showConfirmationDialog
-import com.fire.pos.util.toIDR
-import com.fire.pos.util.toast
+import com.fire.core.util.showConfirmationDialog
+import com.fire.core.util.toIDR
+import com.fire.core.util.toast
 import com.google.android.material.chip.Chip
 import javax.inject.Inject
 

@@ -1,7 +1,7 @@
 package com.fire.pos.domain.login
 
 import com.fire.pos.data.repository.account.AccountRepository
-import com.fire.pos.model.response.Result
+import com.fire.core.model.Result
 import com.fire.pos.model.view.User
 import javax.inject.Inject
 

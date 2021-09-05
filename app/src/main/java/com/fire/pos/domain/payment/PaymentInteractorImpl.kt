@@ -6,9 +6,9 @@ import com.fire.pos.data.repository.product.ProductRepository
 import com.fire.pos.data.repository.transaction.TransactionRepository
 import com.fire.pos.model.entity.ProductCartEntity
 import com.fire.pos.model.entity.TransactionEntity
-import com.fire.pos.model.response.Result
+import com.fire.core.model.Result
 import com.fire.pos.model.view.ProductCart
-import com.fire.pos.util.FirestoreIdGenerator
+import com.fire.core.util.FirestoreIdGenerator
 import com.google.firebase.Timestamp
 import java.util.*
 import javax.inject.Inject

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.bumptech.glide.Glide
 import com.fire.pos.databinding.DialogCashierProductQtyBinding
-import com.fire.pos.util.toIDR
+import com.fire.core.util.toIDR
 import com.fire.pos.model.view.ProductCart
 
 

@@ -3,11 +3,11 @@ package com.fire.pos.presentation.productdetail.viewmodel
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.fire.pos.base.viewmodel.BaseViewModel
-import com.fire.pos.model.response.Result
+import com.fire.core.base.viewmodel.BaseViewModel
+import com.fire.core.scheduler.SchedulerProvider
+import com.fire.core.model.Result
 import com.fire.pos.model.view.Product
 import com.fire.pos.domain.productdetail.ProductDetailInteractor
-import com.fire.pos.scheduler.SchedulerProvider
 import id.zelory.compressor.Compressor
 import id.zelory.compressor.constraint.default
 import kotlinx.coroutines.Job

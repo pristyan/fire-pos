@@ -2,7 +2,7 @@ package com.fire.pos.data.repository.account
 
 import com.fire.pos.model.entity.StoreEntity
 import com.fire.pos.model.entity.UserEntity
-import com.fire.pos.model.response.Result
+import com.fire.core.model.Result
 
 
 /**

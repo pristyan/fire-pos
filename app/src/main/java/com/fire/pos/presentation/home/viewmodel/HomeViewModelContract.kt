@@ -1,6 +1,6 @@
 package com.fire.pos.presentation.home.viewmodel
 
-import com.fire.pos.base.viewmodel.BaseViewModelContract
+import com.fire.core.base.viewmodel.BaseViewModelContract
 
 
 /**

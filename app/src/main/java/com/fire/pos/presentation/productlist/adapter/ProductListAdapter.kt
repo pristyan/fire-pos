@@ -4,7 +4,7 @@ import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import com.bumptech.glide.Glide
 import com.fire.pos.R
-import com.fire.pos.base.recyclerview.BaseRecyclerAdapter
+import com.fire.core.base.recyclerview.BaseRecyclerAdapter
 import com.fire.pos.databinding.ListItemProductBinding
 import com.fire.pos.model.view.Product
 import javax.inject.Inject

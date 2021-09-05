@@ -1,10 +1,10 @@
 package com.fire.pos.data.source.local.cart
 
-import com.fire.pos.constant.ResponseConstant
+import com.fire.core.constant.ResponseConstant
 import com.fire.pos.data.dao.CartDao
 import com.fire.pos.database.AppDatabase
 import com.fire.pos.model.db.ProductCartDbEntity
-import com.fire.pos.model.response.Result
+import com.fire.core.model.Result
 import java.util.*
 import javax.inject.Inject
 

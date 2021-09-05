@@ -3,7 +3,7 @@ package com.fire.pos.data.repository.transaction
 import com.fire.pos.data.source.remote.transaction.TransactionRemoteDataSource
 import com.fire.pos.model.entity.ProductCartEntity
 import com.fire.pos.model.entity.TransactionEntity
-import com.fire.pos.model.response.Result
+import com.fire.core.model.Result
 import java.util.*
 import javax.inject.Inject
 

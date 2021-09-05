@@ -1,7 +1,7 @@
 package com.fire.pos.presentation.transactionlist.adapter
 
 import com.fire.pos.R
-import com.fire.pos.base.recyclerview.BaseRecyclerAdapter
+import com.fire.core.base.recyclerview.BaseRecyclerAdapter
 import com.fire.pos.databinding.ListItemTransactionBinding
 import com.fire.pos.model.view.Transaction
 import javax.inject.Inject

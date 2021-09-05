@@ -3,23 +3,20 @@ package com.fire.pos.presentation.productlist
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.SearchView
-import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.SimpleItemAnimator
+import com.fire.core.base.fragment.BaseFragment
+import com.fire.core.util.toast
 import com.fire.pos.R
-import com.fire.pos.base.fragment.BaseFragment
 import com.fire.pos.constant.AppConstant
-import com.fire.pos.model.view.Product
 import com.fire.pos.databinding.FragmentProductListBinding
 import com.fire.pos.di.appComponent
+import com.fire.pos.model.view.Product
 import com.fire.pos.presentation.home.HomeFragmentDirections
 import com.fire.pos.presentation.productlist.adapter.ProductListAdapter
 import com.fire.pos.presentation.productlist.di.DaggerProductListComponent
 import com.fire.pos.presentation.productlist.viewmodel.ProductListViewModel
 import com.fire.pos.presentation.productlist.viewmodel.ProductListViewModelContract
-import com.fire.pos.util.toast
-import com.fire.pos.util.visible
 import javax.inject.Inject
 
 
@@ -62,8 +59,7 @@ class ProductListFragment :
         })
 
         viewModel.productListSuccess.observe(viewLifecycleOwner, {
-            binding.tvEmpty.visible(it.isEmpty())
-            binding.rvProduct.visible(it.isNotEmpty())
+            binding.isEmpty = it.isEmpty()
             productListAdapter.clearItems()
             productListAdapter.setItems(it)
         })

@@ -1,7 +1,7 @@
 package com.fire.pos.presentation.main.viewmodel
 
-import com.fire.pos.base.viewmodel.BaseViewModel
-import com.fire.pos.scheduler.SchedulerProvider
+import com.fire.core.base.viewmodel.BaseViewModel
+import com.fire.core.scheduler.SchedulerProvider
 import javax.inject.Inject
 
 

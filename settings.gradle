@@ -8,3 +8,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "FirePOS"
 include ':app'
+include ':core'

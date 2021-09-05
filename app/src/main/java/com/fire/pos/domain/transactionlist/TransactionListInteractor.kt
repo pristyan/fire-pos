@@ -1,6 +1,6 @@
 package com.fire.pos.domain.transactionlist
 
-import com.fire.pos.model.response.Result
+import com.fire.core.model.Result
 import com.fire.pos.model.view.Transaction
 import java.util.*
 

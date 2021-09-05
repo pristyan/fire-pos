@@ -1,8 +1,5 @@
 <resources>
     <string name="app_name">FirePOS</string>
-    <string name="title_activity_fullscreen">FullscreenActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
 
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
@@ -37,4 +34,17 @@
     <string name="btn_pay">Pay</string>
     <string name="tv_pay_amount">Pay Amount</string>
     <string name="tv_change">Change</string>
+    <string name="hint_category_name">Category name</string>
+    <string name="tv_product_category">Product Category</string>
+    <string name="tv_transaction">Transaction</string>
+    <string name="tv_items">Items</string>
+    <string name="tv_from">From</string>
+    <string name="tv_to">To</string>
+    <string name="tv_out_of_stock">OUT OF STOCK</string>
+    <string name="tv_sold_out">SOLD OUT</string>
+    <string name="title_cashier">Cashier</string>
+    <string name="title_product">Product</string>
+    <string name="title_transaction">Transaction</string>
+    <string name="title_account">Account</string>
+    <string name="title_search">Search</string>
 </resources>

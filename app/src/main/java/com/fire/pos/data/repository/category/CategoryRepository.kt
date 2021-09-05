@@ -1,7 +1,7 @@
 package com.fire.pos.data.repository.category
 
 import com.fire.pos.model.entity.CategoryEntity
-import com.fire.pos.model.response.Result
+import com.fire.core.model.Result
 
 
 /**

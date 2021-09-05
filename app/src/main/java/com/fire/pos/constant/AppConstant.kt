@@ -6,11 +6,10 @@ package com.fire.pos.constant
  **/
 object AppConstant {
 
-    const val PREFERENCE_NAME = "fire_pos_prefs"
-
     const val DB_VERSION = 1
     const val DB_NAME = "fire_pos.db"
     const val TABLE_CART = "cart"
+
     const val COL_PRODUCT_CART_ID = "id"
     const val COL_PRODUCT_CART_PRODUCT_ID = "product_id"
     const val COL_PRODUCT_CART_PRODUCT_NAME = "product_name"

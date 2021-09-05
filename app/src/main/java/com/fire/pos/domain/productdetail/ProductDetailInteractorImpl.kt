@@ -2,9 +2,9 @@ package com.fire.pos.domain.productdetail
 
 import com.fire.pos.data.repository.product.ProductRepository
 import com.fire.pos.model.entity.ProductEntity
-import com.fire.pos.model.response.Result
+import com.fire.core.model.Result
 import com.fire.pos.model.view.Product
-import com.fire.pos.util.FirestoreIdGenerator
+import com.fire.core.util.FirestoreIdGenerator
 import java.io.File
 import javax.inject.Inject
 

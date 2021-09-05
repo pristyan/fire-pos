@@ -1,9 +1,8 @@
 package com.fire.pos.presentation.main
 
-import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
+import com.fire.core.base.activity.BaseActivity
 import com.fire.pos.R
-import com.fire.pos.base.activity.BaseActivity
 import com.fire.pos.databinding.ActivityMainBinding
 import com.fire.pos.di.appComponent
 import com.fire.pos.presentation.main.di.DaggerMainComponent
@@ -11,7 +10,8 @@ import com.fire.pos.presentation.main.viewmodel.MainViewModel
 import com.fire.pos.presentation.main.viewmodel.MainViewModelContract
 import javax.inject.Inject
 
-class MainActivity : BaseActivity<MainViewModel, MainViewModelContract, ActivityMainBinding>(),
+class MainActivity :
+    BaseActivity<MainViewModel, MainViewModelContract, ActivityMainBinding>(),
     MainView {
 
     @Inject
@@ -38,10 +38,4 @@ class MainActivity : BaseActivity<MainViewModel, MainViewModelContract, Activity
             .build()
             .inject(this)
     }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
 }

@@ -1,8 +1,8 @@
 package com.fire.pos.model.view
 
 import com.fire.pos.model.entity.CategoryEntity
-import com.fire.pos.util.getStringDateTime
-import com.fire.pos.util.normalizeDate
+import com.fire.core.util.getStringDateTime
+import com.fire.core.util.normalizeDate
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 import java.util.*
