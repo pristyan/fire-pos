@@ -14,38 +14,34 @@ import java.io.Serializable
 
 data class ProductCartEntity(
 
-    @SerializedName("id")
+    @SerializedName(FirestoreConstant.FIELD_ID)
     var id: String,
 
-    @SerializedName("product_id")
+    @SerializedName(FirestoreConstant.FIELD_PRODUCT_ID)
     val productId: String,
 
-    @SerializedName("product_name")
+    @SerializedName(FirestoreConstant.FIELD_PRODUCT_NAME)
     val productName: String,
 
-    @SerializedName("product_price")
+    @SerializedName(FirestoreConstant.FIELD_PRODUCT_PRICE)
     val productPrice: Long,
 
-    @SerializedName("product_image")
+    @SerializedName(FirestoreConstant.FIELD_PRODUCT_IMAGE)
     val productImage: String,
 
-    @SerializedName("product_stock")
+    @SerializedName(FirestoreConstant.FIELD_PRODUCT_CATEGORY_ID)
+    val productCategoryId: String,
+
+    @SerializedName(FirestoreConstant.FIELD_PRODUCT_SKU)
+    val productSku: String,
+
+    @SerializedName(FirestoreConstant.FIELD_STOCK)
     var productStock: Long?,
 
-    @SerializedName("qty")
+    @SerializedName(FirestoreConstant.FIELD_QTY)
     var qty: Int
 
 ) : Serializable {
-
-    constructor(id: String, data: DocumentSnapshot?) : this(
-        id = "",
-        productId = id,
-        productName = data?.get("name")?.toString().orEmpty(),
-        productPrice = data?.get("price")?.toString()?.toLong() ?: 0L,
-        productImage = data?.get("image")?.toString().orEmpty(),
-        productStock = data?.get("stock")?.toString()?.toLong() ?: 0L,
-        qty = 0
-    )
 
     constructor(entity: ProductCartDbEntity?) : this(
         id = entity?.id.orEmpty(),
@@ -53,6 +49,8 @@ data class ProductCartEntity(
         productName = entity?.productName.orEmpty(),
         productPrice = entity?.productPrice ?: 0L,
         productImage = entity?.productImage.orEmpty(),
+        productCategoryId = entity?.productCategoryId.orEmpty(),
+        productSku = entity?.productSku.orEmpty(),
         productStock = entity?.productStock,
         qty = entity?.qty ?: 0
     )
@@ -63,18 +61,22 @@ data class ProductCartEntity(
         productName = data.productName,
         productPrice = data.productPrice,
         productImage = data.productImage,
+        productCategoryId = data.productCategoryId,
+        productSku = data.productSku,
         productStock = data.productStock,
         qty = data.qty
     )
 
     constructor(data: DocumentSnapshot?) : this(
         id = data?.id.orEmpty(),
-        productId = data?.getString(FirestoreConstant.FIELD_CART_PRODUCT_ID).orEmpty(),
-        productName = data?.getString(FirestoreConstant.FIELD_CART_PRODUCT_NAME).orEmpty(),
-        productPrice = data?.getLong(FirestoreConstant.FIELD_CART_PRODUCT_PRICE) ?: 0L,
-        productImage = data?.getString(FirestoreConstant.FIELD_CART_PRODUCT_IMAGE).orEmpty(),
+        productId = data?.getString(FirestoreConstant.FIELD_PRODUCT_ID).orEmpty(),
+        productName = data?.getString(FirestoreConstant.FIELD_PRODUCT_NAME).orEmpty(),
+        productPrice = data?.getLong(FirestoreConstant.FIELD_PRODUCT_PRICE) ?: 0L,
+        productImage = data?.getString(FirestoreConstant.FIELD_PRODUCT_IMAGE).orEmpty(),
+        productCategoryId = data?.getString(FirestoreConstant.FIELD_PRODUCT_CATEGORY_ID).orEmpty(),
+        productSku = data?.getString(FirestoreConstant.FIELD_PRODUCT_SKU).orEmpty(),
         productStock = null,
-        qty = (data?.get(FirestoreConstant.FIELD_CART_QTY)?.toString() ?: "0").toInt()
+        qty = (data?.get(FirestoreConstant.FIELD_QTY)?.toString() ?: "0").toInt()
     )
 
 }

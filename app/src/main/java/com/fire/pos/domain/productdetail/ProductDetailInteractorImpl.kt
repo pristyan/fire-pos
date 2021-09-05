@@ -6,6 +6,7 @@ import com.fire.core.model.Result
 import com.fire.pos.model.view.Product
 import com.fire.core.util.FirestoreIdGenerator
 import java.io.File
+import java.util.*
 import javax.inject.Inject
 
 
@@ -29,7 +30,10 @@ class ProductDetailInteractorImpl @Inject constructor(
             price = price,
             stock = stock,
             image = null,
-            imageFileName = null
+            imageFileName = null,
+            categoryId = "",
+            sku = "",
+            createdAt = Date()
         )
 
         return when (val response = productRepository.addProduct(productEntity, image)) {

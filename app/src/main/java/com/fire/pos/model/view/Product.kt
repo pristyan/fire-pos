@@ -2,9 +2,9 @@ package com.fire.pos.model.view
 
 import com.fire.pos.model.entity.ProductEntity
 import com.fire.core.util.toIDR
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
+import java.util.*
 
 
 /**
@@ -24,11 +24,21 @@ data class Product(
     @SerializedName("image")
     val image: String,
 
+    @SerializedName("category_id")
+    val categoryId: String,
+
+    @SerializedName("sku")
+    val sku: String,
+
     @SerializedName("stock")
     val stock: Long = 0,
 
     @SerializedName("image_file_name")
-    val imageFileName: String
+    val imageFileName: String,
+
+    @SerializedName("created_at")
+    val createdAt: Date
+
 ) : Serializable {
 
     val stringPrice: String
@@ -43,22 +53,16 @@ data class Product(
     val isOutOfStock: Boolean
         get() = stock == 0L
 
-    constructor(id: String, data: DocumentSnapshot) : this(
-        id = id,
-        name = data["name"]?.toString().orEmpty(),
-        price = data["price"]?.toString()?.toLong() ?: 0L,
-        image = data["image"]?.toString().orEmpty(),
-        stock = data["stock"]?.toString()?.toLong() ?: 0L,
-        imageFileName = data["image_file_name"]?.toString().orEmpty()
-    )
-
     constructor(entity: ProductEntity?) : this(
         id = entity?.id.orEmpty(),
         name = entity?.name.orEmpty(),
         price = entity?.price ?: 0L,
         image = entity?.image.orEmpty(),
+        categoryId = entity?.categoryId.orEmpty(),
+        sku = entity?.sku.orEmpty(),
         stock = entity?.stock ?: 0L,
         imageFileName = entity?.imageFileName.orEmpty(),
+        createdAt = entity?.createdAt ?: Date()
     )
 
 }

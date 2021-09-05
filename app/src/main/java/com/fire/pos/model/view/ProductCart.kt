@@ -28,6 +28,12 @@ data class ProductCart(
     @SerializedName("product_image")
     val productImage: String,
 
+    @SerializedName("product_category_id")
+    val productCategoryId: String,
+
+    @SerializedName("sku")
+    val productSku: String,
+
     @SerializedName("product_stock")
     var productStock: Long?,
 
@@ -63,6 +69,8 @@ data class ProductCart(
         productName = entity.name.orEmpty(),
         productPrice = entity.price ?: 0L,
         productImage = entity.image.orEmpty(),
+        productCategoryId = entity.categoryId.orEmpty(),
+        productSku = entity.sku.orEmpty(),
         productStock = entity.stock ?: 0L,
         qty = 0
     )
@@ -73,6 +81,8 @@ data class ProductCart(
         productName = entity?.productName.orEmpty(),
         productPrice = entity?.productPrice ?: 0L,
         productImage = entity?.productImage.orEmpty(),
+        productCategoryId = entity?.productCategoryId.orEmpty(),
+        productSku = entity?.productSku.orEmpty(),
         productStock = entity?.productStock,
         qty = entity?.qty ?: 0
     )

@@ -17,32 +17,40 @@ import java.io.Serializable
 data class ProductCartDbEntity(
 
     @PrimaryKey
-    @ColumnInfo(name = AppConstant.COL_PRODUCT_CART_ID)
-    @SerializedName(AppConstant.COL_PRODUCT_CART_ID)
+    @ColumnInfo(name = AppConstant.COL_ID)
+    @SerializedName(AppConstant.COL_ID)
     var id: String,
 
-    @ColumnInfo(name = AppConstant.COL_PRODUCT_CART_PRODUCT_ID)
-    @SerializedName(AppConstant.COL_PRODUCT_CART_PRODUCT_ID)
+    @ColumnInfo(name = AppConstant.COL_PRODUCT_ID)
+    @SerializedName(AppConstant.COL_PRODUCT_ID)
     val productId: String,
 
-    @ColumnInfo(name = AppConstant.COL_PRODUCT_CART_PRODUCT_NAME)
-    @SerializedName(AppConstant.COL_PRODUCT_CART_PRODUCT_NAME)
+    @ColumnInfo(name = AppConstant.COL_PRODUCT_NAME)
+    @SerializedName(AppConstant.COL_PRODUCT_NAME)
     val productName: String,
 
-    @ColumnInfo(name = AppConstant.COL_PRODUCT_CART_PRODUCT_PRICE)
-    @SerializedName(AppConstant.COL_PRODUCT_CART_PRODUCT_PRICE)
+    @ColumnInfo(name = AppConstant.COL_PRODUCT_PRICE)
+    @SerializedName(AppConstant.COL_PRODUCT_PRICE)
     val productPrice: Long,
 
-    @ColumnInfo(name = AppConstant.COL_PRODUCT_CART_PRODUCT_IMAGE)
-    @SerializedName(AppConstant.COL_PRODUCT_CART_PRODUCT_IMAGE)
+    @ColumnInfo(name = AppConstant.COL_PRODUCT_IMAGE)
+    @SerializedName(AppConstant.COL_PRODUCT_IMAGE)
     val productImage: String,
 
-    @ColumnInfo(name = AppConstant.COL_PRODUCT_CART_PRODUCT_STOCK)
-    @SerializedName(AppConstant.COL_PRODUCT_CART_PRODUCT_STOCK)
+    @ColumnInfo(name = AppConstant.COL_PRODUCT_CATEGORY_ID)
+    @SerializedName(AppConstant.COL_PRODUCT_CATEGORY_ID)
+    val productCategoryId: String,
+
+    @ColumnInfo(name = AppConstant.COL_PRODUCT_SKU)
+    @SerializedName(AppConstant.COL_PRODUCT_SKU)
+    val productSku: String,
+
+    @ColumnInfo(name = AppConstant.COL_PRODUCT_STOCK)
+    @SerializedName(AppConstant.COL_PRODUCT_STOCK)
     val productStock: Long,
 
-    @ColumnInfo(name = AppConstant.COL_PRODUCT_CART_QTY)
-    @SerializedName(AppConstant.COL_PRODUCT_CART_QTY)
+    @ColumnInfo(name = AppConstant.COL_QTY)
+    @SerializedName(AppConstant.COL_QTY)
     val qty: Int
 
 ): Serializable {
@@ -53,6 +61,8 @@ data class ProductCartDbEntity(
         productName = entity.productName,
         productPrice = entity.productPrice,
         productImage = entity.productImage,
+        productCategoryId = entity.productCategoryId,
+        productSku = entity.productSku,
         productStock = entity.productStock ?: 0L,
         qty = entity.qty
     )

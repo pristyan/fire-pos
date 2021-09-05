@@ -21,7 +21,7 @@ class ProductRepositoryImpl @Inject constructor(
             is Result.Error -> Result.Error(result.message)
             is Result.Success -> {
                 val list = result.data?.documents?.map { doc ->
-                    ProductEntity(doc.id, doc)
+                    ProductEntity(doc)
                 } ?: emptyList()
                 Result.Success(list)
             }
@@ -31,7 +31,7 @@ class ProductRepositoryImpl @Inject constructor(
     override suspend fun getProductId(id: String): Result<ProductEntity> {
         return when (val result = productRemoteDataSource.getProductById(id)) {
             is Result.Error -> Result.Error(result.message)
-            is Result.Success -> Result.Success(ProductEntity(id, result.data))
+            is Result.Success -> Result.Success(ProductEntity(result.data))
         }
     }
 

@@ -13,13 +13,13 @@ import java.util.*
  **/
 data class CategoryEntity(
 
-    @SerializedName("id")
+    @SerializedName(FirestoreConstant.FIELD_ID)
     val id: String?,
 
-    @SerializedName("name")
+    @SerializedName(FirestoreConstant.FIELD_NAME)
     val name: String?,
 
-    @SerializedName("created_at")
+    @SerializedName(FirestoreConstant.FIELD_CREATED_AT)
     val createdAt: Date
 
 ): Serializable {

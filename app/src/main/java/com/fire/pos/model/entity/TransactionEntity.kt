@@ -13,19 +13,19 @@ import java.io.Serializable
 
 data class TransactionEntity(
 
-    @SerializedName("id")
+    @SerializedName(FirestoreConstant.FIELD_ID)
     val id: String?,
 
-    @SerializedName("items")
+    @SerializedName(FirestoreConstant.COLLECTION_TRANSACTION_ITEMS)
     val items: List<ProductCartEntity>?,
 
-    @SerializedName("payment_method")
+    @SerializedName(FirestoreConstant.FIELD_PAYMENT_METHOD)
     val paymentMethod: String?,
 
-    @SerializedName("total")
+    @SerializedName(FirestoreConstant.FIELD_TOTAL)
     val total: Long?,
 
-    @SerializedName("created_at")
+    @SerializedName(FirestoreConstant.FIELD_CREATED_AT)
     val createdAt: Timestamp?
 
 ): Serializable {

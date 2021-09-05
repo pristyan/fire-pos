@@ -1,5 +1,6 @@
 package com.fire.pos.model.entity
 
+import com.fire.pos.constant.FirestoreConstant
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
@@ -9,16 +10,16 @@ import java.io.Serializable
  **/
 data class StoreEntity(
 
-    @SerializedName("id")
+    @SerializedName(FirestoreConstant.FIELD_ID)
     val id: String? = null,
 
-    @SerializedName("name")
+    @SerializedName(FirestoreConstant.FIELD_NAME)
     val name: String? = null,
 
-    @SerializedName("address")
+    @SerializedName(FirestoreConstant.FIELD_ADDRESS)
     val address: String? = null,
 
-    @SerializedName("phone")
+    @SerializedName(FirestoreConstant.FIELD_PHONE)
     val phone: String? = null
 
 ): Serializable

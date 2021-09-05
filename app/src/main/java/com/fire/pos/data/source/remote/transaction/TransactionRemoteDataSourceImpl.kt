@@ -47,11 +47,11 @@ class TransactionRemoteDataSourceImpl @Inject constructor(
 
             val parameter = mapOf<String, Any>(
                 FirestoreConstant.FIELD_CART_ID to it.id,
-                FirestoreConstant.FIELD_CART_PRODUCT_ID to it.productId,
-                FirestoreConstant.FIELD_CART_PRODUCT_NAME to it.productName,
-                FirestoreConstant.FIELD_CART_PRODUCT_IMAGE to it.productImage,
-                FirestoreConstant.FIELD_CART_PRODUCT_PRICE to it.productPrice,
-                FirestoreConstant.FIELD_CART_QTY to it.qty
+                FirestoreConstant.FIELD_PRODUCT_ID to it.productId,
+                FirestoreConstant.FIELD_PRODUCT_NAME to it.productName,
+                FirestoreConstant.FIELD_PRODUCT_IMAGE to it.productImage,
+                FirestoreConstant.FIELD_PRODUCT_PRICE to it.productPrice,
+                FirestoreConstant.FIELD_QTY to it.qty
             )
 
             batch.set(collection.document(), parameter)
